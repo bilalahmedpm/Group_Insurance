@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Bank;
+use App\Branches;
 use App\Employee;
 use App\Legalheir;
 use Illuminate\Http\Request;
@@ -15,7 +17,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-
+        $legalheirs = Legalheir::with(['employee'])->get();
+        $data = Bank::with(['branches'])->get();
+//        dd($data);
+        return  view('admin.employee.index' ,compact('legalheirs','data'));
     }
 
     /**

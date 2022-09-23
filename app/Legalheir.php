@@ -8,6 +8,7 @@ class Legalheir extends Model
 {
 public function employee()
 {
-    return $this->belongsTo(\App\Employee::class , 'employee_id');
+    return $this->belongsTo(\App\Employee::class);
 }
+
 }

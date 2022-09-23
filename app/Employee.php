@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Legalheir;
 
 class Employee extends Model
 {
@@ -12,4 +11,5 @@ class Employee extends Model
     {
         return $this->hasMany(\App\Legalheir::class);
     }
+
 }
