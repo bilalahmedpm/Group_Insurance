@@ -10,13 +10,16 @@
 </head>
 <body>
 <div class="container">
-<table class="table table-sm">
+<table class="table table-bordered" style="font-size: 9pt">
     <thead>
     <tr>
-        <th>Employee Id</th>
+        <th>#</th>
         <th>Employee Name</th>
         <th>Father Name</th>
+        <th>Department</th>
+        <th>Designation</th>
         <th>Gitype</th>
+        <th>User</th>
         <th>Legalheir Name</th>
         <th>Legalheir CNIC</th>
         <th>Bank</th>
@@ -26,17 +29,19 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($legalheirs as $row)
+    @foreach($legalheir as $row)
     <tr>
-
         <td>{{$row->employee_id}}</td>
         <td>{{$row->employee->employeename}}</td>
         <td>{{$row->employee->fathername}}</td>
+        <td>{{$row->employee->department->department_desc}}</td>
+        <td>{{$row->employee->designation->designation_desc}}</td>
         <td>{{$row->employee->gitype}}</td>
+        <td>{{$row->employee->user->name}}</td>
         <td>{{$row->heirname}}</td>
         <td>{{$row->heircnic}}</td>
-        <td>{{$row->bank_id}}</td>
-        <td>{{$row->branch_id}}</td>
+        <td>{{$row->bank->name}}</td>
+        <td>{{$row->branch->branch_desc}}</td>
         <td>{{$row->accountno}}</td>
         <td>{{$row->amount}}</td>
 

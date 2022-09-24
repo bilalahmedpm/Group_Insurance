@@ -14,7 +14,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        //
+        $banks = Bank::all();
+        return view('admin.banks.index',compact('banks'));
     }
 
     /**
@@ -35,7 +36,10 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bank =  new Bank();
+        $bank->name = $request->name;
+        $bank->save();
+        return redirect()->back()->with('message', 'Record Added Successfully !');
     }
 
     /**
@@ -44,9 +48,11 @@ class BankController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function show(Bank $bank)
+    public function show($id)
     {
-        //
+        $bank = Bank::find($id);
+        $bank->delete();
+        return redirect()->back()->with('error', 'Record Deleted Successfully !');
     }
 
     /**
@@ -55,9 +61,9 @@ class BankController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bank $bank)
+    public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -67,9 +73,13 @@ class BankController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bank $bank)
+    public function update(Request $request, $id)
     {
-        //
+        $bank = Bank::find($id);
+        $bank->name = $request->name;
+        $bank->save();
+        return redirect()->back()->with('message', 'Record Updated Successfully !');
+
     }
 
     /**

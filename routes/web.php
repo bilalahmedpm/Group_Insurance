@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\employee;
 use App\legalheir;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\BankController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +27,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::resource('bank','BankController');
 Route::get('employee','EmployeeController@index');

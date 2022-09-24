@@ -17,10 +17,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $legalheirs = Legalheir::with(['employee'])->get();
-        $data = Bank::with(['branches'])->get();
-//        dd($data);
-        return  view('admin.employee.index' ,compact('legalheirs','data'));
+//        $legalheirs = Legalheir::with(['employee'])->get();
+    $legalheir = Legalheir::all();
+        return  view('admin.employee.index' ,compact('legalheir'));
     }
 
     /**
