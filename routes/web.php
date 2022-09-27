@@ -29,3 +29,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('bank','BankController');
 Route::get('employee','EmployeeController@index');
+Route::get('report','EmployeeController@department_report');

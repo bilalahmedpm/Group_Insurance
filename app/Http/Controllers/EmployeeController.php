@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bank;
 use App\Branches;
+use App\Department;
 use App\Employee;
 use App\Legalheir;
 use Illuminate\Http\Request;
@@ -17,9 +18,15 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-//        $legalheirs = Legalheir::with(['employee'])->get();
-    $legalheir = Legalheir::all();
-        return  view('admin.employee.index' ,compact('legalheir'));
+//       $legalheirs = Legalheir::with(['employee'])->get();
+//        $legalheir = Legalheir::all();
+        $employees = Employee::with('legals')->get();
+        return  view('admin.employee.index' ,compact('employees'));
+    }
+    public function department_report()
+    {
+        $departments = Department::with('employees')->get();
+        return view('admin.reports.department_report' ,compact('departments'));
     }
 
     /**

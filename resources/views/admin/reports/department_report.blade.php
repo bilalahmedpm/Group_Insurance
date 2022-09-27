@@ -11,7 +11,9 @@
 </head>
 <body>
 <div class="container">
+    @foreach($departments as $key => $row)
     <table class="table table-bordered" style="font-size: 11pt">
+       {{$key+1}}  : {{$row->department_desc}}
         <thead>
         <tr>
             <th>Id</th>
@@ -72,23 +74,26 @@
         {{--                    @endforeach--}}
         {{--                </td>--}}
         {{--            </tr>--}}
-        @foreach($employees as $row)
-            @foreach($row->legals as  $row1)
+
+            @foreach($row->employees as  $row1)
+
                 <tr>
                     {{--        {{dd($row->legals)}}--}}
-                    <td>{{$row1->employee_id}}</td>
-                    <td>{{$row->employeename}}</td>
-                    <td>{{$row->fathername}}</td>
-                    <td>{{$row->department->department_desc}}</td>
-                    <td>{{$row->designation->designation_desc}}</td>
-                    <td>{{$row->gitype}}</td>
-                    <td>{{$row->user->name}}</td>
-                    <td> {{$row1->heirname}} </td>
-                    <td> {{$row1->heircnic}} </td>
-                    <td> {{$row1->bank->name}} </td>
-                    <td>{{$row1->branch->branch_desc}} </td>
-                    <td> {{$row1->accountno}}</td>
-                    <td>{{$row1->amount}}</td>
+                    <td>{{$row1->id}}</td>
+                    <td>{{$row1->employeename}}</td>
+                    <td>{{$row1->fathername}}</td>
+                    <td>{{$row1->department->department_desc}}</td>
+                    <td>{{$row1->designation->designation_desc}}</td>
+                    <td>{{$row1->gitype}}</td>
+                    <td>{{$row1->user->name}}</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+
+
                 </tr>
             @endforeach
         @endforeach

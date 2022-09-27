@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
 
-    public function legalheirs()
+    public function legals()
     {
         return $this->hasMany(\App\Legalheir::class);
     }
