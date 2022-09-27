@@ -28,5 +28,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('bank','BankController');
-Route::get('employee','EmployeeController@index');
+Route::resource('user','UserController');
+Route::get('retired/employees','EmployeeController@index')->name('retired.employees');
 Route::get('report','EmployeeController@department_report');

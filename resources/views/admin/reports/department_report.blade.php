@@ -78,7 +78,7 @@
             @foreach($row->employees as  $row1)
 
                 <tr>
-                    {{--        {{dd($row->legals)}}--}}
+                    {{--{{dd($row->legals)}}--}}
                     <td>{{$row1->id}}</td>
                     <td>{{$row1->employeename}}</td>
                     <td>{{$row1->fathername}}</td>
@@ -92,8 +92,6 @@
                     <td>---</td>
                     <td>---</td>
                     <td>---</td>
-
-
                 </tr>
             @endforeach
         @endforeach
