@@ -39,6 +39,9 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- InputMask -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
@@ -81,6 +84,35 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+        });
+    });
+</script>
+<script>
+    $(document).ready(function()
+    {
+        $("#retirement").hide();
+        $("#death").hide();
+
+        $("#types").change(function()
+        {
+            if($(this).val() == "01")
+            {
+                $("#retirement").show();
+                $("#death").hide();
+
+            }
+            if($(this).val() == "02")
+            {
+
+                $("#retirement").hide();
+                $("#death").show();
+            }
+            if($(this).val() == "03")
+            {
+                $("#retirement").show();
+                $("#death").show();
+            }
+
         });
     });
 </script>
@@ -130,6 +162,16 @@
             theme: 'bootstrap4'
         });
     });
+    //Datemask dd/mm/yyyy
+    $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Personal Number Mask
+    $('.pno').inputmask('99999999', { 'placeholder': '________' })
+    //CNIC Mask
+    $('.cnic').inputmask('99999-9999999-9', { 'placeholder': '_____-_______-_' })
+    //IBAN Mask
+    $('.iban').inputmask('SS00 0000 0000 0000 0000 00', { 'placeholder': '____ ____ ____ ____ ____ __' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
 </script>
 </body>
 </html>
