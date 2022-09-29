@@ -27,6 +27,8 @@ class CreateLegalheirsTable extends Migration
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->string('accountno')->nullable();
             $table->string('amount')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

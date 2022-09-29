@@ -29,5 +29,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('bank','BankController');
 Route::resource('user','UserController');
-Route::get('retired/employees','EmployeeController@index')->name('retired.employees');
+Route::resource('employee','EmployeeController');
+Route::post('/fetchbranches','BankController@fetchbankbranches')->name('fetchbranches');
+
 Route::get('report','EmployeeController@department_report');

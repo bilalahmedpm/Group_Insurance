@@ -13,22 +13,26 @@ class UserRoleSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'SuperAdmin',
+            'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
-            'role' => '1',
+            'phone'=> '03211234567',
             'password' => Hash::make('12345678'),
+            'role' => '1', //1 = superadmin 2= user
+            'department_id' => '21',
+            'status' => 'active',
+            'address' =>'block 5',
+
         ]);
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'role' => '2',
-            'password' => Hash::make('12345678'),
-        ]);
-        User::create([
-            'name' => 'User',
+            'name' => 'user',
             'email' => 'user@gmail.com',
-            'role' => '3',
+            'phone'=> '03211235452',
             'password' => Hash::make('12345678'),
+            'role' => '2', //1 = superadmin 2= user
+            'department_id' => '60',
+            'status' => 'active',
+            'address' =>'block 3',
+
         ]);
     }
 }

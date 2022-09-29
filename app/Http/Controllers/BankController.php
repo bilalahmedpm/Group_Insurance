@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bank;
+use App\Branches;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
@@ -92,4 +93,11 @@ class BankController extends Controller
     {
         //
     }
+    public function fetchbankbranches(Request $request)
+    {
+
+        $branches = Branches::where('bank_id' , '=' , $request->id)->get();
+        return response()->json($branches);
+    }
+
 }

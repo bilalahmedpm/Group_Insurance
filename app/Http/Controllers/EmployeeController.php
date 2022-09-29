@@ -7,9 +7,11 @@ use App\Branches;
 use App\Department;
 use App\Designation;
 use App\Employee;
+use App\Grade;
 use App\Legalheir;
 use App\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -20,11 +22,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-//        $employees = Employee::with('legals')->get();
-        $departments = Department::all();
-        $designations = Designation::all();
-        $relations= Relation::all();
-        return  view('admin.employee.index' ,compact('departments' , 'designations','relations'));
+
     }
     public function department_report()
     {
@@ -39,7 +37,13 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        //        $employees = Employee::with('legals')->get();
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations= Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        return  view('admin.employee.index' ,compact('departments' , 'designations','relations','grades','banks'));
     }
 
     /**
@@ -50,7 +54,59 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+//        $this->validate($request ,[
+//
+//            "pno"  => "required|min:8|max:8",
+//            "employeecnic" => "required|min:15|max:15",
+//            "employeename" => "required|max:255",
+//            "fathername" => "required|max:255",
+//            "dateofbirth" => "required",
+//            "dateofdeath" => "required",
+//            "department" => "required",
+//            "designation" => "required",
+//            "grade" => "required",
+//            "gitype" => "required",
+//            "dor" => "required",
+//            "contribution" => "required",
+//            "relation" => "requried",
+//            "bank" => "required",
+//            "branch" => "required",
+//            "accountno" => "required",
+//            "amount" => "required"
+//        ]);
+        $employee                 = new employee();
+        $employee->pno            = $request->personalnumber;
+        $employee->employeecnic   = $request->employeecnic;
+        $employee->employeename   = $request->employeename;
+        $employee->fathername     = $request->fathername;
+        $employee->dateofbirth    = $request->dateofbirth;
+        $employee->department_id  = $request->department;
+        $employee->designation_id = $request->designation;
+        $employee->grade          = $request->grade;
+        $employee->gitype         = $request->gitype;
+        $employee->retirementdate = $request->retirementdate;
+        $employee->dateofdeath    = $request->deathdate;
+        $employee->legalheirs     = $request->beneficiaries;
+        $employee->status         = 'OK';
+        $employee->contribution   = $request->contribution;
+        $employee->user_id        = $user->id;
+        $employee->save();
+
+        $beneficiary              = new legalheir();
+        $beneficiary->employee_id = $employee->id;
+        $beneficiary->heircnic    = $request->beneficiarycnic;
+        $beneficiary->heirname    = $request->beneficiaryname;
+        $beneficiary->relation_id = $request->relation;
+        $beneficiary->bank_id     = $request->bank;
+        $beneficiary->branch_id   = $request->branch;
+        $beneficiary->accountno   = $request->accountno;
+        $beneficiary->amount      = $request->amount;
+        $beneficiary->user_id     = $user->id;
+        $beneficiary->save();
+
+        return redirect()->back()->with('message' , 'Record Added successfully');
     }
 
     /**

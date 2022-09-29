@@ -12,20 +12,21 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="" method="post">
+                                <form action="{{route('employee.store')}}" method="post">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Personal Number</label>
-                                                <input type="text" class="form-control pno" placeholder="Enter Personal Number" required data-inputmask-inputformat="99999999" data-mask>
+                                                <input type="text" name="personalnumber" class="form-control pno" placeholder="Enter Personal Number" required data-inputmask-inputformat="99999999" data-mask>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Employee CNIC</label>
-                                                <input type="text" class="form-control cnic" placeholder="Enter CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                                <input type="text" name="employeecnic" class="form-control cnic" placeholder="Enter CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
                                             </div>
                                         </div>
                                     </div>
@@ -35,14 +36,14 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Employee Name</label>
-                                                <input type="text" class="form-control " placeholder="Enter Employee Name" required>
+                                                <input type="text" name="employeename" class="form-control " placeholder="Enter Employee Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Father Name</label>
-                                                <input type="text" class="form-control " placeholder="Father Name" required>
+                                                <input type="text" name="fathername" class="form-control " placeholder="Father Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -54,7 +55,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                         </div>
-                                                        <input type="text"  class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                        <input type="text" name="dateofbirth"  class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                                     </div>
                                                     <!-- /.input group -->
                                                 </div>
@@ -64,10 +65,10 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Deparment</label>
-                                                <select class="form-control  select2" style="width: 100%;" required>
-                                                    <option selected="selected">Select Department</option>
+                                                <select class="form-control  select2" name ="department" style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select Department</option>
                                                     @foreach( $departments as $department)
-                                                    <option >{{{$department->department_desc}}}</option>
+                                                    <option value="{{$department->id}}" >{{{$department->department_desc}}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -76,10 +77,10 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Designation</label>
-                                                <select class="form-control  select2" style="width: 100%;">
-                                                    <option selected="selected">Select Designation</option>
+                                                <select class="form-control  select2" name="designation" style="width: 100%;">
+                                                    <option selected="selected" disabled>Select Designation</option>
                                                     @foreach( $designations as $designation)
-                                                        <option >{{{$designation->designation_desc}}}</option>
+                                                        <option value="{{$designation->id}}">{{{$designation->designation_desc}}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -92,10 +93,10 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Grade</label>
-                                                <select class="form-control select2" style="width: 100%;" required>
-                                                    <option selected="selected">Select Department</option>
-                                                    @foreach( $departments as $department)
-                                                        <option >{{{$department->department_desc}}}</option>
+                                                <select class="form-control select2" name="grade" style="width: 100%;" required>
+                                                    <option selected="selected" disabled >Select Grade</option>
+                                                    @foreach( $grades as $grade)
+                                                        <option value="{{$grade->grade}}">{{{$grade->grade}}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -104,8 +105,8 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Nature of Claim</label>
-                                                <select class="form-control select2" id="types" style="width: 100%;" required>
-                                                    <option selected="selected">Select Gitype</option>
+                                                <select class="form-control select2" name="gitype" id="types" style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select Gitype</option>
                                                         <option value = "01">Retirement</option>
                                                         <option value = "02">Death</option>
                                                         <option value = "03">Death After Retirement</option>
@@ -120,7 +121,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                        <input type="text" name="retirementdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                                     </div>
                                                     <!-- /.input group -->
                                             </div>
@@ -134,7 +135,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text"  class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input type="text" name="deathdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
@@ -144,7 +145,7 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Age on Date</label>
-                                                <input type="text" class="form-control" placeholder="Calculating......" required>
+                                                <input type="text" name="ageondate" class="form-control" placeholder="Calculating......" required>
                                             </div>
                                         </div>
                                     </div>
@@ -153,14 +154,14 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiaries</label>
-                                                <input type="text" class="form-control " placeholder="beneficiaries" required>
+                                                <input type="text" name="beneficiaries" class="form-control " placeholder="beneficiaries" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Contribution</label>
-                                                <input type="number" class="form-control " placeholder="Contribution" required>
+                                                <input type="number" name="contribution" class="form-control " placeholder="Contribution" required>
                                             </div>
                                         </div>
                                     </div>
@@ -172,24 +173,24 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiary CNIC</label>
-                                                <input type="text" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                                <input type="text" name="beneficiarycnic" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiary Name</label>
-                                                <input type="text" class="form-control" placeholder="Beneficiary Name" required>
+                                                <input type="text" name="beneficiaryname" class="form-control" placeholder="Beneficiary Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Relation</label>
-                                                <select class="form-control select2" style="width: 100%;" required>
+                                                <select class="form-control select2" name="relation" style="width: 100%;" required>
                                                     <option selected="selected">Select Relation</option>
                                                     @foreach($relations as $relation)
-                                                    <option value = "{{$relation->relation_code}}">{{$relation->relation_desc}}</option>
+                                                    <option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -201,10 +202,10 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Bank Name</label>
-                                                <select class="form-control select2" style="width: 100%;" required>
-                                                    <option selected="selected">Select Relation</option>
-                                                    @foreach($relations as $relation)
-                                                        <option value = "{{$relation->relation_code}}">{{$relation->relation_desc}}</option>
+                                                <select class="form-control select2" name="bank" id="bank" style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select Bank</option>
+                                                    @foreach($banks as $bank)
+                                                        <option value = "{{$bank->id}}">{{$bank->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -214,11 +215,8 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Branch</label>
-                                                <select class="form-control select2" style="width: 100%;" required>
-                                                    <option selected="selected">Select Relation</option>
-                                                    @foreach($relations as $relation)
-                                                        <option value = "{{$relation->relation_code}}">{{$relation->relation_desc}}</option>
-                                                    @endforeach
+                                                <select class="form-control select2 bankbranches" name="branch" style="width: 100%;" required>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -226,17 +224,23 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Account IBAN Number</label>
-                                                <input type="text" class="form-control iban" placeholder="IBAN Number" required>
+                                                <input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Amount</label>
-                                                <input type="text" class="form-control" placeholder="calculating...." required>
+                                                <input type="text" name="amount" class="form-control" placeholder="calculating...." required>
                                             </div>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <a href="" class="btn btn-danger" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
+                                        </div>
                                     </div>
+
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+
                                 </form>
                             </div>
                             <!-- /.card-body -->

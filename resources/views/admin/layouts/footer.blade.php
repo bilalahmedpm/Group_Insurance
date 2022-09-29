@@ -87,6 +87,29 @@
         });
     });
 </script>
+{{--Fetch Bank Branches--}}
+<script>
+    $('#bank').on('change', function () {
+        $('.bankbranches').html('<option value="">Select Bank</option>');
+
+        $.ajax({
+            type: 'POST',
+            url: '{{route('fetchbranches')}}',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: this.value,
+            },
+            success: function (response) {
+                console.log(response);
+                $.each(response, function(i, item) {
+                    $('.bankbranches').append('<option value="'+item.id+'">'+item.branch_desc+'</option>');
+                });
+
+            }
+        });
+    });
+</script>
+{{--Fetch Bank Branches--}}
 <script>
     $(document).ready(function()
     {
@@ -169,7 +192,7 @@
     //CNIC Mask
     $('.cnic').inputmask('99999-9999999-9', { 'placeholder': '_____-_______-_' })
     //IBAN Mask
-    $('.iban').inputmask('SS00 0000 0000 0000 0000 00', { 'placeholder': '____ ____ ____ ____ ____ __' })
+    $('.iban').inputmask('99999999', { 'placeholder': '________' })
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
 </script>
