@@ -25,11 +25,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::resource('bank','BankController');
-Route::resource('user','UserController');
-Route::resource('employee','EmployeeController');
-Route::post('/fetchbranches','BankController@fetchbankbranches')->name('fetchbranches');
+Route::middleware(['auth'])->group(function () {
+        Route::resource('bank', 'BankController');
+        Route::resource('user', 'UserController');
+        Route::resource('employee', 'EmployeeController');
+        Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');
 
-Route::get('report','EmployeeController@department_report');
+    });

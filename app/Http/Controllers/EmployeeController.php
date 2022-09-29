@@ -22,7 +22,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-
+        $employees = Employee::with('legals')->get();
+        return  view('admin.employee.index' ,compact('employees'));
     }
     public function department_report()
     {
@@ -43,7 +44,7 @@ class EmployeeController extends Controller
         $relations= Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
-        return  view('admin.employee.index' ,compact('departments' , 'designations','relations','grades','banks'));
+        return  view('admin.employee.create' ,compact('departments' , 'designations','relations','grades','banks'));
     }
 
     /**

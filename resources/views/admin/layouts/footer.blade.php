@@ -88,6 +88,34 @@
     });
 </script>
 {{--Fetch Bank Branches--}}
+{{--Self script cnic and name--}}
+<script>
+
+        $(".types").change(function(){
+            var ctype = $('.types').val();
+            var cnic = $("#empcnic").val();
+            var name = $("#empname").val();
+
+            if(ctype == '01'){
+                $("#benefcnic").val($("#empcnic").val()).prop("readonly", true);
+                $("#benefname").val($("#empname").val()).prop("readonly", true);
+                $("#benef").val('1').prop("readonly", true);
+
+            }
+            else if (ctype == '02'){
+                $("#benefcnic").val('').prop("disabled", false , "required" , true);
+                $("#benefname").val('').prop("disabled", false , "required" , true);
+                $("#rel").prop("disables", true);
+                $("#benef").val('').prop("disabled", false);
+            }
+            else if (ctype == '03'){
+                $("#benefcnic").val('').prop("disabled", false , "required" , true);
+                $("#benefname").val('').prop("disabled", false , "required" , true);
+                $("#benef").val('').prop("disabled", false);
+            }
+    });
+
+</script>
 <script>
     $('#bank').on('change', function () {
         $('.bankbranches').html('<option value="">Select Bank</option>');
