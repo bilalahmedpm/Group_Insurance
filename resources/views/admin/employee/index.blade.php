@@ -9,9 +9,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
-                                <button style="margin-left: 30px;" class="btn btn-primary btn-sm float-right"
-                                        data-toggle="modal" data-target="#exampleModal">Add New User
-                                </button>
+                                <a href="{{route('employee.create')}}" style="margin-left: 30px;"  class="btn btn-primary btn-sm float-right">Add New Employee </a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -19,15 +17,16 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Personal #</th>
                                         <th>Name</th>
                                         <th>Father Name</th>
                                         <th>Cnic</th>
-                                        <th>Claim Type</th>
-                                        <th>Claim Type</th>
-                                        <th>Claim Type</th>
-                                        <th>Claim Type</th>
-                                        <th>Claim Type</th>
-                                        <th>beneficiary</th>
+                                        <th>Department</th>
+                                        <th>Post/Grade</th>
+                                        <th>Gitype</th>
+                                        <th>Beneficiary<br>Name</th>
+                                        <th>Bank</th>
+                                        <th>Branch</th>
                                         <th>Amount</th>
                                         <th>Actions</th>
                                     </tr>
@@ -37,15 +36,16 @@
                                     @foreach($row->legals as $row1)
                                         <tr>
                                             <td>{{$row->id}}</td>
+                                            <td>{{$row->pno}}</td>
                                             <td>{{$row->employeename}}</td>
                                             <td>{{$row->fathername}}</td>
                                             <td>{{$row->employeecnic}}</td>
+                                            <td>{{$row->department->department_desc}}</td>
+                                            <td>{{$row->designation->designation_desc}} - ({{$row->grade}})</td>
                                             <td>{{$row->gitype}}</td>
                                             <td>{{$row1->heirname}}</td>
-                                            <td>{{$row1->heirname}}</td>
-                                            <td>{{$row1->heirname}}</td>
-                                            <td>{{$row1->heirname}}</td>
-                                            <td>{{$row1->heirname}}</td>
+                                            <td>{{$row1->bank->name}}</td>
+                                            <td>{{$row1->branch->branch_desc}}</td>
                                             <td>{{$row1->amount}}</td>
                                             <td>
                                                 <a href="{{route('employee.edit' ,$row->id)}}" data-toggle="modal"
