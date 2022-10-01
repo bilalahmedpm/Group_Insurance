@@ -1,4 +1,9 @@
 @extends('admin.layouts.include')
+
+@section('styles')
+    <link rel="stylesheet" href="{{asset('parsley/parsley.css')}}">
+@endsection
+
 @section('content')
     <!-- Main content -->
     <section class="content">
@@ -12,40 +17,48 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form action="{{route('employee.store')}}" method="post">
+                            <form id="entryform" action="{{route('employee.store')}}" method="post">
                                 @csrf
                                 <div class="row">
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Personal Number</label>
-                                            <input type="text" name="personalnumber" class="form-control pno" placeholder="Enter Personal Number" required data-inputmask-inputformat="99999999" data-mask>
+                                            <input type="text" name="personalnumber" class="form-control pno" placeholder="Enter Personal Number" data-inputmask-inputformat="99999999" data-mask
+                                             data-parsley-minlength="08" data-parsley-required data-parsley-type="digits" data-parsley-trigger="keyup">
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Employee CNIC</label>
-                                            <input type="text" id="empcnic" name="employeecnic" class="form-control cnic" placeholder="Enter CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                            <input type="text" id="empcnic" name="employeecnic" class="form-control cnic" placeholder="Enter CNIC" data-inputmask-inputformat="99999-9999999-9" data-mask >
                                         </div>
                                     </div>
                                 </div>
                                 {{--Row1--}}
                                 <div class="row">
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Employee Name</label>
-                                            <input type="text" id="empname" name="employeename" class="form-control name" placeholder="Enter Employee Name" required>
+                                            <input type="text" id="empname" name="employeename" class="form-control name" placeholder="Enter Employee Name"
+                                            data-parsley-required data-parsley-trigger="keyup" >
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Father Name</label>
-                                            <input type="text" name="fathername" class="form-control " placeholder="Father Name" required>
+                                            <input type="text" name="fathername" class="form-control " placeholder="Father Name"
+                                            data-parsley-required data-parsley-trigger="keyup">
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -61,11 +74,12 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Deparment</label>
-                                            <select class="form-control  select2" name ="department" style="width: 100%;" required>
+                                            <select class="form-control  select2" name ="department" style="width: 100%;" data-parsley-required>
                                                 <option selected="selected" disabled>Select Department</option>
                                                 @foreach( $departments as $department)
                                                     <option value="{{$department->id}}" >{{{$department->department_desc}}}</option>
@@ -73,6 +87,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -127,6 +142,7 @@
                                         </div>
                                         <!-- /.form group -->
                                     </div>
+
                                     <div class="col-sm-2" id="death">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -141,6 +157,7 @@
                                         </div>
                                         <!-- /.form group -->
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -149,6 +166,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <!-- text input -->
@@ -157,6 +175,7 @@
                                             <input type="text" id="benef" name="beneficiaries" class="form-control " placeholder="beneficiaries" required>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -168,7 +187,9 @@
                                 <div class="row">
                                     <h5><u>Beneficiary Details</u></h5>
                                 </div>
+
                                 <div class="row">
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -176,6 +197,7 @@
                                             <input type="text" id="benefcnic" name="beneficiarycnic" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -183,6 +205,7 @@
                                             <input type="text" id="benefname" name="beneficiaryname" class="form-control" placeholder="Beneficiary Name" required>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -220,13 +243,16 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Account IBAN Number</label>
-                                            <input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" required>
+                                            <input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup"
+                                            data-parsley-maxlength="24" data-parsley-minlength="24">
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -234,6 +260,7 @@
                                             <input type="text" name="amount" class="form-control" placeholder="calculating...." required>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <a href="" class="btn btn-danger" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
                                     </div>
@@ -255,107 +282,9 @@
     </section>
     <!-- /.content -->
 @endsection
-
-
-
-{{--<!doctype html>--}}
-{{--<html lang="en">--}}
-{{--<head>--}}
-{{--    <meta charset="UTF-8">--}}
-{{--    <meta name="viewport"--}}
-{{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
-{{--    <meta http-equiv="X-UA-Compatible" content="ie=edge">--}}
-{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"--}}
-{{--          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">--}}
-{{--    <title>Document</title>--}}
-{{--</head>--}}
-{{--<body>--}}
-{{--<div class="container">--}}
-{{--    <table class="table table-bordered" style="font-size: 11pt">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th>Id</th>--}}
-{{--            <th>Employee Name</th>--}}
-{{--            <th>Father Name</th>--}}
-{{--            <th>Department</th>--}}
-{{--            <th>Designation</th>--}}
-{{--            <th>Gitype</th>--}}
-{{--            <th>User</th>--}}
-{{--            <th>Legalheir Name</th>--}}
-{{--            <th>Legalheir CNIC</th>--}}
-{{--            <th>Bank</th>--}}
-{{--            <th>Branch</th>--}}
-{{--            <th>Account #</th>--}}
-{{--            <th>Amount</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--        --}}{{--        @foreach($employees as $row)--}}
-
-{{--        --}}{{--            <tr>--}}
-{{--        --}}{{--                --}}{{----}}{{--        {{dd($row->legals)}}--}}
-{{--        --}}{{--                <td>{{$row->legals}}</td>--}}
-{{--        --}}{{--                <td>{{$row->employeename}}</td>--}}
-{{--        --}}{{--                <td>{{$row->fathername}}</td>--}}
-{{--        --}}{{--                <td>{{$row->department->department_desc}}</td>--}}
-{{--        --}}{{--                <td>{{$row->designation->designation_desc}}</td>--}}
-{{--        --}}{{--                <td>{{$row->gitype}}</td>--}}
-{{--        --}}{{--                <td>{{$row->user->name}}</td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->heirname}} <br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->heircnic}} <br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->bank->name}}<br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->branch->branch_desc}}<br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->accountno}}<br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--                <td>--}}
-{{--        --}}{{--                    @foreach($row->legals as $key=> $row1)--}}
-{{--        --}}{{--                        {{$key+1}} : {{$row1->amount}} <br>--}}
-{{--        --}}{{--                    @endforeach--}}
-{{--        --}}{{--                </td>--}}
-{{--        --}}{{--            </tr>--}}
-{{--        @if($employees)--}}
-{{--        @foreach($employees as $row)--}}
-{{--            @foreach($row->legals as  $row1)--}}
-{{--                <tr>--}}
-{{--                    --}}{{--        {{dd($row->legals)}}--}}
-{{--                    <td>{{$row1->employee_id}}</td>--}}
-{{--                    <td>{{$row->employeename}}</td>--}}
-{{--                    <td>{{$row->fathername}}</td>--}}
-{{--                    <td>{{$row->department->department_desc}}</td>--}}
-{{--                    <td>{{$row->designation->designation_desc}}</td>--}}
-{{--                    <td>{{$row->gitype}}</td>--}}
-{{--                    <td>{{$row->user->name}}</td>--}}
-{{--                    <td> {{$row1->heirname}} </td>--}}
-{{--                    <td> {{$row1->heircnic}} </td>--}}
-{{--                    <td> {{$row1->bank->name}} </td>--}}
-{{--                    <td>{{$row1->branch->branch_desc}} </td>--}}
-{{--                    <td> {{$row1->accountno}}</td>--}}
-{{--                    <td>{{$row1->amount}}</td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
-{{--        @endforeach--}}
-{{--            @endif--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
-{{--</div>--}}
-{{--</body>--}}
-{{--</html>--}}
+ @section('scripts')
+     <script src="{{asset('parsley/parsley.min.js')}}"></script>
+     <script>
+         $('#entryform').parsley();
+     </script>
+ @endsection

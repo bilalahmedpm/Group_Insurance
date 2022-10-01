@@ -16,6 +16,7 @@ class UserRoleSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
             'phone'=> '03211234567',
+            'cnic'=> '5440105246789',
             'password' => Hash::make('12345678'),
             'role' => '1', //1 = superadmin 2= user
             'department_id' => '21',
@@ -27,6 +28,7 @@ class UserRoleSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@gmail.com',
             'phone'=> '03211235452',
+            'cnic' => '5440105248791',
             'password' => Hash::make('12345678'),
             'role' => '2', //1 = superadmin 2= user
             'department_id' => '60',

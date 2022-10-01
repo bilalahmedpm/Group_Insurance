@@ -21,6 +21,7 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Email Address</th>
+                                    <th>Cnic #</th>
                                     <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
@@ -31,6 +32,7 @@
                                         <td>{{$row->id}}</td>
                                         <td>{{$row->name}}</td>
                                         <td>{{$row->email}}</td>
+                                        <td>{{$row->cnic}}</td>
                                         <td>{{$row->role}}</td>
                                         <td>
                                             <a href="{{route('user.edit' ,$row->id)}}" data-toggle="modal"
