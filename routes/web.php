@@ -18,18 +18,25 @@ use App\Http\Controllers\BankController;
 */
 
 Route::get('/', function () {
-    if (Auth::check()){
-        return view('admin.index');
-    }
-    return view('auth.login');
+    return view('admin.index');
+})->middleware('auth');
+Route::middleware(['auth','role'])->group(function () {
+
 });
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::middleware(['auth'])->group(function () {
+Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate');
+Route::middleware( [ 'auth'])->group(function () {
         Route::resource('bank', 'BankController');
         Route::resource('user', 'UserController');
         Route::resource('employee', 'EmployeeController');
         Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');
 
+        Route::resource('roles', RoleController::class);
+        Route::resource('users', UserController::class);
+
+
     });
+
+

@@ -1,6 +1,7 @@
 @extends('admin.layouts.include')
 
 @section('styles')
+    <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{asset('parsley/parsley.css')}}">
 @endsection
 
@@ -108,8 +109,8 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Grade</label>
-                                            <select class="form-control select2" name="grade" style="width: 100%;" required>
-                                                <option selected="selected" disabled >Select Grade</option>
+                                            <select class="form-control select2"id="grade" name="grade" style="width: 100%;" required>
+                                                <option selected="selected"  disabled >Select Grade</option>
                                                 @foreach( $grades as $grade)
                                                     <option value="{{$grade->grade}}">{{{$grade->grade}}}</option>
                                                 @endforeach
@@ -120,7 +121,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Nature of Claim</label>
-                                            <select class="form-control select2 types"  name="gitype" id="types" style="width: 100%;" required>
+                                            <select class="form-control select2 types"   name="gitype" id="types" style="width: 100%;" required>
                                                 <option selected="selected" disabled>Select Gitype</option>
                                                 <option value = "01">Retirement</option>
                                                 <option value = "02">Death</option>
@@ -136,7 +137,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="retirementdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" id="r_date" name="retirementdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -151,7 +152,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="deathdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" name="deathdate" id="d_date" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -253,11 +254,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2" id="amount1" style="display: none">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Amount</label>
-                                            <input type="text" name="amount" class="form-control" placeholder="calculating...." required>
+                                            <input type="text" id="amount" name="amount" class="form-control" placeholder="calculating...." required>
                                         </div>
                                     </div>
 
@@ -286,5 +287,109 @@
      <script src="{{asset('parsley/parsley.min.js')}}"></script>
      <script>
          $('#entryform').parsley();
+     </script>
+
+     <script>
+
+         $("#r_date").keyup(function(){
+             var dor = $("#r_date").val();
+             var types = $(".types").val();
+             function isValidDate(date) {
+                 var temp = date.split('/');
+                 var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
+                 return (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
+             }
+             console.log(isValidDate(dor))
+             if(isValidDate(dor)) {
+                 var grade = $("#grade").val();
+                 if(grade==null){
+                     alert('Please Select Grade')
+                     $("#r_date").val(null);
+                 }
+                 else{
+                     console.log(dor,grade);
+
+                     $.ajax({
+                         type: 'POST',
+                         url: '{{route('fetchrate')}}',
+                         data: {
+                             _token: "{{ csrf_token() }}",
+                             dor: dor,
+                             grade: grade,
+                         },
+                         success: function (response) {
+                             console.log(response);
+                             if(response){
+                                 $("#amount").val(response.retirement);
+                                 $("#amount1").show();
+
+                             }
+                             else{
+                                 $("#amount1").hide();
+                             }
+
+
+                         }
+                     });
+
+                 }
+
+             }
+
+
+         });
+
+     </script>
+     <script>
+
+         $("#d_date").keyup(function(){
+             var dor = $("#d_date").val();
+             var types = $(".types").val();
+
+             function isValidDate(date) {
+                 var temp = date.split('/');
+                 var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
+                 return (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
+             }
+             console.log(isValidDate(dor))
+             if(isValidDate(dor)) {
+                 var grade = $("#grade").val();
+                 if(grade==null){
+                     alert('Please Select Grade')
+                     $("#d_date").val(null);
+                 }
+                 else{
+                     console.log(dor,grade);
+
+                     $.ajax({
+                         type: 'POST',
+                         url: '{{route('fetchrate')}}',
+                         data: {
+                             _token: "{{ csrf_token() }}",
+                             dor: dor,
+                             grade: grade,
+                         },
+                         success: function (response) {
+                             console.log(response);
+                             if(response){
+                                 $("#amount").val(response.death);
+                                 $("#amount1").show();
+
+                             }
+                             else{
+                                 $("#amount1").hide();
+                             }
+
+
+                         }
+                     });
+
+                 }
+
+             }
+
+
+         });
+
      </script>
  @endsection

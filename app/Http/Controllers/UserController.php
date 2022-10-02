@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        $users = User::where('departmant_id','=',Auth::user()->departmant_id)->get();
         return view('admin.users.index' , compact('users'));
     }
 
@@ -83,4 +84,5 @@ class UserController extends Controller
     {
         //
     }
+
 }
