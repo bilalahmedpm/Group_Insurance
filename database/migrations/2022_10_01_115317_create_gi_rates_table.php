@@ -15,11 +15,11 @@ class CreateGiRatesTable extends Migration
     {
         Schema::create('gi_rates', function (Blueprint $table) {
             $table->id();
-            $table->string('Grade');
-            $table->string('Retirement');
-            $table->string('Death');
-            $table->string('BeginDate');
-            $table->string('EndDate');
+            $table->string('grade');
+            $table->string('retirement');
+            $table->string('death');
+            $table->date('begindate');
+            $table->date('enddate');
             $table->timestamps();
         });
     }
