@@ -96,19 +96,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('entry.retirement')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Retirement</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('entry.death')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Death</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('entry.death_after_retirement')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Death After Retirement</p>
                             </a>

@@ -18,8 +18,8 @@ class GiRateController extends Controller
     }
     public  function fetchretirement()
     {
-        $dor = '31-02-2011';
-        $rate = GiRate::where('enddate', '>=', date('Y-m-d', strtotime($dor)))->where('grade', '=', '09')->first();
+        $dor = '30-06-2007';
+        $rate = GiRate::whereDate('enddate', '>=', date('Y-m-d', strtotime($dor)))->whereDate('begindate', '<=', date('Y-m-d', strtotime($dor)))->where('grade', '=', '09')->first();
         return $rate;
 //        return response()->json($rate);
     }

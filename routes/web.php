@@ -40,7 +40,9 @@ Route::middleware( [ 'auth'])->group(function () {
 
     });
 
-    Route::get('/retirement', 'EmployeeController@retirement');
+    Route::get('/retirement', 'EmployeeController@retirement')->name('entry.retirement');
+    Route::get('/death', 'EmployeeController@death')->name('entry.death');
+    Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
     Route::get('/retirementrate', 'GiRateController@fetchretirement');
 
 

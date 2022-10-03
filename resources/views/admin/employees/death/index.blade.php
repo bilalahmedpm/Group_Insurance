@@ -14,14 +14,14 @@
                     <?php $user = Auth::user(); ?>
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Retirement Entry Form</h3>
+                            <h3 class="card-title">Death Entry Form</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <form id="entryform" action="{{route('employee.store')}}" method="post">
                                 @csrf
+                                {{--Row1--}}
                                 <div class="row">
-
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--Row1--}}
+                                {{--Row2--}}
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <!-- text input -->
@@ -123,10 +123,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                {{--Row 2 --}}
+                                {{--Row 3 --}}
                                 <div class="row">
-
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -134,22 +132,19 @@
                                             <select class="form-control" name="gitype" id="types" style="width: 100%;"
                                                     required>
                                                 <option selected="selected" disabled> Select Gitype</option>
-                                                <option value="01">Retirement</option>
+                                                <option value="02">Death</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
-                                            <label>Date of Retirement</label>
+                                            <label>Date of Death</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i
-                                                            class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="retirementdate" class="form-control datemask"
-                                                       data-inputmask-alias="datetime"
-                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
+                                                <input type="text" name="deathdate" id="d_date" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -167,8 +162,8 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Contribution</label>
-                                            <input type="number" min="0" name="contribution" class="form-control "
-                                                   placeholder="Contribution" required>
+                                            <input type="number" min="0" name="contribution" class="form-control" value="0"
+                                                   placeholder="Contribution" required readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -176,6 +171,38 @@
                                 <div class="row">
                                     <h5><u>Beneficiary Details</u></h5>
                                     <hr>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Beneficiary CNIC</label>
+                                            <input type="text" id="benefcnic" name="beneficiarycnic" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Beneficiary Name</label>
+                                            <input type="text" id="benefname" name="beneficiaryname" class="form-control" placeholder="Beneficiary Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Relation</label>
+                                            <select class="form-control select2" id="rel" name="relation" style="width: 100%;" required>
+                                                <option selected="selected">Select Relation</option>
+                                                @foreach($relations as $relation)
+                                                    <option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a  class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -219,53 +246,54 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{--Attacments Section--}}
                                 <div class="card card-secondary">
                                     <div class="card-header">
                                         <h3 class="card-title">Attachments</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <h5><u>Attachments</u></h5>
-                                        <hr>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <input class="form-control" name="death_employee_cnic" type="file" id="formFile">
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Pension Roll Data Sheet</label>
-                                                    <input class="form-control" type="file" id="formFile">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Retirement Order</label>
-                                                    <input class="form-control" type="file" id="formFile">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Stamp Paper</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <label for="formFile" class="form-label">Beneficiary CNIC</label>
+                                                    <input class="form-control" name="death_beneficiary_cnic" type="file" id="formFile">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Part III Form B</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <label for="formFile" class="form-label">Succession Certificate</label>
+                                                    <input class="form-control" name="succession_certificate" type="file" id="formFile">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Contribution Statement</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <label for="formFile" class="form-label">Death Certificate</label>
+                                                    <input class="form-control" name="death_certificate" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Death Claim Form</label>
+                                                    <input class="form-control" name="death_form" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Pension Sheet of Beneficiary</label>
+                                                    <input class="form-control" name="beneficiary_pension_sheet" type="file" id="formFile">
                                                 </div>
                                             </div>
                                         </div>

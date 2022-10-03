@@ -219,27 +219,29 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{--Attacments Section--}}
                                 <div class="card card-secondary">
                                     <div class="card-header">
                                         <h3 class="card-title">Attachments</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <h5><u>Attachments</u></h5>
-                                        <hr>
                                         <div class="row">
-
+                                            <div class="col-sm-6">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
                                                     <input class="form-control" type="file" id="formFile">
                                                 </div>
+                                            </div>
 
-{{--                                            <div class="col-sm-6">--}}
-{{--                                                <div class="mb-3">--}}
-{{--                                                    <label for="formFile" class="form-label">Pension Roll Data Sheet</label>--}}
-{{--                                                    <input class="form-control" type="file" id="formFile">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Pension Roll Data
+                                                        Sheet</label>
+                                                    <input class="form-control" type="file" id="formFile">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">

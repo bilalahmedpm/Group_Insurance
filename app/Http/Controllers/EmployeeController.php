@@ -175,5 +175,23 @@ class EmployeeController extends Controller
         $banks = Bank::all();
         return  view('admin.employees.retirement.index' ,compact('departments' , 'designations','relations','grades','banks'));
     }
+    public function death()
+    {
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations= Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        return  view('admin.employees.death.index' ,compact('departments' , 'designations','relations','grades','banks'));
 
+    }
+    public function death_after_retirement()
+    {
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations = Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        return view('admin.employees.death_after_retirement.index', compact('departments', 'designations', 'relations', 'grades', 'banks'));
+    }
 }
