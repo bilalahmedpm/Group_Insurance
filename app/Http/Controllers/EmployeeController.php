@@ -166,4 +166,14 @@ class EmployeeController extends Controller
     {
         //
     }
+    public function retirement()
+    {
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations= Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        return  view('admin.employees.retirement.index' ,compact('departments' , 'designations','relations','grades','banks'));
+    }
+
 }
