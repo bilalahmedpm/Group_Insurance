@@ -30,6 +30,7 @@ Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate');
 Route::post('addmore', 'GiRateController@addMore')->name('addmore');
 Route::middleware( [ 'auth'])->group(function () {
         Route::resource('bank', 'BankController');
+        Route::resource('branch', 'BranchesController');
         Route::resource('user', 'UserController');
         Route::resource('employee', 'EmployeeController');
         Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');

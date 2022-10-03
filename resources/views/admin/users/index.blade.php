@@ -18,21 +18,27 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Email Address</th>
                                     <th>Cnic #</th>
+                                    <th>Phone #</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
                                     <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($users as $row)
+                                @foreach($users as $key => $row)
                                     <tr>
-                                        <td>{{$row->id}}</td>
+                                        <td>{{$key+1}}</td>
                                         <td>{{$row->name}}</td>
                                         <td>{{$row->email}}</td>
                                         <td>{{$row->cnic}}</td>
+                                        <td>{{$row->phone}}</td>
+                                        <td>{{$row->department->department_desc}}</td>
+                                        <td> <span class="right badge badge-success">{{$row->status}}</span></td>
                                         <td>{{$row->role}}</td>
                                         <td>
                                             <a href="{{route('user.edit' ,$row->id)}}" data-toggle="modal"
@@ -61,10 +67,7 @@
                                                                     <div class="form-group">
                                                                         <label for="title"><b>User</b><span
                                                                                 class="text-danger">*</span></label>
-                                                                        <input type="text" value="{{$row->name}}"
-                                                                               name="name" required
-                                                                               placeholder="User Name"
-                                                                               class="form-control">
+                                                                        <input type="text" value="{{$row->name}}" name="name" required  placeholder="User Name" class="form-control">
                                                                     </div>
                                                                 </div>
 

@@ -23,6 +23,7 @@
                                         <th>Cnic</th>
                                         <th>Department</th>
                                         <th>Post/Grade</th>
+                                        <th>Status</th>
                                         <th>Gitype</th>
                                         <th>Beneficiary<br>Name</th>
                                         <th>Bank</th>
@@ -42,6 +43,7 @@
                                             <td>{{$row->employeecnic}}</td>
                                             <td>{{$row->department->department_desc}}</td>
                                             <td>{{$row->designation->designation_desc}} - ({{$row->grade}})</td>
+                                            <td> <span class="right badge badge-success">{{$row->status}}</span></td>
                                             <td>{{$row->gitype}}</td>
                                             <td>{{$row1->heirname}}</td>
                                             <td>{{$row1->bank->name}}</td>

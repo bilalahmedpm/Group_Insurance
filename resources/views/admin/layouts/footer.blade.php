@@ -218,10 +218,10 @@
     });
     //Datemask dd/mm/yyyy
     $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    // //Personal Number Mask
-    // $('.pno').inputmask('99999999', { 'placeholder': '________' })
-    // //CNIC Mask
-    // $('.cnic').inputmask('99999-9999999-9', { 'placeholder': '_____-_______-_' })
+    //Personal Number Mask
+    $('.pno').inputmask('99999999', { 'placeholder': '________' })
+    //CNIC Mask
+    $('.cnic').inputmask('99999-9999999-9', { 'placeholder': '_____-_______-_' })
     // //IBAN Mask
     // $('.iban').inputmask('99999999', { 'placeholder': '________' })
     //Datemask2 mm/dd/yyyy

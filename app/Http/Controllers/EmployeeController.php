@@ -22,8 +22,15 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with('legals')->get();
+        $user = Auth::user();
+        if ($user->role == 1 || $user->role == 2 ){
+            $employees = Employee::with('legals')->get();
+            return  view('admin.employee.index' ,compact('employees'));
+        }
+        else{
+        $employees = Employee::with('legals')->where('department_id' ,'=', $user->department_id)->get();
         return  view('admin.employee.index' ,compact('employees'));
+    }
     }
     public function department_report()
     {
@@ -90,7 +97,12 @@ class EmployeeController extends Controller
         $employee->retirementdate = $request->retirementdate;
         $employee->dateofdeath    = $request->deathdate;
         $employee->legalheirs     = $request->beneficiaries;
-        $employee->status         = 'OK';
+        if ($user->role == 1 ){
+            $employee->status         = 'OK';
+        }
+        else{
+            $employee->status         = 'Pending';
+        }
         $employee->contribution   = $request->contribution;
         $employee->user_id        = $user->id;
         $employee->save();
