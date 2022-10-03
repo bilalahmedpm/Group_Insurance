@@ -9,7 +9,11 @@ class GiRateController extends Controller
 {
     public function fetchRate(Request $request)
     {
-        $rate = GiRate::where('begindate', '<', date('Y-m-d', strtotime($request->dor)))->where('enddate', '>', date('Y-m-d', strtotime($request->dor)))->where('grade', '=', $request->grade)->first();
+        $rate = GiRate::whereDate('begindate', '<=', date('Y-m-d', strtotime($request->dor)))->whereDate('enddate', '>=', date('Y-m-d', strtotime($request->dor)))->where('grade', '=', $request->grade)->first();
         return response()->json($rate);
+    }
+    public function addMore()
+    {
+        return response()->json(['data' => view('admin.employee.admore')->render()]);
     }
 }

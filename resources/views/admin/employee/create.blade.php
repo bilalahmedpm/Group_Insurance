@@ -173,7 +173,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Beneficiaries</label>
-                                            <input type="text" id="benef" name="beneficiaries" class="form-control " placeholder="beneficiaries" required>
+                                            <input type="number" value="1" id="benef" min="1" max="5" name="beneficiaries" class="form-control " placeholder="beneficiaries" required>
                                         </div>
                                     </div>
 
@@ -221,7 +221,8 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div id="addmore">
+                                <div class="row" >
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -262,9 +263,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <a href="" class="btn btn-danger" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
-                                    </div>
+                                    <div class="col-sm-">
+                                        <a  class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
+                                      </div>
+
+                                </div>
+
                                 </div>
 
                                 <button  class="btn btn-primary">Submit</button>
@@ -344,11 +348,13 @@
 
          $("#d_date").keyup(function(){
              var dor = $("#d_date").val();
+             console.log(dor);
              var types = $(".types").val();
 
              function isValidDate(date) {
                  var temp = date.split('/');
                  var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
+                 console.log(d);
                  return (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
              }
              console.log(isValidDate(dor))
@@ -390,6 +396,67 @@
 
 
          });
+
+     </script>
+     <script>
+         function addmore() {
+             $.post('{{route('addmore')}}', {_token: '{{csrf_token()}}'}, function (response) {
+                 $('#addmore').html(response.data);
+             });
+         }
+
+         function addmore() {
+             var benef = $("#benef").val();
+
+             $('#addmore').append('<div class="row" >' +
+                 '<div class="col-sm-2">' +
+
+                 '<div class="form-group">' +
+                 '<label>Bank Name</label>' +
+                 ' <select class="form-control select2" name="bank" id="bank" style="width: 100%;" required>' +
+                 '<option selected="selected" disabled>Select Bank</option>' +
+                 '@foreach($banks as $bank)' +
+                 ' <option value = "{{$bank->id}}">{{$bank->name}}</option>' +
+                 ' @endforeach' +
+                 ' </select>' +
+                 ' </div>' +
+                 '</div>' +
+
+                 ' <div class="col-sm-2">' +
+                 <!-- text input -->
+                 ' <div class="form-group">' +
+                 '<label>Branch</label>' +
+                 ' <select class="form-control select2 bankbranches" name="branch" style="width: 100%;" required>' +
+
+                 ' </select>' +
+                 ' </div>' +
+                 '</div>' +
+
+                 '<div class="col-sm-2">' +
+                 <!-- text input -->
+                 '<div class="form-group">' +
+                 ' <label>Account IBAN Number</label>' +
+                 '<input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24">' +
+                 ' </div>' +
+                 ' </div>' +
+
+                 '<div class="col-sm-2" id="amount1" style="display: none">' +
+                 ' <div class="form-group">' +
+                 '  <label>Amount</label>' +
+                 ' <input type="text" id="amount" name="amount" class="form-control" placeholder="calculating...." required>' +
+                 '  </div>' +
+                 ' </div>' +
+
+                 ' <div class="col-sm-2">' +
+                 ' <a  class="btn btn-danger" onclick="removecolor(this)" style="margin-top:30px;"><i class="fa fa-user-times" aria-hidden="true"></i></a>' +
+                 '</div>' +
+                 ' </div> ');
+         }
+         function removecolor(elem) {
+             if($('#addmore .row').length>1) {
+                 $(elem).parent('div').parent('div').remove();
+             }
+         }
 
      </script>
  @endsection

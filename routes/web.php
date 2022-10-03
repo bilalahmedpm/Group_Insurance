@@ -27,6 +27,7 @@ Route::middleware(['auth','role'])->group(function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate');
+Route::post('addmore', 'GiRateController@addMore')->name('addmore');
 Route::middleware( [ 'auth'])->group(function () {
         Route::resource('bank', 'BankController');
         Route::resource('user', 'UserController');
