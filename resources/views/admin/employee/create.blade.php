@@ -188,7 +188,7 @@
                                 <div class="row">
                                     <h5><u>Beneficiary Details</u></h5>
                                 </div>
-
+                                <div id="addmore">
                                 <div class="row">
 
                                     <div class="col-sm-2">
@@ -198,7 +198,6 @@
                                             <input type="text" id="benefcnic" name="beneficiarycnic" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
                                         </div>
                                     </div>
-
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -206,7 +205,6 @@
                                             <input type="text" id="benefname" name="beneficiaryname" class="form-control" placeholder="Beneficiary Name" required>
                                         </div>
                                     </div>
-
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -219,10 +217,11 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2">
+                                        <a  class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
+                                    </div>
                                 </div>
-
-                                <div id="addmore">
-                                <div class="row" >
+                                    <div class="row" >
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -235,7 +234,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -245,8 +243,7 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-2">
+                                        <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Account IBAN Number</label>
@@ -263,9 +260,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-">
-                                        <a  class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
-                                      </div>
 
                                 </div>
 
@@ -408,12 +402,44 @@
          function addmore() {
              var benef = $("#benef").val();
 
-             $('#addmore').append('<div class="row" >' +
+             $('#addmore').append('<div class="row">'+
+
+                 '<div class="col-sm-2">'+
+                 <!-- text input -->
+            ' <div class="form-group">'+
+                ' <label>Beneficiary CNIC</label>'+
+            ' <input type="text" id="benefcnic" name="beneficiarycnic[]" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>'+
+         '</div>'+
+         '</div>'+
+
+             '<div class="col-sm-2">'+
+                 <!-- text input -->
+                 '<div class="form-group">'+
+                     '<label>Beneficiary Name</label>'+
+                     '<input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>'+
+                ' </div>'+
+             '</div>'+
+
+             '<div class="col-sm-2">'+
+                 <!-- text input -->
+                 '<div class="form-group">'+
+                     '<label>Relation</label>'+
+                    ' <select class="form-control select2" id="rel" name="relation[]" style="width: 100%;" required>'+
+                        ' <option selected="selected">Select Relation</option>'+
+                         '@foreach($relations as $relation)'+
+                         '<option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>'+
+                        ' @endforeach'+
+                   '  </select>'+
+               '  </div>'+
+            ' </div>'+
+         '</div>' +
+
+                 '<div class="row" >' +
                  '<div class="col-sm-2">' +
 
                  '<div class="form-group">' +
                  '<label>Bank Name</label>' +
-                 ' <select class="form-control select2" name="bank" id="bank" style="width: 100%;" required>' +
+                 ' <select class="form-control select2" name="bank[]" id="bank" style="width: 100%;" required>' +
                  '<option selected="selected" disabled>Select Bank</option>' +
                  '@foreach($banks as $bank)' +
                  ' <option value = "{{$bank->id}}">{{$bank->name}}</option>' +
@@ -426,7 +452,7 @@
                  <!-- text input -->
                  ' <div class="form-group">' +
                  '<label>Branch</label>' +
-                 ' <select class="form-control select2 bankbranches" name="branch" style="width: 100%;" required>' +
+                 ' <select class="form-control select2 bankbranches" name="branch[]" style="width: 100%;" required>' +
 
                  ' </select>' +
                  ' </div>' +
@@ -436,14 +462,14 @@
                  <!-- text input -->
                  '<div class="form-group">' +
                  ' <label>Account IBAN Number</label>' +
-                 '<input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24">' +
+                 '<input type="text" name="accountno[]" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24">' +
                  ' </div>' +
                  ' </div>' +
 
                  '<div class="col-sm-2" id="amount1" style="display: none">' +
                  ' <div class="form-group">' +
                  '  <label>Amount</label>' +
-                 ' <input type="text" id="amount" name="amount" class="form-control" placeholder="calculating...." required>' +
+                 ' <input type="text" id="amount" name="amount[]" class="form-control" placeholder="calculating...." required>' +
                  '  </div>' +
                  ' </div>' +
 
