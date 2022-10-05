@@ -11,7 +11,7 @@ class GiRateController extends Controller
     {
         $date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->dor)->format('Y-m-d');
         $rate = GiRate::whereDate('begindate', '<=', $date)->whereDate('enddate', '>=',$date)->where('grade', '=', $request->grade)->first();
-        return response()->json($rate);
+        return response()->json(['success' =>  $rate]);
     }
     public function addMore()
     {

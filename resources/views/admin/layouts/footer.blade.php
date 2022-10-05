@@ -146,6 +146,7 @@
     {
         $("#retirement").hide();
         $("#death").hide();
+        $("#check").hide();
 
         $("#types").change(function()
         {
@@ -153,6 +154,7 @@
             {
                 $("#retirement").show();
                 $("#death").hide();
+                $("#check").show();
 
             }
             if($(this).val() == "02")
@@ -160,11 +162,13 @@
 
                 $("#retirement").hide();
                 $("#death").show();
+                $("#check").show();
             }
             if($(this).val() == "03")
             {
                 $("#retirement").show();
                 $("#death").show();
+                $("#check").show();
             }
 
         });

@@ -1,7 +1,7 @@
 @extends('admin.layouts.include')
 
 @section('styles')
-    <meta name="_token" content="{{ csrf_token() }}" />
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" href="{{asset('parsley/parsley.css')}}">
 @endsection
 
@@ -26,8 +26,11 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Personal Number</label>
-                                            <input type="text" name="personalnumber" class="form-control pno" placeholder="Enter Personal Number" data-inputmask-inputformat="99999999" data-mask
-                                             data-parsley-minlength="08" data-parsley-required data-parsley-type="digits" data-parsley-trigger="keyup">
+                                            <input type="text" name="personalnumber" class="form-control pno"
+                                                   placeholder="Enter Personal Number"
+                                                   data-inputmask-inputformat="99999999" data-mask
+                                                   data-parsley-minlength="08" data-parsley-required
+                                                   data-parsley-type="digits" data-parsley-trigger="keyup">
                                         </div>
                                     </div>
 
@@ -35,7 +38,9 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Employee CNIC</label>
-                                            <input type="text" id="empcnic" name="employeecnic" class="form-control cnic" placeholder="Enter CNIC" data-inputmask-inputformat="99999-9999999-9" data-mask >
+                                            <input type="text" id="empcnic" name="employeecnic"
+                                                   class="form-control cnic" placeholder="Enter CNIC"
+                                                   data-inputmask-inputformat="99999-9999999-9" data-mask>
                                         </div>
                                     </div>
                                 </div>
@@ -46,8 +51,9 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Employee Name</label>
-                                            <input type="text" id="empname" name="employeename" class="form-control name" placeholder="Enter Employee Name"
-                                            data-parsley-required data-parsley-trigger="keyup" >
+                                            <input type="text" id="empname" name="employeename"
+                                                   class="form-control name" placeholder="Enter Employee Name"
+                                                   data-parsley-required data-parsley-trigger="keyup">
                                         </div>
                                     </div>
 
@@ -55,8 +61,9 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Father Name</label>
-                                            <input type="text" name="fathername" class="form-control " placeholder="Father Name"
-                                            data-parsley-required data-parsley-trigger="keyup">
+                                            <input type="text" name="fathername" class="form-control "
+                                                   placeholder="Father Name"
+                                                   data-parsley-required data-parsley-trigger="keyup">
                                         </div>
                                     </div>
 
@@ -67,9 +74,12 @@
                                                 <label>Date of Birth</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                        <span class="input-group-text"><i
+                                                                class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" name="dateofbirth"   class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input type="text" name="dateofbirth" class="form-control datemask"
+                                                           data-inputmask-alias="datetime"
+                                                           data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
@@ -80,10 +90,12 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Deparment</label>
-                                            <select class="form-control  select2" name ="department" style="width: 100%;" data-parsley-required>
+                                            <select class="form-control  select2" name="department" style="width: 100%;"
+                                                    data-parsley-required>
                                                 <option selected="selected" disabled>Select Department</option>
                                                 @foreach( $departments as $department)
-                                                    <option value="{{$department->id}}" >{{{$department->department_desc}}}</option>
+                                                    <option
+                                                        value="{{$department->id}}">{{{$department->department_desc}}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -93,10 +105,12 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Designation</label>
-                                            <select class="form-control  select2" name="designation" style="width: 100%;">
+                                            <select class="form-control  select2" name="designation"
+                                                    style="width: 100%;">
                                                 <option selected="selected" disabled>Select Designation</option>
                                                 @foreach( $designations as $designation)
-                                                    <option value="{{$designation->id}}">{{{$designation->designation_desc}}}</option>
+                                                    <option
+                                                        value="{{$designation->id}}">{{{$designation->designation_desc}}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -109,8 +123,9 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Grade</label>
-                                            <select class="form-control select2"id="grade" name="grade" style="width: 100%;" required>
-                                                <option selected="selected"  disabled >Select Grade</option>
+                                            <select class="form-control select2" id="grade" name="grade"
+                                                    style="width: 100%;" required>
+                                                <option selected="selected" disabled>Select Grade</option>
                                                 @foreach( $grades as $grade)
                                                     <option value="{{$grade->grade}}">{{{$grade->grade}}}</option>
                                                 @endforeach
@@ -121,11 +136,12 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Nature of Claim</label>
-                                            <select class="form-control select2 types"   name="gitype" id="types" style="width: 100%;" required>
+                                            <select class="form-control select2 types" name="gitype" id="types"
+                                                    style="width: 100%;" required>
                                                 <option selected="selected" disabled>Select Gitype</option>
-                                                <option value = "01">Retirement</option>
-                                                <option value = "02">Death</option>
-                                                <option value = "03">Death After Retirement</option>
+                                                <option value="01">Retirement</option>
+                                                <option value="02">Death</option>
+                                                <option value="03">Death After Retirement</option>
                                             </select>
                                         </div>
                                     </div>
@@ -135,35 +151,55 @@
                                             <label>Date of Retirement</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i
+                                                            class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" id="r_date"  name="retirementdate" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" id="r_date" name="retirementdate"
+                                                       class="form-control datemask" data-inputmask-alias="datetime"
+                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
                                         <!-- /.form group -->
                                     </div>
-
                                     <div class="col-sm-2" id="death">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Date of Death</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i
+                                                            class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="deathdate" id="d_date" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" name="deathdate" id="d_date"
+                                                       class="form-control datemask" data-inputmask-alias="datetime"
+                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
                                         <!-- /.form group -->
                                     </div>
+                                    <div class="col-sm-2" id="check">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
 
+                                                </div>
+                                                <input type="button" style="margin-top: 10px;" id="submit" value="Check"
+                                                       class="form-control  btn btn-primary">
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <!-- /.form group -->
+                                    </div>
                                     <div class="col-sm-2">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Age on Date</label>
-                                            <input type="text" name="ageondate" class="form-control" placeholder="Calculating......" required>
+                                            <input type="text" name="ageondate" class="form-control"
+                                                   placeholder="Calculating......" required>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +209,9 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Beneficiaries</label>
-                                            <input type="number" value="1" id="benef" min="1" max="5" name="beneficiaries" class="form-control " placeholder="beneficiaries" required>
+                                            <input type="number" value="1" id="benef" min="1" max="5"
+                                                   name="beneficiaries" class="form-control "
+                                                   placeholder="beneficiaries" required>
                                         </div>
                                     </div>
 
@@ -181,7 +219,8 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Contribution</label>
-                                            <input type="number" name="contribution" class="form-control " placeholder="Contribution" required>
+                                            <input type="number" name="contribution" class="form-control "
+                                                   placeholder="Contribution" required>
                                         </div>
                                     </div>
                                 </div>
@@ -189,83 +228,94 @@
                                     <h5><u>Beneficiary Details</u></h5>
                                 </div>
                                 <div id="addmore">
-                                <div class="row">
+                                    <div class="row">
 
-                                    <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Beneficiary CNIC</label>
-                                            <input type="text" id="benefcnic" name="beneficiarycnic" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Beneficiary Name</label>
-                                            <input type="text" id="benefname" name="beneficiaryname" class="form-control" placeholder="Beneficiary Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Relation</label>
-                                            <select class="form-control select2" id="rel" name="relation" style="width: 100%;" required>
-                                                <option selected="selected">Select Relation</option>
-                                                @foreach($relations as $relation)
-                                                    <option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a  class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i class="fa fa-user-plus"></i></a>
-                                    </div>
-                                </div>
-                                    <div class="row" >
-                                    <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Bank Name</label>
-                                            <select class="form-control select2" name="bank" id="bank" style="width: 100%;" required>
-                                                <option selected="selected" disabled>Select Bank</option>
-                                                @foreach($banks as $bank)
-                                                    <option value = "{{$bank->id}}">{{$bank->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Branch</label>
-                                            <select class="form-control select2 bankbranches" name="branch" style="width: 100%;" required>
-
-                                            </select>
-                                        </div>
-                                    </div>
                                         <div class="col-sm-2">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Account IBAN Number</label>
-                                            <input type="text" name="accountno" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup"
-                                            data-parsley-maxlength="24" data-parsley-minlength="24">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Beneficiary CNIC</label>
+                                                <input type="text" id="benefcnic" name="beneficiarycnic"
+                                                       class="form-control cnic" placeholder="Beneficiary CNIC" required
+                                                       data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Beneficiary Name</label>
+                                                <input type="text" id="benefname" name="beneficiaryname"
+                                                       class="form-control" placeholder="Beneficiary Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Relation</label>
+                                                <select class="form-control select2" id="rel" name="relation"
+                                                        style="width: 100%;" required>
+                                                    <option selected="selected">Select Relation</option>
+                                                    @foreach($relations as $relation)
+                                                        <option
+                                                            value="{{$relation->id}}">{{$relation->relation_desc}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a class="btn btn-success" onclick="addmore()" style="margin-top:30px;"><i
+                                                    class="fa fa-user-plus"></i></a>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-2" id="amount1" style="display: none">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Amount</label>
-                                            <input type="text" id="amount" name="amount" class="form-control" placeholder="calculating...." required>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Bank Name</label>
+                                                <select class="form-control select2" name="bank" id="bank"
+                                                        style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select Bank</option>
+                                                    @foreach($banks as $bank)
+                                                        <option value="{{$bank->id}}">{{$bank->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="col-sm-2">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Branch</label>
+                                                <select class="form-control select2 bankbranches" name="branch"
+                                                        style="width: 100%;" required>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Account IBAN Number</label>
+                                                <input type="text" name="accountno" class="form-control iban"
+                                                       placeholder="IBAN Number" data-parsley-type="alphanum"
+                                                       data-parsley-trigger="keyup"
+                                                       data-parsley-maxlength="24" data-parsley-minlength="24">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2" id="amount1" style="display: none">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="text" id="amount" name="amount" class="form-control"
+                                                       placeholder="calculating...." required>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
 
                                 </div>
 
-                                </div>
-
-                                <button  class="btn btn-primary">Submit</button>
+                                <button class="btn btn-primary">Submit</button>
 
                             </form>
                         </div>
@@ -281,273 +331,193 @@
     </section>
     <!-- /.content -->
 @endsection
- @section('scripts')
-     <script src="{{asset('parsley/parsley.min.js')}}"></script>
-     <script>
-         $('#entryform').parsley();
-     </script>
+@section('scripts')
+    <script src="{{asset('parsley/parsley.min.js')}}"></script>
+    <script>
+        $('#entryform').parsley();
+    </script>
 
-     <script>
+    <script>
 
-         $("#r_date").keyup(function(){
-             var dor = $("#r_date").val();
-             var types = $(".types").val();
-             function isValidDate(date) {
-                 var temp = date.split('/');
-                 var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
-                 return (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
-             }
-             console.log(isValidDate(dor))
-             if(isValidDate(dor)) {
-                 var grade = $("#grade").val();
-                 if(grade==null){
-                     alert('Please Select Grade')
-                     $("#r_date").val(null);
-                 }
-                 else{
-                     console.log(dor,grade);
+        $("#submit").click(function () {
+            var dor = $("#r_date").val();
+            console.log(dor);
 
-                     $.ajax({
-                         type: 'POST',
-                         url: '{{route('fetchrate')}}',
-                         data: {
-                             _token: "{{ csrf_token() }}",
-                             dor: dor,
-                             grade: grade,
-                         },
-                         success: function (response) {
-                             console.log(response);
-                             if(response){
-                                 $("#amount").val(response.retirement);
-                                 $("#amount1").show();
+            function isValidDate(s) {
+                var bits = s.split('/');
+                var d = new Date(bits[2], bits[1] - 1, bits[0]);
+                return d && (d.getMonth() + 1) == bits[1];
+            }
 
-                             }
-                             else{
-                                 $("#amount1").hide();
-                             }
+            console.log(isValidDate(dor))
+            if (isValidDate(dor)) {
+                var grade = $("#grade").val();
+                if (grade == null) {
+                    alert('Please Select Grade')
+                    $("#d_date").val(null);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{route('fetchrate')}}',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            dor: dor,
+                            grade: grade,
+                        },
+                        success: function (response) {
+                            console.log(response.success);
+                            if (response.success != null) {
+                                $("#amount").val(response.success.retirement);
+                                $("#amount1").show();
+                            } else {
+                                $("#amount").val(null);
+                                $("#r_date").val(null);
+                                alert('Please Select Valid Date')
+                            }
+                        }
+                    });
+                }
+            }
 
+        });
 
-                         }
-                     });
+    </script>
+    <script>
+        $("#submit").click(function () {
+            var dor = $("#d_date").val();
+            console.log(dor);
 
-                 }
+            function isValidDate(s) {
+                var bits = s.split('/');
+                var d = new Date(bits[2], bits[1] - 1, bits[0]);
+                return d && (d.getMonth() + 1) == bits[1];
+            }
 
-             }
+            console.log(isValidDate(dor))
+            if (isValidDate(dor)) {
+                var grade = $("#grade").val();
+                if (grade == null) {
+                    alert('Please Select Grade')
+                    $("#d_date").val(null);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{route('fetchrate')}}',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            dor: dor,
+                            grade: grade,
+                        },
+                        success: function (response) {
+                            console.log(response.success);
+                            if (response.success != null) {
+                                $("#amount").val(response.success.retirement);
+                                $("#amount1").show();
+                            } else {
+                                $("#amount").val(null);
+                                $("#d_date").val(null);
+                                alert('Please Select Valid Date')
+                            }
+                        }
+                    });
+                }
+            }
 
+        });
+    </script>
+    <script>
+        function addmore() {
+            $.post('{{route('addmore')}}', {_token: '{{csrf_token()}}'}, function (response) {
+                $('#addmore').html(response.data);
+            });
+        }
 
-         });
+        function addmore() {
+            var benef = $("#benef").val();
 
-     </script>
-     <script>
+            $('#addmore').append('<div class="row">' +
 
-         $("#d_date").keyup(function(){
-             var dor = $("#d_date").val();
-             console.log(dor);
-             var types = $(".types").val();
+                '<div class="col-sm-2">' +
+                <!-- text input -->
+                ' <div class="form-group">' +
+                ' <label>Beneficiary CNIC</label>' +
+                ' <input type="text" id="benefcnic" name="beneficiarycnic[]" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>' +
+                '</div>' +
+                '</div>' +
 
+                '<div class="col-sm-2">' +
+                <!-- text input -->
+                '<div class="form-group">' +
+                '<label>Beneficiary Name</label>' +
+                '<input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>' +
+                ' </div>' +
+                '</div>' +
 
-// Expect input as d/m/y
-             function isValidDate(s) {
-                 var bits = s.split('/');
-                 var d = new Date(bits[2], bits[1] - 1, bits[0]);
-                 return d && (d.getMonth() + 1) == bits[1];
-             }
+                '<div class="col-sm-2">' +
+                <!-- text input -->
+                '<div class="form-group">' +
+                '<label>Relation</label>' +
+                ' <select class="form-control select2" id="rel" name="relation[]" style="width: 100%;" required>' +
+                ' <option selected="selected">Select Relation</option>' +
+                '@foreach($relations as $relation)' +
+                '<option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>' +
+                ' @endforeach' +
+                '  </select>' +
+                '  </div>' +
+                ' </div>' +
+                '</div>' +
 
-             console.log(isValidDate(dor))
-             if(isValidDate(dor)) {
-                 var grade = $("#grade").val();
-                 if(grade==null){
-                     alert('Please Select Grade')
-                     $("#d_date").val(null);
-                 }
-                 else{
-                      console.log(dor,grade);
+                '<div class="row" >' +
+                '<div class="col-sm-2">' +
 
-                     $.ajax({
-                         type: 'POST',
-                         url: '{{route('fetchrate')}}',
-                         data: {
-                             _token: "{{ csrf_token() }}",
-                             dor: dor,
-                             grade: grade,
-                         },
-                         success: function (response) {
-                             console.log(response);
-                             if(response){
-                                 $("#amount").val(response.death);
-                                 $("#amount1").show();
+                '<div class="form-group">' +
+                '<label>Bank Name</label>' +
+                ' <select class="form-control select2" name="bank[]" id="bank" style="width: 100%;" required>' +
+                '<option selected="selected" disabled>Select Bank</option>' +
+                '@foreach($banks as $bank)' +
+                ' <option value = "{{$bank->id}}">{{$bank->name}}</option>' +
+                ' @endforeach' +
+                ' </select>' +
+                ' </div>' +
+                '</div>' +
 
-                             }
-                             else{
-                                 $("#amount1").hide();
-                             }
+                ' <div class="col-sm-2">' +
+                <!-- text input -->
+                ' <div class="form-group">' +
+                '<label>Branch</label>' +
+                ' <select class="form-control select2 bankbranches" name="branch[]" style="width: 100%;" required>' +
 
+                ' </select>' +
+                ' </div>' +
+                '</div>' +
 
-                         }
-                     });
+                '<div class="col-sm-2">' +
+                <!-- text input -->
+                '<div class="form-group">' +
+                ' <label>Account IBAN Number</label>' +
+                '<input type="text" name="accountno[]" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24">' +
+                ' </div>' +
+                ' </div>' +
 
-                 }
+                '<div class="col-sm-2" id="amount1" style="display: none">' +
+                ' <div class="form-group">' +
+                '  <label>Amount</label>' +
+                ' <input type="text" id="amount" name="amount[]" class="form-control" placeholder="calculating...." required>' +
+                '  </div>' +
+                ' </div>' +
 
-             }
+                ' <div class="col-sm-2">' +
+                ' <a  class="btn btn-danger" onclick="removecolor(this)" style="margin-top:30px;"><i class="fa fa-user-times" aria-hidden="true"></i></a>' +
+                '</div>' +
+                ' </div> ');
+        }
 
+        function removecolor(elem) {
+            if ($('#addmore .row').length > 1) {
+                $(elem).parent('div').parent('div').remove();
+            }
+        }
 
-         });
+    </script>
 
-     </script>
-     <script>
-         function addmore() {
-             $.post('{{route('addmore')}}', {_token: '{{csrf_token()}}'}, function (response) {
-                 $('#addmore').html(response.data);
-             });
-         }
-
-         function addmore() {
-             var benef = $("#benef").val();
-
-             $('#addmore').append('<div class="row">'+
-
-                 '<div class="col-sm-2">'+
-                 <!-- text input -->
-            ' <div class="form-group">'+
-                ' <label>Beneficiary CNIC</label>'+
-            ' <input type="text" id="benefcnic" name="beneficiarycnic[]" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>'+
-         '</div>'+
-         '</div>'+
-
-             '<div class="col-sm-2">'+
-                 <!-- text input -->
-                 '<div class="form-group">'+
-                     '<label>Beneficiary Name</label>'+
-                     '<input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>'+
-                ' </div>'+
-             '</div>'+
-
-             '<div class="col-sm-2">'+
-                 <!-- text input -->
-                 '<div class="form-group">'+
-                     '<label>Relation</label>'+
-                    ' <select class="form-control select2" id="rel" name="relation[]" style="width: 100%;" required>'+
-                        ' <option selected="selected">Select Relation</option>'+
-                         '@foreach($relations as $relation)'+
-                         '<option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>'+
-                        ' @endforeach'+
-                   '  </select>'+
-               '  </div>'+
-            ' </div>'+
-         '</div>' +
-
-                 '<div class="row" >' +
-                 '<div class="col-sm-2">' +
-
-                 '<div class="form-group">' +
-                 '<label>Bank Name</label>' +
-                 ' <select class="form-control select2" name="bank[]" id="bank" style="width: 100%;" required>' +
-                 '<option selected="selected" disabled>Select Bank</option>' +
-                 '@foreach($banks as $bank)' +
-                 ' <option value = "{{$bank->id}}">{{$bank->name}}</option>' +
-                 ' @endforeach' +
-                 ' </select>' +
-                 ' </div>' +
-                 '</div>' +
-
-                 ' <div class="col-sm-2">' +
-                 <!-- text input -->
-                 ' <div class="form-group">' +
-                 '<label>Branch</label>' +
-                 ' <select class="form-control select2 bankbranches" name="branch[]" style="width: 100%;" required>' +
-
-                 ' </select>' +
-                 ' </div>' +
-                 '</div>' +
-
-                 '<div class="col-sm-2">' +
-                 <!-- text input -->
-                 '<div class="form-group">' +
-                 ' <label>Account IBAN Number</label>' +
-                 '<input type="text" name="accountno[]" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24">' +
-                 ' </div>' +
-                 ' </div>' +
-
-                 '<div class="col-sm-2" id="amount1" style="display: none">' +
-                 ' <div class="form-group">' +
-                 '  <label>Amount</label>' +
-                 ' <input type="text" id="amount" name="amount[]" class="form-control" placeholder="calculating...." required>' +
-                 '  </div>' +
-                 ' </div>' +
-
-                 ' <div class="col-sm-2">' +
-                 ' <a  class="btn btn-danger" onclick="removecolor(this)" style="margin-top:30px;"><i class="fa fa-user-times" aria-hidden="true"></i></a>' +
-                 '</div>' +
-                 ' </div> ');
-         }
-         function removecolor(elem) {
-             if($('#addmore .row').length>1) {
-                 $(elem).parent('div').parent('div').remove();
-             }
-         }
-
-     </script>
-     <script>
-         function validatedate(inputText)
-         {
-             console.log(inputText)
-             var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-             // Match the date format through regular expression
-             if(inputText.value.match(dateformat))
-             {
-                 document.form1.text1.focus();
-                 //Test which seperator is used '/' or '-'
-                 var opera1 = inputText.value.split('/');
-                 var opera2 = inputText.value.split('-');
-                 lopera1 = opera1.length;
-                 lopera2 = opera2.length;
-                 // Extract the string into month, date and year
-                 if (lopera1>1)
-                 {
-                     var pdate = inputText.value.split('/');
-                 }
-                 else if (lopera2>1)
-                 {
-                     var pdate = inputText.value.split('-');
-                 }
-                 var dd = parseInt(pdate[0]);
-                 var mm  = parseInt(pdate[1]);
-                 var yy = parseInt(pdate[2]);
-                 // Create list of days of a month [assume there is no leap year by default]
-                 var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
-                 if (mm==1 || mm>2)
-                 {
-                     if (dd>ListofDays[mm-1])
-                     {
-                         alert('Invalid date format!');
-                         return false;
-                     }
-                 }
-                 if (mm==2)
-                 {
-                     var lyear = false;
-                     if ( (!(yy % 4) && yy % 100) || !(yy % 400))
-                     {
-                         lyear = true;
-                     }
-                     if ((lyear==false) && (dd>=29))
-                     {
-                         alert('Invalid date format!');
-                         return false;
-                     }
-                     if ((lyear==true) && (dd>29))
-                     {
-                         alert('Invalid date format!');
-                         return false;
-                     }
-                 }
-             }
-             else
-             {
-                 alert("Invalid date format!");
-                 document.form1.text1.focus();
-                 return false;
-             }
-         }
-     </script>
- @endsection
+@endsection
