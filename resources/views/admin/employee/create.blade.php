@@ -411,7 +411,7 @@
                         success: function (response) {
                             console.log(response.success);
                             if (response.success != null) {
-                                $("#amount").val(response.success.retirement);
+                                $("#amount").val(response.success.death);
                                 $("#amount1").show();
                             } else {
                                 $("#amount").val(null);
