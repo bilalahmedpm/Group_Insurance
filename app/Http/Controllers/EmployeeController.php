@@ -96,7 +96,7 @@ class EmployeeController extends Controller
         $employee->gitype         = $request->gitype;
         $employee->retirementdate = $request->retirementdate;
         $employee->dateofdeath    = $request->deathdate;
-        $employee->legalheirs     = $request->beneficiaries;
+        $employee->beneficiaries     = $request->beneficiaries;
         if ($user->role == 1 ){
             $employee->status         = 'OK';
         }

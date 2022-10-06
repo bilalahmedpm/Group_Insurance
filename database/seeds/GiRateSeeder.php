@@ -110,6 +110,30 @@ class GiRateSeeder extends Seeder
           ['grade' => '21' , 'retirement' => '1000000' , 'death' => '1250000' , 'begindate' => '2012-07-01' , 'enddate' => '2018-12-31'],
           ['grade' => '22' , 'retirement' => '1000000' , 'death' => '1250000' , 'begindate' => '2012-07-01' , 'enddate' => '2018-12-31'],
           ['grade' => 'special' , 'retirement' => '1000000' , 'death' => '1250000' , 'begindate' => '2012-07-01' , 'enddate' => '2018-12-31'],
+
+            //Fifth Notification
+            ['grade' => '01' , 'retirement' => '310000' , 'death' => '310000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '02' , 'retirement' => '320000' , 'death' => '320000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '03' , 'retirement' => '330000' , 'death' => '330000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '04' , 'retirement' => '340000' , 'death' => '340000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '05' , 'retirement' => '350000' , 'death' => '350000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '06' , 'retirement' => '360000' , 'death' => '360000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '07' , 'retirement' => '380000' , 'death' => '380000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '08' , 'retirement' => '390000' , 'death' => '390000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '09' , 'retirement' => '400000' , 'death' => '400000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '10' , 'retirement' => '420000' , 'death' => '420000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '11' , 'retirement' => '430000' , 'death' => '430000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '12' , 'retirement' => '460000' , 'death' => '460000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '13' , 'retirement' => '490000' , 'death' => '490000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '14' , 'retirement' => '520000' , 'death' => '520000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '15' , 'retirement' => '550000' , 'death' => '550000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '16' , 'retirement' => '650000' , 'death' => '650000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '17' , 'retirement' => '930000' , 'death' => '930000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '18' , 'retirement' => '1200000' , 'death' => '1200000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '19' , 'retirement' => '1800000' , 'death' => '1800000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '20' , 'retirement' => '2100000' , 'death' => '2100000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '21' , 'retirement' => '2400000' , 'death' => '2400000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
+            ['grade' => '22' , 'retirement' => '2500000' , 'death' => '2500000' , 'begindate' => '2019-01-01' , 'enddate' => '2099-12-31'],
         ];
         \App\GiRate::insert($rates);
     }

@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('role')->default(1); // 1=super admin; 2=admin; 3=user
             $table->string('status')->default('active');
             $table->unsignedBigInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

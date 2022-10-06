@@ -174,6 +174,19 @@
                                 </div>
 
                                 <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Contact No</label>
+                                            <input type="text" name="contact_no" class="form-control "
+                                                   placeholder="0331XXXXXXX" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
                                     <h5><u>Beneficiary Details</u></h5>
                                     <hr>
                                 </div>
@@ -228,49 +241,55 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <input class="form-control" name="employee_cnic_img" type="file" id="formFile" >
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Pension Roll Data
                                                         Sheet</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <input class="form-control" name="employee_penshion_sheet" type="file" id="formFile">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Retirement Order</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <input class="form-control" name="retirement_order" type="file" id="formFile">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Stamp Paper</label>
-                                                    <input class="form-control" type="file" id="formFile">
-                                                </div>
-                                            </div>
+
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Part III Form B</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <label for="formFile" class="form-label">Stamp Paper</label>
+                                                    <input class="form-control" name="stamp_paper" type="file" id="formFile">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Contribution Statement</label>
-                                                    <input class="form-control" type="file" id="formFile">
+                                                    <input class="form-control" name="contribution_statement" type="file" id="formFile">
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Part III Form B</label>
+                                                    <input class="form-control" name="part3_form" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                         <button class="btn btn-primary">Submit</button>
                                     </div>
                                     <!-- /.card-body -->

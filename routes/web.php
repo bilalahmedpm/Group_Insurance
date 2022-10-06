@@ -35,8 +35,8 @@ Route::middleware( [ 'auth'])->group(function () {
         Route::resource('employee', 'EmployeeController');
         Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');
 
-        Route::resource('roles', RoleController::class);
-        Route::resource('users', UserController::class);
+//        Route::resource('roles', RoleController::class);
+//        Route::resource('users', UserController::class);
 
     });
 

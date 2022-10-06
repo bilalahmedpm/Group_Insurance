@@ -161,11 +161,24 @@
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
-                                            <label>Contribution</label>
-                                            <input type="number" min="0" name="contribution" class="form-control" value="0"
-                                                   placeholder="Contribution" required readonly>
+                                            <label>Beneficiaries</label>
+                                            <input type="number"  min="1" max="5" name="beneficiaries" class="form-control "
+                                                   placeholder="beneficiaries" required>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Contact No</label>
+                                            <input type="text" name="contact_no" class="form-control "
+                                            placeholder="0331XXXXXXX" required>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="row">
@@ -255,48 +268,88 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <input class="form-control" name="death_employee_cnic" type="file" id="formFile">
+                                                    <input class="form-control" name="employee_cnic_img" type="file" id="formFile">
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Beneficiary CNIC</label>
-                                                    <input class="form-control" name="death_beneficiary_cnic" type="file" id="formFile">
+                                                    <input class="form-control" name="beneficiary_cnic" type="file" id="formFile">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Succession Certificate</label>
-                                                    <input class="form-control" name="succession_certificate" type="file" id="formFile">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Death Certificate</label>
                                                     <input class="form-control" name="death_certificate" type="file" id="formFile">
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Succession Certificate</label>
+                                                    <input class="form-control" name="succession_certificate" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                         <div class="row">
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Death Claim Form</label>
                                                     <input class="form-control" name="death_form" type="file" id="formFile">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Pension Sheet of Beneficiary</label>
                                                     <input class="form-control" name="beneficiary_pension_sheet" type="file" id="formFile">
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Last Pay Certificate</label>
+                                                    <input class="form-control" name="last_pay_certificate" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Bank Option Farm</label>
+                                                    <input class="form-control" name="bank_farm" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
                                         </div>
+                                    <!-- in case of 2 beneficiaries shown other wise hidden -->
+                                        <div class="row">
+
+                                            <div class="col-sm-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">2nd Beneficiary CNIC</label>
+                                                    <input class="form-control" name="beneficiary_cnic2" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Pension Sheet 2nd Beneficiary</label>
+                                                    <input class="form-control" name="beneficiary_pension_sheet2" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- in case of 2 beneficiaries shown other wise hidden -->
+
                                         <button class="btn btn-primary">Submit</button>
                                     </div>
                                     <!-- /.card-body -->

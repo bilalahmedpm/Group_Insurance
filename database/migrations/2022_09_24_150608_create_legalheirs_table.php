@@ -22,13 +22,13 @@ class CreateLegalheirsTable extends Migration
             $table->unsignedBigInteger('relation_id');
             $table->foreign('relation_id')->references('id')->on('relations');
             $table->unsignedBigInteger('bank_id');
-            $table->foreign('bank_id')->references('id')->on('banks');
+            $table->foreign('bank_id')->references('id')->on('banks')->onDelete('cascade');
             $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branches');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->string('accountno')->nullable();
             $table->string('amount')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
