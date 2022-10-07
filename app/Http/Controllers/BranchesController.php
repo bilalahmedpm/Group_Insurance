@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bank;
 use App\Branches;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class BranchesController extends Controller
      */
     public function index()
     {
-        //
+
+        $banks = Bank::all();
+        $branches = Branches::all();
+        return view('admin.branches.index' , compact('branches','banks'));
     }
 
     /**
@@ -35,7 +39,12 @@ class BranchesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $branch = new Branches();
+        $branch->bank_id = $request->bank;
+        $branch->branch_code = $request->branch_code;
+        $branch->branch_desc = $request->branch_desc;
+        $branch->save();
+        return redirect()->back()->with('message', 'Branch Added Successfully !');
     }
 
     /**
@@ -67,9 +76,14 @@ class BranchesController extends Controller
      * @param  \App\Branches  $branches
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Branches $branches)
+    public function update(Request $request, $id)
     {
-        //
+        $branch = Branches::find($id);
+        $branch->bank_id = $request->bank;
+        $branch->branch_code = $request->branch_code;
+        $branch->branch_desc = $request->branch_desc;
+        $branch->update();
+        return redirect()->back()->with('message', 'Branch Updated Successfully !');
     }
 
     /**
