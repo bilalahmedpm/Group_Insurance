@@ -24,6 +24,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Ekko Lightbox -->
+<script src="{{asset('plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
 <!-- Select2 -->
 <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- DataTables  & Plugins -->

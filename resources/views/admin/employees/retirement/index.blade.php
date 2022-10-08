@@ -18,7 +18,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form id="entryform" action="{{route('employee.store')}}" method="post">
+                            <form id="entryform" action="{{route('retrement_employee.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
 

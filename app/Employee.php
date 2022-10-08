@@ -11,6 +11,10 @@ class Employee extends Model
     {
         return $this->hasMany(\App\Legalheir::class);
     }
+    public function documents()
+    {
+        return $this->hasMany(\App\EmployeeDocument::class);
+    }
     public function designation()
     {
         return $this->belongsTo(\App\Designation::class);

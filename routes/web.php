@@ -46,5 +46,9 @@ Route::middleware( [ 'auth'])->group(function () {
     Route::get('/retirementrate', 'GiRateController@fetchretirement');
 
 
+    Route::post('/retiremment_entry', 'EmployeeController@retirement_store')->name('retrement_employee.store');
+    Route::get('/retiremment_view/{id}', 'EmployeeController@retirement_view')->name('retrement_employee.view');
+
+
 
 

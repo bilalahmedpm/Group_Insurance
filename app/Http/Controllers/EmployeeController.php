@@ -7,6 +7,7 @@ use App\Branches;
 use App\Department;
 use App\Designation;
 use App\Employee;
+use App\EmployeeDocument;
 use App\Grade;
 use App\Legalheir;
 use App\Relation;
@@ -23,19 +24,19 @@ class EmployeeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->role == 1 || $user->role == 2 ){
+        if ($user->role == 1 || $user->role == 2) {
             $employees = Employee::with('legals')->get();
-            return  view('admin.employee.index' ,compact('employees'));
+            return view('admin.employee.index', compact('employees'));
+        } else {
+            $employees = Employee::with('legals')->where('department_id', '=', $user->department_id)->get();
+            return view('admin.employee.index', compact('employees'));
         }
-        else{
-        $employees = Employee::with('legals')->where('department_id' ,'=', $user->department_id)->get();
-        return  view('admin.employee.index' ,compact('employees'));
     }
-    }
+
     public function department_report()
     {
         $departments = Department::with('employees')->get();
-        return view('admin.reports.department_report' ,compact('departments'));
+        return view('admin.reports.department_report', compact('departments'));
     }
 
     /**
@@ -48,16 +49,16 @@ class EmployeeController extends Controller
         //        $employees = Employee::with('legals')->get();
         $departments = Department::all();
         $designations = Designation::all();
-        $relations= Relation::all();
+        $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
-        return  view('admin.employee.create' ,compact('departments' , 'designations','relations','grades','banks'));
+        return view('admin.employee.create', compact('departments', 'designations', 'relations', 'grades', 'banks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -84,48 +85,47 @@ class EmployeeController extends Controller
 //            "accountno" => "required",
 //            "amount" => "required"
 //        ]);
-        $employee                 = new employee();
-        $employee->pno            = $request->personalnumber;
-        $employee->employeecnic   = $request->employeecnic;
-        $employee->employeename   = $request->employeename;
-        $employee->fathername     = $request->fathername;
-        $employee->dateofbirth    = $request->dateofbirth;
-        $employee->department_id  = $request->department;
+        $employee = new employee();
+        $employee->pno = $request->personalnumber;
+        $employee->employeecnic = $request->employeecnic;
+        $employee->employeename = $request->employeename;
+        $employee->fathername = $request->fathername;
+        $employee->dateofbirth = $request->dateofbirth;
+        $employee->department_id = $request->department;
         $employee->designation_id = $request->designation;
-        $employee->grade          = $request->grade;
-        $employee->gitype         = $request->gitype;
+        $employee->grade = $request->grade;
+        $employee->gitype = $request->gitype;
         $employee->retirementdate = $request->retirementdate;
-        $employee->dateofdeath    = $request->deathdate;
-        $employee->beneficiaries     = $request->beneficiaries;
-        if ($user->role == 1 ){
-            $employee->status         = 'OK';
+        $employee->dateofdeath = $request->deathdate;
+        $employee->beneficiaries = $request->beneficiaries;
+        if ($user->role == 1) {
+            $employee->status = 'OK';
+        } else {
+            $employee->status = 'Pending';
         }
-        else{
-            $employee->status         = 'Pending';
-        }
-        $employee->contribution   = $request->contribution;
-        $employee->user_id        = $user->id;
+        $employee->contribution = $request->contribution;
+        $employee->user_id = $user->id;
         $employee->save();
 
-        $beneficiary              = new legalheir();
+        $beneficiary = new legalheir();
         $beneficiary->employee_id = $employee->id;
-        $beneficiary->heircnic    = $request->beneficiarycnic;
-        $beneficiary->heirname    = $request->beneficiaryname;
+        $beneficiary->heircnic = $request->beneficiarycnic;
+        $beneficiary->heirname = $request->beneficiaryname;
         $beneficiary->relation_id = $request->relation;
-        $beneficiary->bank_id     = $request->bank;
-        $beneficiary->branch_id   = $request->branch;
-        $beneficiary->accountno   = $request->accountno;
-        $beneficiary->amount      = $request->amount;
-        $beneficiary->user_id     = $user->id;
+        $beneficiary->bank_id = $request->bank;
+        $beneficiary->branch_id = $request->branch;
+        $beneficiary->accountno = $request->accountno;
+        $beneficiary->amount = $request->amount;
+        $beneficiary->user_id = $user->id;
         $beneficiary->save();
 
-        return redirect()->back()->with('message' , 'Record Added successfully');
+        return redirect()->back()->with('message', 'Record Added successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Employee  $employee
+     * @param \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function show(Employee $employee)
@@ -136,7 +136,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Employee  $employee
+     * @param \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function edit(Employee $employee)
@@ -147,8 +147,8 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employee  $employee
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employee $employee)
@@ -159,32 +159,35 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Employee  $employee
+     * @param \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $employee)
     {
         //
     }
+
     public function retirement()
     {
         $departments = Department::all();
         $designations = Designation::all();
-        $relations= Relation::all();
+        $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
-        return  view('admin.employees.retirement.index' ,compact('departments' , 'designations','relations','grades','banks'));
+        return view('admin.employees.retirement.index', compact('departments', 'designations', 'relations', 'grades', 'banks'));
     }
+
     public function death()
     {
         $departments = Department::all();
         $designations = Designation::all();
-        $relations= Relation::all();
+        $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
-        return  view('admin.employees.death.index' ,compact('departments' , 'designations','relations','grades','banks'));
+        return view('admin.employees.death.index', compact('departments', 'designations', 'relations', 'grades', 'banks'));
 
     }
+
     public function death_after_retirement()
     {
         $departments = Department::all();
@@ -193,5 +196,137 @@ class EmployeeController extends Controller
         $grades = Grade::all();
         $banks = Bank::all();
         return view('admin.employees.death_after_retirement.index', compact('departments', 'designations', 'relations', 'grades', 'banks'));
+    }
+
+    public function retirement_store(Request $request)
+    {
+        $user = Auth::user();
+        $self = "1";
+//        $this->validate($request ,[
+//
+//            "pno"  => "required|min:8|max:8",
+//            "employeecnic" => "required|min:15|max:15",
+//            "employeename" => "required|max:255",
+//            "fathername" => "required|max:255",
+//            "dateofbirth" => "required",
+//            "dateofdeath" => "required",
+//            "department" => "required",
+//            "designation" => "required",
+//            "grade" => "required",
+//            "gitype" => "required",
+//            "dor" => "required",
+//            "contribution" => "required",
+//            "relation" => "requried",
+//            "bank" => "required",
+//            "branch" => "required",
+//            "accountno" => "required",
+//            "amount" => "required"
+//        ]);
+
+        // Employee Model
+        $employee = new employee();
+        $employee->pno = $request->personalnumber;
+        $employee->employeecnic = $request->employeecnic;
+        $employee->employeename = $request->employeename;
+        $employee->fathername = $request->fathername;
+        $employee->dateofbirth = $request->dateofbirth;
+        $employee->department_id = $request->department;
+        $employee->designation_id = $request->designation;
+        $employee->grade = $request->grade;
+        $employee->gitype = $request->gitype;
+        $employee->retirementdate = $request->retirementdate;
+        $employee->beneficiaries = "1";
+        $employee->status = "0";  //pending
+        $employee->contribution = $request->contribution;
+        $employee->contactno = $request->contact_no;
+        $employee->user_id = $user->id;
+        $employee->save();
+
+        // Legal Heir Model
+        $beneficiary = new legalheir();
+        $beneficiary->employee_id = $employee->id;
+        $beneficiary->heircnic = $employee->employeecnic;
+        $beneficiary->heirname = $employee->employeename;
+        $beneficiary->relation_id = $self;
+        $beneficiary->bank_id = $request->bank;
+        $beneficiary->branch_id = $request->branch;
+        $beneficiary->accountno = $request->accountno;
+        $beneficiary->amount = $request->amount;
+        $beneficiary->user_id = $user->id;
+        $beneficiary->save();
+
+        // Documents Model
+        $documents = new EmployeeDocument();
+        //employee cnic
+        if ($request->hasfile('employee_cnic_img')) {
+
+            $image1 = $request->file('employee_cnic_img');
+            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_cnic_img = 'employee_documents/' . $name;
+        }
+        // pension sheet
+        if ($request->hasfile('employee_penshion_sheet')) {
+
+            $image1 = $request->file('employee_penshion_sheet');
+            $name = time() . 'employee_penshion_sheet' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_pension_sheet_img = 'employee_documents/' . $name;
+        }
+        // retirement order
+        if ($request->hasfile('retirement_order')) {
+
+            $image1 = $request->file('retirement_order');
+            $name = time() . 'retirement_order' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->retirement_order = 'employee_documents/' . $name;
+        }
+        //stamp paper
+        if ($request->hasfile('stamp_paper')) {
+
+            $image1 = $request->file('stamp_paper');
+            $name = time() . 'stamp_paper' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->stamp_paper = 'employee_documents/' . $name;
+        }
+        // contribution statement
+        if ($request->hasfile('contribution_statement')) {
+
+            $image1 = $request->file('contribution_statement');
+            $name = time() . 'contribution_statement' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->contribution_statement = 'employee_documents/' . $name;
+        }
+        // part III form B
+        if ($request->hasfile('part3_form')) {
+
+            $image1 = $request->file('part3_form');
+            $name = time() . 'part3_form' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->part3form_b = 'employee_documents/' . $name;
+        }
+
+        $documents->employee_id = $employee->id;
+        $documents->user_id = $user->id;
+        $documents->save();
+
+
+        return redirect()->back()->with('message', 'Claim Added successfully');
+    }
+
+    public function retirement_view($id)
+    {
+        $employee = Employee::where('id' , $id)->get();
+        $documents = EmployeeDocument::where('employee_id' , $id)->get();
+//        dd($documents);
+//        $employee = $employee->with(['legals','documents'])->get();
+//        $employees = Employee::with('legals')->get();
+        return view('admin.employees.retirement.view', compact('employee' ,'documents'));
     }
 }
