@@ -33,6 +33,9 @@ Route::middleware( [ 'auth'])->group(function () {
         Route::resource('branch', 'BranchesController');
         Route::resource('user', 'UserController');
         Route::resource('employee', 'EmployeeController');
+    Route::get('/death/index', 'EmployeeController@deathIndex')->name('death.index');
+    Route::get('/death/after/index', 'EmployeeController@deathafterIndex')->name('death.after.index');
+    Route::get('/report/{id}', 'EmployeeController@report')->name('report');
         Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');
 
 //        Route::resource('roles', RoleController::class);
@@ -49,6 +52,7 @@ Route::middleware( [ 'auth'])->group(function () {
     Route::post('/retiremment_entry', 'EmployeeController@retirement_store')->name('retrement_employee.store');
     Route::get('/retiremment_view/{id}', 'EmployeeController@retirement_view')->name('retrement_employee.view');
 
+Route::post('/death_retiremment', 'EmployeeController@deathRetirementStore')->name('death_retrement.store');
 
 
 

@@ -102,13 +102,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('entry.death')}}" class="nav-link">
+                            <a href="{{route('death.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Death</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('entry.death_after_retirement')}}" class="nav-link">
+                            <a href="{{route('death.after.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Death After Retirement</p>
                             </a>

@@ -27,5 +27,9 @@ class Employee extends Model
     {
         return $this->belongsTo(\App\User::class);
     }
+    public function banks()
+    {
+        return $this->belongsTo(\App\Bank::class,'bank');
+    }
 
 }

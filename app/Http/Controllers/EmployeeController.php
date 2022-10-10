@@ -329,4 +329,200 @@ class EmployeeController extends Controller
 //        $employees = Employee::with('legals')->get();
         return view('admin.employees.retirement.view', compact('employee' ,'documents'));
     }
+    public function deathRetirementStore(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $employee = new employee();
+        $employee->pno = $request->personalnumber;
+        $employee->employeecnic = $request->employeecnic;
+        $employee->employeename = $request->employeename;
+        $employee->fathername = $request->fathername;
+        $employee->dateofbirth = $request->dateofbirth;
+        $employee->department_id = $request->department;
+        $employee->designation_id = $request->designation;
+        $employee->grade = $request->grade;
+        $employee->gitype = $request->gitype;
+        $employee->dateofdeath = $request->deathdate;
+        $employee->ageondate = $request->ageondate;
+        $employee->beneficiaries = $request->beneficiaries;
+        $employee->status = "0";  //pending
+        $employee->contactno = $request->contact_no;
+        $employee->user_id = $user->id;
+        if ($request->beneficiarycnic) {
+            foreach ($request->beneficiarycnic as $beneficiarycnic) {
+
+                $data[] = $beneficiarycnic;
+                $employee->beneficiarycnic = json_encode($data);
+            }
+        }
+        if ($request->beneficiaryname) {
+            foreach ($request->beneficiaryname as $beneficiaryname) {
+                $data1[] = $beneficiaryname;
+                $employee->beneficiaryname = json_encode($data1);
+            }
+        }
+        if ($request->relation) {
+            foreach ($request->relation as $relation) {
+                $data2[] = $relation;
+                $employee->relation = json_encode($data2);
+            }
+        }
+        if ($request->bank) {
+            foreach ($request->bank as $bank) {
+                $data3[] = $bank;
+                $employee->bank = json_encode($data3);
+            }
+        }
+        if ($request->accountno) {
+            foreach ($request->accountno as $accountno) {
+                $data4[] = $accountno;
+                $employee->accountno = json_encode($data4);
+            }
+        }
+        if ($request->amount) {
+            foreach ($request->amount as $amount) {
+                $data5[] = $amount;
+                $employee->amount = json_encode($data5);
+            }
+        }
+        if ($request->branch) {
+            foreach ($request->branch as $branch) {
+                $data6[] = $branch;
+                $employee->branch = json_encode($data6);
+            }
+        }
+
+        $employee->save();
+        $documents = new EmployeeDocument();
+        if ($request->hasfile('employee_cnic_img')) {
+
+            $image1 = $request->file('employee_cnic_img');
+            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_cnic_img = 'img/' . $name;
+        }
+        if ($request->hasfile('beneficiary_cnic')) {
+
+            foreach ($request->file('beneficiary_cnic') as $image) {
+                $name1 = time() . 'beneficiary_cnicc' . '.' . $image->getClientOriginalName();
+                $destinationPath = 'img';
+                $image->move($destinationPath, $name1);
+                $data7[] = 'img/' . $name1;
+            }
+
+            $documents->beneficiary_cnic1_img = json_encode($data7);
+
+        }
+
+        if ($request->hasfile('death_certificate')) {
+
+            $image1 = $request->file('death_certificate');
+            $name1 = time() . 'death_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->death_certificate = 'img/' . $name1;
+        }
+        if ($request->hasfile('succession_certificate')) {
+
+            $image1 = $request->file('succession_certificate');
+            $name1 = time() . 'succession_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->succession_certificate = 'img/' . $name1;
+        }
+        if ($request->hasfile('death_form')) {
+
+            $image1 = $request->file('death_form');
+            $name1 = time() . 'death_form' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->death_claim_farm = 'img/' . $name1;
+        }
+
+        if ($request->hasfile('beneficiary_pension_sheet')) {
+
+            foreach ($request->file('beneficiary_pension_sheet') as $image) {
+                $name1 = time() . 'employee_penshion_sheet' . '.' . $image->getClientOriginalName();
+                $destinationPath = 'img';
+                $image->move($destinationPath, $name1);
+                $data8[] = 'img/' . $name1;
+
+            }
+            $documents->beneficiary_pension_sheet1_img = json_encode($data8);
+
+        }
+        // retirement order
+        if ($request->hasfile('last_pay_certificate')) {
+
+            $image1 = $request->file('last_pay_certificate');
+            $name1 = time() . 'last_pay_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->lpc = 'img/' . $name1;
+        }
+        //stamp paper
+        if ($request->hasfile('bank_farm')) {
+
+            $image1 = $request->file('bank_farm');
+            $name1 = time() . 'bank_farm' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->bank_farm = 'img/' . $name1;
+        }
+        if ($request->hasfile('lpc')) {
+
+            $image1 = $request->file('lpc');
+            $name1 = time() . 'lpc' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->beneficiary_cnic2_img = 'img/' . $name1;
+        }
+
+
+        $documents->employee_id = $employee->id;
+        $documents->user_id = $user->id;
+        $documents->save();
+
+        return redirect()->back()->with('message', 'Claim Added successfully');
+    }
+    public function deathIndex()
+    {
+        $user = Auth::user();
+        if ($user->role == 1 || $user->role == 2) {
+            $employees = Employee::where('gitype','=','02')->get();
+        } else {
+            $employees = Employee::where('gitype','=','02')->where('department_id', '=', $user->department_id)->get();
+        }
+
+        return view('admin.employees.death.index2', compact('employees'));
+    }
+    public function report($id)
+    {
+        $employees = Employee::find($id);
+        $doc = EmployeeDocument::where('employee_id','=',$id)->first();
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations = Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        $branch = Branches::all();
+
+        return view('admin.employees.death.view', compact('employees','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+    }
+    public function deathafterIndex()
+    {
+        $user = Auth::user();
+        if ($user->role == 1 || $user->role == 2) {
+            $employees = Employee::where('gitype','=','03')->get();
+        } else {
+            $employees = Employee::where('gitype','=','03')->where('department_id', '=', $user->department_id)->get();
+        }
+
+        return view('admin.employees.death_after_retirement.index2', compact('employees'));
+    }
+
+
 }

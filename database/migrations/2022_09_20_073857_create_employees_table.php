@@ -20,6 +20,8 @@ class CreateEmployeesTable extends Migration
             $table->string('employeename')->nullable();
             $table->string('fathername')->nullable();
             $table->string('dateofbirth')->nullable();                                                                               // dd/mm/yyy
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->unsignedBigInteger('designation_id');
@@ -30,12 +32,17 @@ class CreateEmployeesTable extends Migration
             $table->string('dateofdeath')->nullable();                                                                               //  DD/MM/YYYY
             $table->string('beneficiaries', '1')->nullable();                                                               //legalheirs changed to beneficiaries    // if B= 1 than beneficiary will also enter 1 if 2 then beneficiary will be 2 and amount should be dividied by 2
             $table->string('status')->nullable();                                                                                   // 0 = Pending (default) 1  = objection 2= checked and processed  3 = cross chequed with employee data  4 = Awaiting for meeting 5= Approved
-            $table->unsignedBigInteger('objection_id')->nullable();                                                                 // if objection save objecion id into this field
-            $table->foreign('objection_id')->references('id')->on('objections')->onDelete('cascade');
             $table->biginteger('contribution')->nullable();                                                                           // retirement and Death after retirement (required) in case of death default value is 0 save
             $table->string('contactno')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // ADD NEW FIELD
+            $table->string('ageondate')->nullable();
+            $table->string('beneficiarycnic')->nullable();
+            $table->string('beneficiaryname')->nullable();
+            $table->string('relation')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('accountno')->nullable();
+            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }
