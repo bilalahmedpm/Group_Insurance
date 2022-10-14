@@ -67,24 +67,9 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Employee Claims
-                            <i class="fas fa-angle-left right"></i>
+                            All Claims
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('employee.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Claims</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Death Claims</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -96,7 +81,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('entry.retirement')}}" class="nav-link">
+                            <a href="{{route('retirement.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Retirement</p>
                             </a>

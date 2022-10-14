@@ -31,7 +31,7 @@
                                                    placeholder="Enter Personal Number"
                                                    data-inputmask-inputformat="99999999" data-mask
                                                    data-parsley-minlength="08" data-parsley-required
-                                                   data-parsley-type="digits" data-parsley-trigger="keyup"  readonly>
+                                                   data-parsley-type="digits" data-parsley-trigger="keyup"  >
                                             <div id="personal"></div>
                                             @error('personalnumber')
                                             <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                                             <input type="text" id="empcnic" value="{{$employee->employeecnic}}" name="employeecnic"
                                                    class="form-control cnic" placeholder="Enter CNIC"
                                                    data-inputmask-inputformat="99999-9999999-9" data-mask
-                                                   data-parsley-required data-parsley-trigger="keyup"  readonly>
+                                                   data-parsley-required data-parsley-trigger="keyup"  >
                                             @error('personalnumber')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                                             <label>Employee Name</label>
                                             <input type="text" id="empname" value="{{$employee->employeename}}" name="employeename"
                                                    class="form-control name" placeholder="Enter Employee Name"
-                                                   data-parsley-required data-parsley-trigger="keyup"  readonly>
+                                                   data-parsley-required data-parsley-trigger="keyup"  >
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -70,7 +70,7 @@
                                             <label>Father Name</label>
                                             <input type="text" name="fathername" value="{{$employee->fathername}}" class="form-control "
                                                    placeholder="Father Name"
-                                                   data-parsley-required data-parsley-trigger="keyup" readonly>
+                                                   data-parsley-required data-parsley-trigger="keyup" >
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                                     <input type="text" value="{{$employee->dateofbirth}}"  name="dateofbirth" id="dob"
                                                            class="form-control datemask"
                                                            data-inputmask-alias="datetime"
-                                                           data-inputmask-inputformat="dd/mm/yyyy" data-mask required readonly>
+                                                           data-inputmask-inputformat="dd/mm/yyyy" data-mask required >
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
@@ -99,7 +99,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Department</label>
-                                            <select class="form-control  select2" disabled name="department" style="width: 100%;"
+                                            <select class="form-control  select2"  name="department" style="width: 100%;"
                                                     data-parsley-required >
                                                 <option selected="selected" disabled>Select Department</option>
                                                 @foreach( $departments as $department)
@@ -113,7 +113,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Designation</label>
-                                            <select class="form-control  select2" disabled name="designation"
+                                            <select class="form-control  select2" name="designation"
                                                     style="width: 100%;" required>
                                                 <option selected="selected" disabled>Select Designation</option>
                                                 @foreach( $designations as $designation)
@@ -127,7 +127,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Grade</label>
-                                            <select class="form-control select2" disabled id="grade" name="grade"
+                                            <select class="form-control select2"  id="grade" name="grade"
                                                     style="width: 100%;" required>
                                                 <option selected="selected" disabled>Select Grade</option>
                                                 @foreach( $grades as $grade)
@@ -146,7 +146,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Nature of Claim</label>
-                                            <select class="form-control" disabled name="gitype" id="types" style="width: 100%;"
+                                            <select class="form-control"  name="gitype" id="types" style="width: 100%;"
                                                     required>
                                                 @if($employee->gitype=='01')
                                                     <option value="01" selected="selected">Retirement</option>
@@ -166,7 +166,7 @@
                                                 <input type="text" name="retirementdate" value="{{$employee->retirementdate}}"id="r_date"
                                                        class="form-control datemask"
                                                        data-inputmask-alias="datetime"
-                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask required readonly>
+                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask required >
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -177,7 +177,7 @@
                                         <div class="form-group">
                                             <label>Age on Date</label>
                                             <input type="text" name="ageondate" value="{{$employee->ageondate}}" class="form-control" id="ageondate"
-                                                   placeholder="Calculating......" required readonly>
+                                                   placeholder="Calculating......" required >
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -185,7 +185,7 @@
                                         <div class="form-group">
                                             <label>Contribution</label>
                                             <input type="number" min="0" value="{{$employee->contribution}}" name="contribution" class="form-control "
-                                                   placeholder="Contribution" required readonly>
+                                                   placeholder="Contribution" required >
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
                                         <div class="form-group">
                                             <label>Contact No</label>
                                             <input type="text" name="contact_no" value="{{$employee->contactno}}" class="form-control "
-                                                   placeholder="0331XXXXXXX" required readonly>
+                                                   placeholder="0331XXXXXXX" required >
                                         </div>
                                     </div>
                                     <div class="col-sm-2"  id="check" >
@@ -219,56 +219,56 @@
 
                                 </div>
                                 @foreach($employee->legals as $legal)
-                                <div class="row">
-                                    <h5><u>Beneficiary Details</u></h5>
-                                    <hr>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Bank Name</label>
-                                            <select class="form-control select2" name="bank" id="bank" disabled
-                                                    style="width: 100%;" required>
-                                                <option selected="selected" disabled>Select Bank</option>
-                                                @foreach($banks as $bank)
-                                                    <option value="{{$bank->id}}" {{$bank->id == $legal->bank_id ? "selected":""}}>{{$bank->name}}</option>
-                                                @endforeach
+                                    <div class="row">
+                                        <h5><u>Beneficiary Details</u></h5>
+                                        <hr>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Bank Name</label>
+                                                <select class="form-control select2" name="bank" id="bank"
+                                                        style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select Bank</option>
+                                                    @foreach($banks as $bank)
+                                                        <option value="{{$bank->id}}" {{$bank->id == $legal->bank_id ? "selected":""}}>{{$bank->name}}</option>
+                                                    @endforeach
 
-                                            </select>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Branch</label>
+                                                <select class="form-control select2 bankbranches" name="branch"
+                                                        style="width: 100%;" required>
+                                                    @foreach($branch as $row)
+                                                        <option value="{{$row->id}}" {{$row->id == $legal->branch_id ? "selected":""}}>{{$row->branch_desc}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Account Number</label>
+                                                <input type="text" name="accountno" value="{{$legal->accountno}}" class="form-control iban"
+                                                       placeholder="IBAN Number" data-parsley-type="alphanum"
+                                                       data-parsley-trigger="keyup" data-parsley-maxlength="24"
+                                                       data-parsley-minlength="24" required >
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="text" name="amount" value="{{$legal->amount}}" id="amount"  class="form-control"
+                                                       placeholder="calculating...." required >
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Branch</label>
-                                            <select class="form-control select2 bankbranches" name="branch" disabled
-                                                    style="width: 100%;" required>
-                                                @foreach($branch as $row)
-                                                    <option value="{{$row->id}}" {{$row->id == $legal->branch_id ? "selected":""}}>{{$row->branch_desc}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Account Number</label>
-                                            <input type="text" name="accountno" value="{{$legal->accountno}}" class="form-control iban"
-                                                   placeholder="IBAN Number" data-parsley-type="alphanum"
-                                                   data-parsley-trigger="keyup" data-parsley-maxlength="24"
-                                                   data-parsley-minlength="24" required readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Amount</label>
-                                            <input type="text" name="amount" value="{{$legal->amount}}" id="amount" readonly class="form-control"
-                                                   placeholder="calculating...." required >
-                                        </div>
-                                    </div>
-                                </div>
                                 @endforeach
                                 {{--                                Attacments Section--}}
                                 <div class="card card-secondary">
@@ -352,7 +352,7 @@
 
                                         </div>
 
-{{--                                        <button class="btn btn-primary">Submit</button>--}}
+                                        {{--                                        <button class="btn btn-primary">Submit</button>--}}
                                     </div>
                                     <!-- /.card-body -->
                                 </div>

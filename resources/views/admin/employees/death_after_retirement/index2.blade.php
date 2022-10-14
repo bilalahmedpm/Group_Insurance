@@ -58,36 +58,61 @@
                                                 <span class="right badge badge-success">Death after Retirement</span>
                                             @endif
                                         </td>
-                                        <td >
-                                            @foreach(json_decode($row->beneficiaryname) as $key=>$item)
-                                                <b>{{$key+1}} : {{$item}}</b><br>
-                                            @endforeach
-                                        </td >
-                                        <td >
-                                            @foreach(json_decode($row->relation) as $key=>$item)
-                                                <?php $realation = \App\Relation::find($item); ?>
-                                                <b>{{$key+1}} : {{$realation->relation_desc}}</b><br>
-                                            @endforeach
-                                        </td >
-                                        <td >
-                                            @foreach(json_decode($row->bank) as $key=>$item)
-                                                <?php $bank = \App\Bank::find($item); ?>
-                                                <b>{{$key+1}} : {{$bank->name}}</b><br>
-                                            @endforeach
-                                        </td>
-                                        <td >
-                                            @foreach(json_decode($row->branch) as $key=>$item)
-                                                <?php $branch = \App\Branches::find($item); ?>
-                                                <b>{{$key+1}} : {{$branch->branch_desc}}</b><br>
+                                        <td>
+                                            @foreach($row->legals as $key =>  $row1)
+                                                {{$key +1}} : {{$row1->heirname}} <br>
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach(json_decode($row->amount) as $key=>$item)
-                                                <b>{{$key+1}} : {{$item}}</b><br>
+                                            @foreach($row->legals as $key =>  $row1)
+                                                {{$key +1}} : {{$row1->relation->relation_desc}} <br>
                                             @endforeach
                                         </td>
                                         <td>
-                                            <a href="{{route('report' ,$row->id)}}"
+                                            @foreach($row->legals as $key =>  $row1)
+                                                {{$key +1}} : {{$row1->bank->name}} <br>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($row->legals as $key =>  $row1)
+                                                {{$key +1}} : {{$row1->branch->branch_desc}} <br>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($row->legals as $key =>  $row1)
+                                                {{$key +1}} : {{$row1->amount}} <br>
+                                            @endforeach
+                                        </td>
+{{--                                        <td >--}}
+{{--                                            @foreach(json_decode($row->beneficiaryname) as $key=>$item)--}}
+{{--                                                <b>{{$key+1}} : {{$item}}</b><br>--}}
+{{--                                            @endforeach--}}
+{{--                                        </td >--}}
+{{--                                        <td >--}}
+{{--                                            @foreach(json_decode($row->relation) as $key=>$item)--}}
+{{--                                                <?php $realation = \App\Relation::find($item); ?>--}}
+{{--                                                <b>{{$key+1}} : {{$realation->relation_desc}}</b><br>--}}
+{{--                                            @endforeach--}}
+{{--                                        </td >--}}
+{{--                                        <td >--}}
+{{--                                            @foreach(json_decode($row->bank) as $key=>$item)--}}
+{{--                                                <?php $bank = \App\Bank::find($item); ?>--}}
+{{--                                                <b>{{$key+1}} : {{$bank->name}}</b><br>--}}
+{{--                                            @endforeach--}}
+{{--                                        </td>--}}
+{{--                                        <td >--}}
+{{--                                            @foreach(json_decode($row->branch) as $key=>$item)--}}
+{{--                                                <?php $branch = \App\Branches::find($item); ?>--}}
+{{--                                                <b>{{$key+1}} : {{$branch->branch_desc}}</b><br>--}}
+{{--                                            @endforeach--}}
+{{--                                        </td>--}}
+{{--                                        <td>--}}
+{{--                                            @foreach(json_decode($row->amount) as $key=>$item)--}}
+{{--                                                <b>{{$key+1}} : {{$item}}</b><br>--}}
+{{--                                            @endforeach--}}
+{{--                                        </td>--}}
+                                        <td>
+                                            <a href="{{route('death.after.view' ,$row->id)}}"
                                                class="btn btn-sm btn-primary"
                                                title="edit">
                                                 <i class="fa fa-eye"></i> View

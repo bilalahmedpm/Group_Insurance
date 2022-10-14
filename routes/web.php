@@ -20,39 +20,60 @@ use App\Http\Controllers\BankController;
 Route::get('/', function () {
     return view('admin.index');
 })->middleware('auth');
+
 Route::middleware(['auth','role'])->group(function () {
 
 });
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate');
+Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate'); //Calculate Amount route
 Route::post('addmore', 'GiRateController@addMore')->name('addmore');
+
 Route::middleware( [ 'auth'])->group(function () {
-        Route::resource('bank', 'BankController');
-        Route::resource('branch', 'BranchesController');
-        Route::resource('user', 'UserController');
-        Route::resource('employee', 'EmployeeController');
+    Route::resource('bank', 'BankController');
+    Route::resource('branch', 'BranchesController');
+    Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches'); // fetch bank branches route
+    Route::resource('user', 'UserController');
+    Route::resource('employee', 'EmployeeController');
+//retirement routes
+    Route::get('/retirement/index', 'EmployeeController@retirementindex')->name('retirement.index');
+    Route::get('/retirement', 'EmployeeController@retirement')->name('entry.retirement');
+    Route::post('/retirement_entry', 'EmployeeController@retirement_store')->name('retirement.store');
+    Route::get('/retirement_edit/{id}', 'EmployeeController@retirement_edit')->name('retirement.edit');
+//death routes
     Route::get('/death/index', 'EmployeeController@deathIndex')->name('death.index');
+    Route::get('/death', 'EmployeeController@death')->name('entry.death');
+    Route::post('/death/store', 'EmployeeController@deathstore')->name('death.store');
+// Death after retirement Routes
     Route::get('/death/after/index', 'EmployeeController@deathafterIndex')->name('death.after.index');
-    Route::get('/report/{id}', 'EmployeeController@report')->name('report');
-        Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches');
+    Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
+
+
+//Single Case views
+    Route::get('/retirement/{id}', 'EmployeeController@retirement_view')->name('retirement.view');
+    Route::get('/death/{id}', 'EmployeeController@deathview')->name('death.view');
+    Route::get('/death/after/{id}', 'EmployeeController@deathafterview')->name('death.after.view');
+
+
 
 //        Route::resource('roles', RoleController::class);
 //        Route::resource('users', UserController::class);
 
     });
 
-    Route::get('/retirement', 'EmployeeController@retirement')->name('entry.retirement');
-    Route::get('/death', 'EmployeeController@death')->name('entry.death');
-    Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
+
+
+
     Route::get('/retirementrate', 'GiRateController@fetchretirement');
 
+    // duplicate checking
+    Route::post('/pno_checking', 'EmployeeController@pnocheck')->name('pno.check');
+//    Route::post('/cnic_checking', 'EmployeeController@cniccheck')->name('cnic.check');
 
-    Route::post('/retiremment_entry', 'EmployeeController@retirement_store')->name('retrement_employee.store');
+
     Route::get('/retiremment_view/{id}', 'EmployeeController@retirement_view')->name('retrement_employee.view');
 
-Route::post('/death_retiremment', 'EmployeeController@deathRetirementStore')->name('death_retrement.store');
 
 
 

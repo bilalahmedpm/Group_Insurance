@@ -17,17 +17,19 @@
                             <h3 class="card-title">Death Entry Form</h3>
                         </div>
                         <!-- /.card-header -->
+
                         <div class="card-body">
-                            <form action="{{route('death_retrement.store')}}" method="post" accept-charset="UTF-8"
+                            <form action="{{route('death.store')}}" method="post" accept-charset="UTF-8"
                                   enctype="multipart/form-data">
                                 @csrf
                                 {{--Row1--}}
+                                @foreach($employees as $row)
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Personal Number</label>
-                                            <input  type="text" value="{{$employees->pno}}"
+                                            <input  type="text" value="{{$row->pno}}"
                                                    name="personalnumber" class="form-control pno"
                                                    placeholder="Enter Personal Number"
                                                    data-inputmask-inputformat="99999999" data-mask
@@ -39,7 +41,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Employee CNIC</label>
-                                            <input type="text" id="empcnic" value="{{$employees->employeecnic}}"
+                                            <input type="text" id="empcnic" value="{{$row->employeecnic}}"
                                                    readonly name="employeecnic"
                                                    class="form-control cnic" placeholder="Enter CNIC"
                                                    data-inputmask-inputformat="99999-9999999-9" data-mask
@@ -51,7 +53,7 @@
                                         <div class="form-group">
                                             <label>Employee Name</label>
                                             <input type="text" id="empname" name="employeename"
-                                                   class="form-control name" value="{{$employees->employeename}}"
+                                                   class="form-control name" value="{{$row->employeename}}"
                                                    readonly placeholder="Enter Employee Name"
                                                    data-parsley-required data-parsley-trigger="keyup">
                                         </div>
@@ -60,7 +62,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Father Name</label>
-                                            <input type="text" readonly value="{{$employees->fathername}}"
+                                            <input type="text" readonly value="{{$row->fathername}}"
                                                    name="fathername" class="form-control "
                                                    placeholder="Father Name"
                                                    data-parsley-required data-parsley-trigger="keyup">
@@ -80,7 +82,7 @@
                                                                 class="far fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input readonly type="text" name="dateofbirth"
-                                                           value="{{$employees->dateofbirth}}" id="dob"
+                                                           value="{{$row->dateofbirth}}" id="dob"
                                                            class="form-control datemask"
                                                            data-inputmask-alias="datetime"
                                                            data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
@@ -99,7 +101,7 @@
                                                 <option selected="selected" disabled>Select Department</option>
                                                 @foreach( $departments as $department)
                                                     <option
-                                                        value="{{$department->id}}"{{$department->id == $employees->department_id ? "selected":""}}>{{{$department->department_desc}}}</option>
+                                                        value="{{$department->id}}"{{$department->id == $row->department_id ? "selected":""}}>{{{$department->department_desc}}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -113,7 +115,7 @@
                                                 <option selected="selected" disabled>Select Designation</option>
                                                 @foreach( $designations as $designation)
                                                     <option
-                                                        value="{{$designation->id}}" {{$designation->id == $employees->designation_id ? "selected":""}}>{{{$designation->designation_desc}}}</option>
+                                                        value="{{$designation->id}}" {{$designation->id == $row->designation_id ? "selected":""}}>{{{$designation->designation_desc}}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -127,7 +129,7 @@
                                                 <option selected="selected" disabled>Select Grade</option>
                                                 @foreach( $grades as $grade)
                                                     <option
-                                                        value="{{$grade->grade}}" {{$grade->grade == $employees->grade ? "selected":""}}>{{{$grade->grade}}}</option>
+                                                        value="{{$grade->grade}}" {{$grade->grade == $row->grade ? "selected":""}}>{{{$grade->grade}}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -142,9 +144,9 @@
                                             <select class="form-control" disabled name="gitype" id="types"
                                                     style="width: 100%;"
                                                     required>
-                                                @if($employees->gitype=='02')
+                                                @if($row->gitype =='02')
                                                     <option value="03" selected="selected">Death</option>
-                                                    @elseif($employees->gitype=='03')
+                                                    @elseif($row->gitype =='03')
                                                 <option value="03" selected="selected">Death After Retirement</option>
                                                 @endif
                                             </select>
@@ -159,7 +161,7 @@
                                                     <span class="input-group-text"><i
                                                             class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" readonly value="{{$employees->dateofdeath}}" name="deathdate"
+                                                <input type="text" readonly value="{{$row->dateofdeath}}" name="deathdate"
                                                        id="d_date" class="form-control datemask"
                                                        data-inputmask-alias="datetime"
                                                        data-inputmask-inputformat="dd/mm/yyyy" data-mask>
@@ -184,15 +186,27 @@
                                         </div>
                                         <!-- /.form group -->
                                     </div>
+
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Age on Date</label>
-                                            <input type="number" readonly value="{{$employees->ageondate}}"
+                                            <input type="number" readonly value="{{$row->ageondate}}"
                                                    id="ageondate" name="ageondate" class="form-control"
                                                    placeholder="Calculating......" required>
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Contact No</label>
+                                            <input type="text" readonly value="{{$row->contactno}}"
+                                                   name="contact_no" class="form-control "
+                                                   placeholder="0331XXXXXXX" required>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="row">
@@ -200,7 +214,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Beneficiaries</label>
-                                            <input type="number" readonly value="{{$employees->beneficiaries}}"
+                                            <input type="number" readonly value="{{$row->beneficiaries}}"
                                                    id="beneficiaries" value="1" min="1" max="5" name="beneficiaries"
                                                    class="form-control "
                                                    placeholder="Beneficiaries" required>
@@ -214,18 +228,9 @@
                                                    class="form-control  btn btn-primary">
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Contact No</label>
-                                            <input type="text" readonly value="{{$employees->contactno}}"
-                                                   name="contact_no" class="form-control "
-                                                   placeholder="0331XXXXXXX" required>
-                                        </div>
-                                    </div>
 
                                 </div>
-                                @foreach(json_decode($employees->beneficiarycnic) as $key=>$row)
+                                @foreach($row->legals as $key => $row1)
                                 <div class="row">
 
                                     <h5><u>Beneficiary Details</u><b>[{{$key+1}}]</b></h5>
@@ -233,19 +238,19 @@
                                 </div>
 
                                 <div id="addmore">
-                                    <?php $relationn = json_decode($employees->relation);
-                                     $beneficiaryname = json_decode($employees->beneficiaryname);
-                                    $bankk = json_decode($employees->bank);
-                                    $branchh =json_decode($employees->branch);
-                                    $accountno =json_decode($employees->accountno);
-                                    $amount =json_decode($employees->accountno);
-                                    ?>
+{{--<!--                                    --><?php //$relationn = json_decode($employees->relation);--}}
+{{--//                                     $beneficiaryname = json_decode($employees->beneficiaryname);--}}
+{{--//                                    $bankk = json_decode($employees->bank);--}}
+{{--//                                    $branchh =json_decode($employees->branch);--}}
+{{--//                                    $accountno =json_decode($employees->accountno);--}}
+{{--//                                    $amount =json_decode($employees->amount);--}}
+{{--//                                    ?>--}}
                                     <div class="row">
                                         <div class="col-sm-4">
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Beneficiary CNIC</label>
-                                                    <input readonly type="text" id="benefcnic" value="{{$row}}"
+                                                    <input readonly type="text" id="benefcnic" value="{{$row1->heircnic}}"
                                                            name="beneficiarycnic[]" class="form-control cnic"
                                                            placeholder="Beneficiary CNIC" required
                                                            data-inputmask-inputformat="99999-9999999-9" data-mask>
@@ -256,7 +261,7 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Beneficiary Name</label>
-                                                    <input type="text" readonly value="{{$beneficiaryname[$key]}}" id="benefname" name="beneficiaryname[]"
+                                                    <input type="text" readonly value="{{$row1->heirname}}" id="benefname" name="beneficiaryname[]"
                                                            class="form-control" placeholder="Beneficiary Name" required>
                                                 </div>
                                             </div>
@@ -270,7 +275,7 @@
                                                             <option selected="selected">Select Relation</option>
                                                             @foreach($relations as $relation)
                                                                 <option
-                                                                    value="{{$relation->id}}" {{$relation->id == $relationn[$key] ? "selected":""}}>{{$relation->relation_desc}}</option>
+                                                                    value="{{$relation->id}}" {{$relation->id == $row1->relation_id  ? "selected":""}}>{{$relation->relation_desc}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -284,7 +289,7 @@
                                                                 style="width: 100%;" required>
                                                             <option selected="selected" disabled>Select Bank</option>
                                                             @foreach($banks as $bank)
-                                                                <option value="{{$bank->id}}" {{$bank->id == $bankk[$key] ? "selected":""}}>{{$bank->name}}</option>
+                                                                <option value="{{$bank->id}}" {{$bank->id == $row1->bank_id ? "selected":""}}>{{$bank->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -298,7 +303,7 @@
                                                                 name="branch[]"
                                                                 style="width: 100%;" required>
                                                             @foreach($branch as $row)
-                                                                <option value="{{$row->id}}" {{$row->id == $branchh[$key] ? "selected":""}}>{{$row->branch_desc}}</option>
+                                                                <option value="{{$row->id}}" {{$row->id == $row1->branch_id  ? "selected":""}}>{{$row->branch_desc}}</option>
                                                             @endforeach
 
                                                         </select>
@@ -309,7 +314,7 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Account Number</label>
-                                                        <input type="text"  readonly value="{{$accountno[$key]}}" name="accountno[]" class="form-control iban"
+                                                        <input type="text"  readonly value="{{$row1->accountno}}" name="accountno[]" class="form-control iban"
                                                                placeholder="IBAN Number" data-parsley-type="alphanum"
                                                                data-parsley-trigger="keyup" data-parsley-maxlength="24"
                                                                data-parsley-minlength="24" required>
@@ -320,16 +325,16 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Amount</label>
-                                                        <input type="text" readonly value="{{$amount[$key]}}" id="amount" name="amount[]"
+                                                        <input type="text" readonly value="{{$row1->amount}}" id="amount" name="amount[]"
                                                                class="form-control" placeholder="calculating...."
                                                                required>
-                                                    </div>
-                                                </div>
-
+                                             </div>
+                                         </div>
                                     </div>
-
                                 </div>
+
                                 @endforeach
+                            @endforeach
 
                                 {{--Attacments Section--}}
                                 <div class="card card-secondary">
@@ -351,6 +356,7 @@
 
                                                 </div>
                                             </div>
+
                                             @foreach(json_decode($doc->beneficiary_cnic1_img) as $key=>$row)
                                                 <div class="col-sm-3">
                                                     <div class="mb-3">

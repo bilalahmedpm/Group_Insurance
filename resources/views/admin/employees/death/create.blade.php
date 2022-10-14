@@ -18,7 +18,8 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form  action="{{route('death_retrement.store')}}" method="post"  accept-charset="UTF-8" enctype="multipart/form-data">
+                            <form action="{{route('death.store')}}" method="post" accept-charset="UTF-8"
+                                  enctype="multipart/form-data">
                                 @csrf
                                 {{--Row1--}}
                                 <div class="row">
@@ -39,7 +40,8 @@
                                             <label>Employee CNIC</label>
                                             <input type="text" id="empcnic" name="employeecnic"
                                                    class="form-control cnic" placeholder="Enter CNIC"
-                                                   data-inputmask-inputformat="99999-9999999-9" data-mask data-parsley-required data-parsley-trigger="keyup">
+                                                   data-inputmask-inputformat="99999-9999999-9" data-mask
+                                                   data-parsley-required data-parsley-trigger="keyup">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -73,7 +75,8 @@
                                                         <span class="input-group-text"><i
                                                                 class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" name="dateofbirth" id="dob" class="form-control datemask"
+                                                    <input type="text" name="dateofbirth" id="dob"
+                                                           class="form-control datemask"
                                                            data-inputmask-alias="datetime"
                                                            data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
                                                 </div>
@@ -132,27 +135,9 @@
                                             <select class="form-control" name="gitype" id="types" style="width: 100%;"
                                                     required>
                                                 <option selected="selected" disabled> Select Gitype</option>
-                                                <option value="03">Death After Retirement</option>
+                                                <option value="02">Death</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Date of Retirement</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i
-                                                            class="far fa-calendar-alt"></i></span>
-                                                </div>
-                                                <input type="text" name="retirementdate" id="r_date"
-                                                       class="form-control datemask"
-                                                       data-inputmask-alias="datetime"
-                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
-                                        <!-- /.form group -->
                                     </div>
                                     <div class="col-sm-3">
                                         <!-- text input -->
@@ -160,9 +145,12 @@
                                             <label>Date of Death</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i
+                                                            class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="deathdate" id="d_date" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" name="deathdate" id="d_date"
+                                                       class="form-control datemask" data-inputmask-alias="datetime"
+                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -178,27 +166,6 @@
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Beneficiaries</label>
-                                            <input type="number" id="beneficiaries" value="1"  min="1" max="5" name="beneficiaries" class="form-control "
-                                                   placeholder="Beneficiaries" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Contribution</label>
-                                            <input type="number" min="0" name="contribution" class="form-control "
-                                                   placeholder="Contribution" required>
-                                        </div>
-                                    </div>
-
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -207,6 +174,20 @@
                                                    placeholder="0331XXXXXXX" required>
                                         </div>
                                     </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Beneficiaries</label>
+                                            <input type="number" id="beneficiaries" value="1" min="1" max="5"
+                                                   name="beneficiaries" class="form-control "
+                                                   placeholder="Beneficiaries" required>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-1" id="check">
                                         <!-- text input -->
                                         <div class="form-group">
@@ -244,24 +225,29 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiary CNIC</label>
-                                                <input type="text" id="benefcnic" name="beneficiarycnic[]" class="form-control cnic" placeholder="Beneficiary CNIC" required data-inputmask-inputformat="99999-9999999-9" data-mask>
+                                                <input type="text" id="benefcnic" name="beneficiarycnic[]"
+                                                       class="form-control cnic" placeholder="Beneficiary CNIC" required
+                                                       data-inputmask-inputformat="99999-9999999-9" data-mask>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiary Name</label>
-                                                <input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>
+                                                <input type="text" id="benefname" name="beneficiaryname[]"
+                                                       class="form-control" placeholder="Beneficiary Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Relation</label>
-                                                <select class="form-control select2" id="rel" name="relation[]" style="width: 100%;" required>
+                                                <select class="form-control select2" id="rel" name="relation[]"
+                                                        style="width: 100%;" required>
                                                     <option selected="selected">Select Relation</option>
                                                     @foreach($relations as $relation)
-                                                        <option value = "{{$relation->id}}">{{$relation->relation_desc}}</option>
+                                                        <option
+                                                            value="{{$relation->id}}">{{$relation->relation_desc}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -299,11 +285,12 @@
                                                        data-parsley-minlength="24" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3" id="amount1" >
+                                        <div class="col-sm-3" id="amount1">
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Amount</label>
-                                                <input type="text" id="amount"  name="amount[]" class="form-control" placeholder="calculating...." required readonly>
+                                                <input type="text" id="amount" name="amount[]" class="form-control"
+                                                       placeholder="calculating...." required>
                                             </div>
                                         </div>
                                     </div>
@@ -321,28 +308,31 @@
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <input class="form-control" name="employee_cnic_img" type="file" >
+                                                    <input class="form-control" name="employee_cnic_img" type="file">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Beneficiary CNIC</label>
-                                                    <input class="form-control" name="beneficiary_cnic[]" type="file" multiple>
+                                                    <input class="form-control" name="beneficiary_cnic[]" type="file"
+                                                           multiple>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Death Certificate</label>
-                                                    <input class="form-control" name="death_certificate" type="file" >
+                                                    <input class="form-control" name="death_certificate" type="file">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Succession Certificate</label>
-                                                    <input class="form-control" name="succession_certificate" type="file" >
+                                                    <label for="formFile" class="form-label">Succession
+                                                        Certificate</label>
+                                                    <input class="form-control" name="succession_certificate"
+                                                           type="file">
                                                 </div>
                                             </div>
 
@@ -353,37 +343,33 @@
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Death Claim Form</label>
-                                                    <input class="form-control" name="death_form" type="file" >
+                                                    <input class="form-control" name="death_form" type="file">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Pension Sheet of Beneficiary</label>
-                                                    <input class="form-control" name="beneficiary_pension_sheet[]" type="file" multiple>
+                                                    <label for="formFile" class="form-label">Pension Sheet of
+                                                        Beneficiary</label>
+                                                    <input class="form-control" name="beneficiary_pension_sheet[]"
+                                                           type="file" multiple>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Last Pay Certificate</label>
-                                                    <input class="form-control" name="last_pay_certificate" type="file" >
+                                                    <label for="formFile" class="form-label">Last Pay
+                                                        Certificate</label>
+                                                    <input class="form-control" name="last_pay_certificate" type="file">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Bank Option Farm</label>
-                                                    <input class="form-control" name="bank_farm" type="file" >
+                                                    <input class="form-control" name="bank_farm" type="file">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Original Part III Form B</label>
-                                                    <input class="form-control" name="lpc" type="file" id="formFile">
-                                                </div>
-                                            </div>
-
 
                                         </div>
                                         <!-- in case of 2 beneficiaries shown other wise hidden -->
@@ -406,11 +392,10 @@
                                         {{--                                        </div>--}}
                                         <!-- in case of 2 beneficiaries shown other wise hidden -->
 
-
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
-                                <div class="col-sm-2"><button type="submit" class="btn btn-primary">Submit</button></div>
                             </form>
                         </div>
                         <!-- /.card-body -->
@@ -434,7 +419,7 @@
     </script>
     <script>
         $("#submit").click(function () {
-            var dor = $("#r_date").val();
+            var dor = $("#d_date").val();
             var dob = $("#dob").val();
             const per = $("#beneficiaries").val();
 
@@ -454,14 +439,14 @@
                 const date2 = new Date(dor);
                 const diffTime = Math.abs(date2 - date1);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                const year = Math.ceil(diffDays/365);
-                console.log(diffDays,year);
+                const year = Math.ceil(diffDays / 365);
+                console.log(diffDays, year);
                 $("#ageondate").val(year);
                 //end age calculate
                 var grade = $("#grade").val();
                 if (grade == null) {
                     alert('Please Select Grade')
-                    $("#r_date").val(null);
+                    $("#d_date").val(null);
                 } else {
                     $.ajax({
                         type: 'POST',
@@ -474,11 +459,11 @@
                         success: function (response) {
                             console.log(response.success);
                             if (response.success != null) {
-                                $("#amount").val(response.success.retirement);
+                                $("#amount").val(response.success.death);
                                 $("#amount1").show();
                             } else {
                                 $("#amount").val(null);
-                                $("#r_date").val(null);
+                                $("#d_date").val(null);
                                 alert('Please Select Valid Date')
                             }
                         }
@@ -490,20 +475,20 @@
     </script>
     <script>
         (function () {
-            var previous,privious2;
+            var previous, privious2;
             $("#beneficiaries").on('focus', function () {
                 previous = $("#beneficiaries").val();
             });
             $("#amount").on('focus', function () {
                 privious2 = $("#amount").val();
             });
-            $('#append').on('click', function() {
+            $('#append').on('click', function () {
                 var beneficiaries = $("#beneficiaries").val();
-                console.log("Privious"+previous);
-                console.log("New"+beneficiaries);
-                if (previous!=1) {
+                console.log("Privious" + previous);
+                console.log("New" + beneficiaries);
+                if (previous != 1) {
                     var c = $('#addmore .row').length;
-                    for($k=1; $k<=c-1; $k++) {
+                    for ($k = 1; $k <= c - 1; $k++) {
                         $('#okay').remove();
                     }
                 }
@@ -511,14 +496,16 @@
                 const per = $("#beneficiaries").val();
                 const amount = $("#amount").val();
                 $("#amount").val(amount / per);
+                $("#append2").hide();
 
-                for($i=1; $i<=beneficiaries-1; $i++){
-                    const key = $i+1;
+
+                for ($i = 1; $i <= beneficiaries - 1; $i++) {
+                    const key = $i + 1;
                     $('#addmore').append('<div class="row" id="okay">' +
                         '<div class="col-sm-12">' +
-                        ' <h5><u>Beneficiary Details ['+key+'] </u></h5> '+
-                        '<hr>'+
-                        '</div>'+
+                        ' <h5><u>Beneficiary Details [' + key + '] </u></h5> ' +
+                        '<hr>' +
+                        '</div>' +
                         '<div class="col-sm-4">' +
                         '<div class="form-group">' +
                         ' <label>Beneficiary CNIC</label>' +
@@ -542,38 +529,38 @@
                         ' </select>' +
                         '</div>' +
                         '</div>' +
-                        '<div class="col-sm-3">'+
-                        '<div class="form-group">'+
-                        '  <label>Bank Name</label>'+
-                        ' <select class="form-control select2" name="bank[]" id="bank" style="width: 100%;" required>'+
-                        '<option selected="selected" disabled>Select Bank</option>'+
-                        ' @foreach($banks as $bank)'+
-                        ' <option value="{{$bank->id}}">{{$bank->name}}</option>'+
-                        '@endforeach'+
-                        ' </select>'+
-                        '</div>'+
-                        '</div>'+
-                        ' <div class="col-sm-3">'+
-                        '<div class="form-group">'+
-                        '<label>Branch</label>'+
-                        '<select class="form-control select2 bankbranches" name="branch[]" style="width: 100%;" required>'+
+                        '<div class="col-sm-3">' +
+                        '<div class="form-group">' +
+                        '  <label>Bank Name</label>' +
+                        ' <select class="form-control select2" name="bank[]" id="bank" style="width: 100%;" required>' +
+                        '<option selected="selected" disabled>Select Bank</option>' +
+                        ' @foreach($banks as $bank)' +
+                        ' <option value="{{$bank->id}}">{{$bank->name}}</option>' +
+                        '@endforeach' +
+                        ' </select>' +
+                        '</div>' +
+                        '</div>' +
+                        ' <div class="col-sm-3">' +
+                        '<div class="form-group">' +
+                        '<label>Branch</label>' +
+                        '<select class="form-control select2 bankbranches" name="branch[]" style="width: 100%;" required>' +
 
-                        '</select>'+
-                        '</div>'+
-                        ' </div>'+
-                        '<div class="col-sm-3">'+
+                        '</select>' +
+                        '</div>' +
+                        ' </div>' +
+                        '<div class="col-sm-3">' +
                         <!-- text input -->
-                        '<div class="form-group">'+
-                        '<label>Account Number</label>'+
-                        '<input type="text" name="accountno[]" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24" required>'+
-                        '</div>'+
-                        '</div>'+
-                        '<div class="col-sm-3" id="amount1" >'+
+                        '<div class="form-group">' +
+                        '<label>Account Number</label>' +
+                        '<input type="text" name="accountno[]" class="form-control iban" placeholder="IBAN Number" data-parsley-type="alphanum" data-parsley-trigger="keyup" data-parsley-maxlength="24" data-parsley-minlength="24" required>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-sm-3" id="amount1" >' +
                         <!-- text input -->
-                        ' <div class="form-group">'+
-                        '<label>Amount</label>'+
-                        "<input type='text' id='amount' value='"+amount/per+"' name='amount[]' class='form-control' placeholder='calculating....' required readonly>"+
-                        '</div>'+
+                        ' <div class="form-group">' +
+                        '<label>Amount</label>' +
+                        "<input type='text' id='amount' value='" + amount / per + "' name='amount[]' class='form-control' placeholder='calculating....' required>" +
+                        '</div>' +
                         ' </div>');
                 }
 
@@ -587,5 +574,3 @@
         }
     </script>
 @endsection
-
-
