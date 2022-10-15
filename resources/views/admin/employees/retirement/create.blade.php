@@ -277,7 +277,7 @@
                                             <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <input class="form-control" name="employee_cnic_img" type="file"
+                                                    <input class="form-control fileupload" name="employee_cnic_img" type="file"
                                                            id="formFile">
                                                 </div>
                                             </div>
@@ -440,4 +440,5 @@
             });
 
     </script>
+
 @endsection

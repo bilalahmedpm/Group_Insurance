@@ -657,10 +657,109 @@ class EmployeeController extends Controller
         $branch = Branches::all();
         return view('admin.employees.retirement.edit', compact('employee','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
     }
-    public function retirement_update($id)
+    public function retirement_update(Request $request, $id)
     {
+        $user = Auth::user();
+        $self = "1";
 
+        // Employee Model
+
+        $employee = Employee::where('id','=',$id)->get();
+        $employee->pno = $request->personalnumber;
+        $employee->employeecnic = $request->employeecnic;
+        $employee->employeename = $request->employeename;
+        $employee->fathername = $request->fathername;
+        $employee->dateofbirth = $request->dateofbirth;
+        $employee->department_id = $request->department;
+        $employee->designation_id = $request->designation;
+        $employee->grade = $request->grade;
+        $employee->gitype = $request->gitype;
+        $employee->retirementdate = $request->retirementdate;
+        $employee->ageondate = $request->ageondate;
+        $employee->beneficiaries = "1";
+        $employee->status = "0";  //pending
+        $employee->contribution = $request->contribution;
+        $employee->contactno = $request->contact_no;
+        $employee->user_id = $user->id;
+        $employee->save();
+
+        $beneficiary = Legalheir::where('employee_id' , '=' , $id)->get();
+        // Legal Heir Model
+        $beneficiary->heircnic = $employee->employeecnic;
+        $beneficiary->heirname = $employee->employeename;
+        $beneficiary->relation_id = $self;
+        $beneficiary->bank_id = $request->bank;
+        $beneficiary->branch_id = $request->branch;
+        $beneficiary->accountno = $request->accountno;
+        $beneficiary->amount = $request->amount;
+        $beneficiary->user_id = $user->id;
+        $beneficiary->save();
+
+//        // Documents Model
+//        $documents = new EmployeeDocument();
+//        //employee cnic
+//        if ($request->hasfile('employee_cnic_img')) {
+//
+//            $image1 = $request->file('employee_cnic_img');
+//            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->employee_cnic_img = 'employee_documents/' . $name;
+//        }
+//        // pension sheet
+//        if ($request->hasfile('employee_penshion_sheet')) {
+//
+//            $image1 = $request->file('employee_penshion_sheet');
+//            $name = time() . 'employee_penshion_sheet' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->employee_pension_sheet_img = 'employee_documents/' . $name;
+//        }
+//        // retirement order
+//        if ($request->hasfile('retirement_order')) {
+//
+//            $image1 = $request->file('retirement_order');
+//            $name = time() . 'retirement_order' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->retirement_order = 'employee_documents/' . $name;
+//        }
+//        //stamp paper
+//        if ($request->hasfile('stamp_paper')) {
+//
+//            $image1 = $request->file('stamp_paper');
+//            $name = time() . 'stamp_paper' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->stamp_paper = 'employee_documents/' . $name;
+//        }
+//        // contribution statement
+//        if ($request->hasfile('contribution_statement')) {
+//
+//            $image1 = $request->file('contribution_statement');
+//            $name = time() . 'contribution_statement' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->contribution_statement = 'employee_documents/' . $name;
+//        }
+//        // part III form B
+//        if ($request->hasfile('part3_form')) {
+//
+//            $image1 = $request->file('part3_form');
+//            $name = time() . 'part3_form' . '.' . $image1->getClientOriginalExtension();
+//            $destinationPath = 'employee_documents/';
+//            $image1->move($destinationPath, $name);
+//            $documents->part3form_b = 'employee_documents/' . $name;
+//        }
+//
+//        $documents->employee_id = $employee->id;
+//        $documents->user_id = $user->id;
+//        $documents->save();
+
+
+        return redirect()->back()->with('message', 'Claim Updated successfully');
     }
+
     public function deathview($id)
     {
 //        $employees = Employee::find($id);

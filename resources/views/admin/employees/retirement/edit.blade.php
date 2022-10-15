@@ -14,11 +14,11 @@
                     <?php $user = Auth::user(); ?>
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Retirement Entry Form</h3>
+                            <h3 class="card-title">Retirement Edit Form</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form id="entryform" action="{{route('retirement.store')}}" method="post"
+                            <form id="entryform" action="{{route('retirement.update' ,$employee->id)}}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -200,7 +200,7 @@
                                                    placeholder="0331XXXXXXX" required >
                                         </div>
                                     </div>
-                                    <div class="col-sm-2"  id="check" >
+                                    <div class="col-sm-2"   >
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label></label>
@@ -352,10 +352,10 @@
 
                                         </div>
 
-                                        {{--                                        <button class="btn btn-primary">Submit</button>--}}
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <button class="btn btn-primary">Update Record</button>
                             </form>
                         </div>
                         <!-- /.card-body -->
@@ -372,4 +372,96 @@
     </section>
     <!-- /.content -->
 @endsection
+@section('scripts')
+    <script src="{{asset('parsley/parsley.min.js')}}"></script>
+    <script>
+        $('#entryform').parsley();
+    </script>
+    <script>
+        $("#submit").click(function () {
+            var dor = $("#r_date").val();
+            var dob = $("#dob").val();
+            // const per = $("#beneficiaries").val();
 
+            console.log(dor);
+
+            function isValidDate(s) {
+                var bits = s.split('/');
+                var d = new Date(bits[2], bits[1] - 1, bits[0]);
+                return d && (d.getMonth() + 1) == bits[1];
+            }
+
+            console.log(isValidDate(dob))
+            if (isValidDate(dor)) {
+                //age calculate
+                const date1 = new Date(dob);
+                const date2 = new Date(dor);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const year = Math.ceil(diffDays / 365);
+                console.log(diffDays, year);
+                $("#ageondate").val(year);
+                //end age calculate
+                var grade = $("#grade").val();
+                if (grade == null) {
+                    alert('Please Select Grade')
+                    $("#r_date").val(null);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{route('fetchrate')}}',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            dor: dor,
+                            grade: grade,
+                        },
+                        success: function (response) {
+                            console.log(response.success);
+                            if (response.success != null) {
+                                $("#amount").val(response.success.retirement);
+                            } else {
+                                $("#amount").val(null);
+                                $("#r_date").val(null);
+                                alert('Please Select Valid Date')
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+    </script>
+    <script>
+
+        $(document).ready(function() {
+            $("#pnumber").keyup(function () {
+                var pno = $("#pnumber").val();
+                console.log(pno);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{route('pno.check')}}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        pno: pno,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $('#personal').html(response);
+
+                    }
+
+                    // if (response.success != null) {
+                    //     $("#amount").val(response.success.retirement);
+                    // } else {
+                    //     $("#amount").val(null);
+                    //     $("#r_date").val(null);
+                    //     alert('Please Select Valid Date')
+                    // }
+                });
+            });
+
+        });
+
+    </script>
+@endsection
