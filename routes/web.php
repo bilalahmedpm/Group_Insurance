@@ -37,19 +37,21 @@ Route::middleware( [ 'auth'])->group(function () {
     Route::resource('user', 'UserController');
     Route::resource('employee', 'EmployeeController');
 //retirement routes
-    Route::get('/retirement/index', 'EmployeeController@retirementindex')->name('retirement.index');
-    Route::get('/retirement', 'EmployeeController@retirement')->name('entry.retirement');
-    Route::post('/retirement_entry', 'EmployeeController@retirement_store')->name('retirement.store');
-    Route::get('/retirement_edit/{id}', 'EmployeeController@retirement_edit')->name('retirement.edit');
-    Route::post('/retirement_update/{id}', 'EmployeeController@retirement_update')->name('retirement.update');
+    Route::get('/retirement/index', 'EmployeeController@retirementindex')->name('retirement.index'); //index
+    Route::get('/retirement', 'EmployeeController@retirement')->name('entry.retirement');            //create
+    Route::post('/retirement/store', 'EmployeeController@retirement_store')->name('retirement.store');  //store
+    Route::get('/retirement/edit/{id}', 'EmployeeController@retirement_edit')->name('retirement.edit'); //edit
+    Route::post('/retirement/update/{id}', 'EmployeeController@retirement_update')->name('retirement.update'); //update
 //death routes
     Route::get('/death/index', 'EmployeeController@deathIndex')->name('death.index');
     Route::get('/death', 'EmployeeController@death')->name('entry.death');
     Route::post('/death/store', 'EmployeeController@deathstore')->name('death.store');
+    Route::get('/death/edit/{id}', 'EmployeeController@death_edit')->name('death.edit'); //edit
 // Death after retirement Routes
     Route::get('/death/after/index', 'EmployeeController@deathafterIndex')->name('death.after.index');
     Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
-
+    Route::get('/death_after_retirement/store', 'EmployeeController@deathRetirementStore')->name('death_after_retirement.store');
+    Route::get('/death/after/edit/{id}', 'EmployeeController@death_after_edit')->name('death.after.edit'); //edit
 
 //Single Case views
     Route::get('/retirement/{id}', 'EmployeeController@retirement_view')->name('retirement.view');
@@ -63,17 +65,14 @@ Route::middleware( [ 'auth'])->group(function () {
 
     });
 
-
-
-
-    Route::get('/retirementrate', 'GiRateController@fetchretirement');
-
     // duplicate checking
     Route::post('/pno_checking', 'EmployeeController@pnocheck')->name('pno.check');
 //    Route::post('/cnic_checking', 'EmployeeController@cniccheck')->name('cnic.check');
 
+//  Reports
 
-    Route::get('/retiremment_view/{id}', 'EmployeeController@retirement_view')->name('retrement_employee.view');
+Route::get('/department', 'EmployeeController@department_report')->name('department.report');
+Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
 
 
 

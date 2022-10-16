@@ -101,6 +101,29 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Reports
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('department.report')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Department Wise List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('bank.report')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bank Wise List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link"
                        onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

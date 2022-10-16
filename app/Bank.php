@@ -10,5 +10,9 @@ class Bank extends Model
     {
         return $this->hasMany(Branches::class);
     }
+    public function legalheirs()
+    {
+        return $this->hasMany(Legalheir::class);
+    }
 
 }

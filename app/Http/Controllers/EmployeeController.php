@@ -13,6 +13,8 @@ use App\Legalheir;
 use App\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Table;
+use PhpParser\Node\Stmt\DeclareDeclare;
 
 class EmployeeController extends Controller
 {
@@ -63,13 +65,7 @@ class EmployeeController extends Controller
             $employees = Employee::with('legals')->where('gitype','=','03')->where('department_id', '=', $user->department_id)->get();
         }
 
-        return view('admin.employees.death_after_retirement.index2', compact('employees'));
-    }
-
-    public function department_report()
-    {
-        $departments = Department::with('employees')->get();
-        return view('admin.reports.department_report', compact('departments'));
+        return view('admin.employees.death_after_retirement.index', compact('employees'));
     }
 
     /**
@@ -99,26 +95,6 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
 
-//        $this->validate($request ,[
-//
-//            "pno"  => "required|min:8|max:8",
-//            "employeecnic" => "required|min:15|max:15",
-//            "employeename" => "required|max:255",
-//            "fathername" => "required|max:255",
-//            "dateofbirth" => "required",
-//            "dateofdeath" => "required",
-//            "department" => "required",
-//            "designation" => "required",
-//            "grade" => "required",
-//            "gitype" => "required",
-//            "dor" => "required",
-//            "contribution" => "required",
-//            "relation" => "requried",
-//            "bank" => "required",
-//            "branch" => "required",
-//            "accountno" => "required",
-//            "amount" => "required"
-//        ]);
         $employee = new employee();
         $employee->pno = $request->personalnumber;
         $employee->employeecnic = $request->employeecnic;
@@ -229,33 +205,13 @@ class EmployeeController extends Controller
         $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
-        return view('admin.employees.death_after_retirement.index', compact('departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.death_after_retirement.create', compact('departments', 'designations', 'relations', 'grades', 'banks'));
     }
 
     public function retirement_store(Request $request)
     {
         $user = Auth::user();
         $self = "1";
-//        $this->validate($request ,[
-//
-//            "pno"  => "required|min:8|max:8",
-//            "employeecnic" => "required|min:15|max:15",
-//            "employeename" => "required|max:255",
-//            "fathername" => "required|max:255",
-//            "dateofbirth" => "required",
-//            "dateofdeath" => "required",
-//            "department" => "required",
-//            "designation" => "required",
-//            "grade" => "required",
-//            "gitype" => "required",
-//            "dor" => "required",
-//            "contribution" => "required",
-//            "relation" => "requried",
-//            "bank" => "required",
-//            "branch" => "required",
-//            "accountno" => "required",
-//            "amount" => "required"
-//        ]);
 
         // Employee Model
         $employee = new employee();
@@ -683,6 +639,7 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
         $employee->save();
 
+
         $beneficiary = Legalheir::where('employee_id' , '=' , $id)->get();
         // Legal Heir Model
         $beneficiary->heircnic = $employee->employeecnic;
@@ -784,7 +741,7 @@ class EmployeeController extends Controller
         $grades = Grade::all();
         $banks = Bank::all();
         $branch = Branches::all();
-        return view('admin.employees.death.view', compact('employees','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.death_after_retirement.view', compact('employees','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
     }
 
     public function pnocheck(Request $request)
@@ -801,7 +758,28 @@ class EmployeeController extends Controller
             }
         }
     }
-
+    public function department_report()
+    {
+        $departments = Department::with('employees')->whereHas('employees')->get();
+//        $employee = Department::with('employees')->whereHas('employees')->get();
+//        $amount = [];
+//foreach ($employee as $row)
+//{
+//    foreach($row->employees as $row1)
+//    {
+//        $amount = Legalheir::where('employee_id','=',$row1->id)->get();
+//    }
+//
+//}
+//dd($amount);
+        return view('admin.reports.department_report', compact('departments'));
+    }
+    public function bank_report()
+    {
+        $banks = Bank::with('legalheirs')->whereHas('legalheirs')->get();
+//        dd($banks);
+        return view('admin.reports.bank_report', compact('banks'));
+    }
 
 }
 
