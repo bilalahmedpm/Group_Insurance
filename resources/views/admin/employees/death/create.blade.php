@@ -145,12 +145,9 @@
                                             <label>Date of Death</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i
-                                                            class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="deathdate" id="d_date"
-                                                       class="form-control datemask" data-inputmask-alias="datetime"
-                                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                <input type="text" name="deathdate" id="d_date" class="form-control datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                             </div>
                                             <!-- /.input group -->
                                         </div>
