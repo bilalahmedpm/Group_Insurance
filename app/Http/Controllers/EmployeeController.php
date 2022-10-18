@@ -10,18 +10,18 @@ use App\Employee;
 use App\EmployeeDocument;
 use App\Grade;
 use App\Legalheir;
+use App\objection;
 use App\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use mysql_xdevapi\Table;
-use PhpParser\Node\Stmt\DeclareDeclare;
 
 class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -34,35 +34,38 @@ class EmployeeController extends Controller
             return view('admin.employee.index', compact('employees'));
         }
     }
+
     public function retirementindex()
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::where('gitype','=','01')->get();
+            $employees = Employee::where('gitype', '=', '01')->get();
         } else {
-            $employees = Employee::where('gitype','=','01')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::where('gitype', '=', '01')->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.retirement.index', compact('employees'));
     }
+
     public function deathIndex()
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::with('legals')->where('gitype','=','02')->get();
+            $employees = Employee::with('legals')->where('gitype', '=', '02')->get();
         } else {
-            $employees = Employee::with('legals')->where('gitype','=','02')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::with('legals')->where('gitype', '=', '02')->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.death.index', compact('employees'));
     }
+
     public function deathafterIndex()
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::with('legals')->where('gitype','=','03')->get();
+            $employees = Employee::with('legals')->where('gitype', '=', '03')->get();
         } else {
-            $employees = Employee::with('legals')->where('gitype','=','03')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::with('legals')->where('gitype', '=', '03')->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.death_after_retirement.index', compact('employees'));
@@ -71,7 +74,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
 
     public function create()
@@ -88,8 +91,8 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -135,8 +138,8 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function show(Employee $employee)
     {
@@ -146,8 +149,8 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function edit(Employee $employee)
     {
@@ -157,9 +160,9 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Employee $employee
+     * @return Response
      */
     public function update(Request $request, Employee $employee)
     {
@@ -169,8 +172,8 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function destroy(Employee $employee)
     {
@@ -233,7 +236,7 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
         $employee->save();
 
-        $empid  = $employee->id;
+        $empid = $employee->id;
         // Legal Heir Model
         $beneficiary = new legalheir();
         $beneficiary->employee_id = $empid;
@@ -336,12 +339,11 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
 
         $employee->save();
-        $getid =$employee->id;
+        $getid = $employee->id;
 
-        $bankcount =  count($request->bank);
+        $bankcount = count($request->bank);
         // Legal Heir Model
-        for ($i = 0 ; $i < $bankcount ; $i++)
-        {
+        for ($i = 0; $i < $bankcount; $i++) {
             $beneficiary = new legalheir();
             $beneficiary->employee_id = $getid;
             $beneficiary->heircnic = $request->beneficiarycnic[$i];
@@ -474,12 +476,11 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
 
         $employee->save();
-        $getid =$employee->id;
+        $getid = $employee->id;
 
-        $bankcount =  count($request->bank);
+        $bankcount = count($request->bank);
         // Legal Heir Model
-        for ($i = 0 ; $i < $bankcount ; $i++)
-        {
+        for ($i = 0; $i < $bankcount; $i++) {
             $beneficiary = new legalheir();
             $beneficiary->employee_id = $getid;
             $beneficiary->heircnic = $request->beneficiarycnic[$i];
@@ -590,29 +591,31 @@ class EmployeeController extends Controller
     public function retirement_view($id)
     {
 //        $legalheirs = Legalheir::where('employee_id' , '=' , $id)->first();
-        $employee = Employee::with('legals')->where('id' , '=' , $id)->first();
-        $doc = EmployeeDocument::where('employee_id','=',$id)->first();
+        $employee = Employee::with('legals')->where('id', '=', $id)->first();
+        $doc = EmployeeDocument::where('employee_id', '=', $id)->first();
         $departments = Department::all();
         $designations = Designation::all();
         $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
         $branch = Branches::all();
-        return view('admin.employees.retirement.view', compact('employee','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.retirement.view', compact('employee', 'doc', 'branch', 'departments', 'designations', 'relations', 'grades', 'banks'));
     }
+
     public function retirement_edit($id)
     {
 //        $legalheirs = Legalheir::where('employee_id' , '=' , $id)->first();
-        $employee = Employee::with('legals')->where('id' , '=' , $id)->first();
-        $doc = EmployeeDocument::where('employee_id','=',$id)->first();
+        $employee = Employee::with('legals')->where('id', '=', $id)->first();
+        $doc = EmployeeDocument::where('employee_id', '=', $id)->first();
         $departments = Department::all();
         $designations = Designation::all();
         $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
         $branch = Branches::all();
-        return view('admin.employees.retirement.edit', compact('employee','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.retirement.edit', compact('employee', 'doc', 'branch', 'departments', 'designations', 'relations', 'grades', 'banks'));
     }
+
     public function retirement_update(Request $request, $id)
     {
         $user = Auth::user();
@@ -620,7 +623,7 @@ class EmployeeController extends Controller
 
         // Employee Model
 
-        $employee = Employee::where('id','=',$id)->get();
+        $employee = Employee::where('id', '=', $id)->get();
         $employee->pno = $request->personalnumber;
         $employee->employeecnic = $request->employeecnic;
         $employee->employeename = $request->employeename;
@@ -640,7 +643,7 @@ class EmployeeController extends Controller
         $employee->save();
 
 
-        $beneficiary = Legalheir::where('employee_id' , '=' , $id)->get();
+        $beneficiary = Legalheir::where('employee_id', '=', $id)->get();
         // Legal Heir Model
         $beneficiary->heircnic = $employee->employeecnic;
         $beneficiary->heirname = $employee->employeename;
@@ -720,47 +723,52 @@ class EmployeeController extends Controller
     public function deathview($id)
     {
 //        $employees = Employee::find($id);
-        $employees = Employee::with('legals')->where('id' , '=' , $id)->get();
-        $doc = EmployeeDocument::where('employee_id','=',$id)->first();
+        $employees = Employee::with('legals')->where('id', '=', $id)->get();
+        $doc = EmployeeDocument::where('employee_id', '=', $id)->first();
         $departments = Department::all();
         $designations = Designation::all();
         $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
         $branch = Branches::all();
-        return view('admin.employees.death.view', compact('employees','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.death.view', compact('employees', 'doc', 'branch', 'departments', 'designations', 'relations', 'grades', 'banks'));
     }
+
     public function deathafterview($id)
     {
 //        $employees = Employee::find($id);
-        $employees = Employee::with('legals')->where('id' , '=' , $id)->get();
-        $doc = EmployeeDocument::where('employee_id','=',$id)->first();
+        $employees = Employee::with('legals')->where('id', '=', $id)->get();
+        $doc = EmployeeDocument::where('employee_id', '=', $id)->first();
         $departments = Department::all();
         $designations = Designation::all();
         $relations = Relation::all();
         $grades = Grade::all();
         $banks = Bank::all();
         $branch = Branches::all();
-        return view('admin.employees.death_after_retirement.view', compact('employees','doc','branch','departments', 'designations', 'relations', 'grades', 'banks'));
+        return view('admin.employees.death_after_retirement.view', compact('employees', 'doc', 'branch', 'departments', 'designations', 'relations', 'grades', 'banks'));
     }
 
     public function pnocheck(Request $request)
     {
-        if($request->get('pno')){
-            $pno =  $request->get('pno');
-            $data = Employee::where('pno',$pno)->get();
-            if($data->count() > 0 ){
+        if ($request->get('pno')) {
+            $pno = $request->get('pno');
+            $data = Employee::where('pno', $pno)->get();
+            if ($data->count() > 0) {
 
                 echo "<span class='text-danger'>Personal Number has been taken</span>";
 
-            }else{
+            } else {
                 echo "<span class='text-success'>Personal Number Available</span>";
             }
         }
+
     }
+
     public function department_report()
     {
         $departments = Department::with('employees')->whereHas('employees')->get();
+        $total = Legalheir::sum('amount');
+
 //        $employee = Department::with('employees')->whereHas('employees')->get();
 //        $amount = [];
 //foreach ($employee as $row)
@@ -772,13 +780,45 @@ class EmployeeController extends Controller
 //
 //}
 //dd($amount);
-        return view('admin.reports.department_report', compact('departments'));
+        return view('admin.reports.department_report', compact('departments','total'));
     }
+
     public function bank_report()
     {
         $banks = Bank::with('legalheirs')->whereHas('legalheirs')->get();
 //        dd($banks);
         return view('admin.reports.bank_report', compact('banks'));
+    }
+
+    public function verify($id)
+    {
+        $emp = Employee::find($id);
+        $emp->status = 2;
+        $emp->update();
+        return redirect()->back()->with('message', 'ALl Document Verify Successfully');
+    }
+
+    public function objection(Request $request)
+    {
+        $emp = Employee::find($request->id);
+        $emp->status = 2;
+        $emp->update();
+        $obj = new objection();
+        $obj->description = $request->description;
+        $obj->employee_id = $emp->id;
+        $obj->department_id = $emp->department_id;
+        $obj->user_id = Auth::user()->id;
+        $obj->save();
+
+        return redirect()->back()->with('message', 'Object Submit Successfully');
+
+    }
+    public function employeeObjection()
+    {
+        $objection = objection::where('department_id','=',Auth::user()->department_id)->pluck('employee_id');
+        $employees = Employee::with('legals')->whereIn('id',$objection)->where('department_id', '=', Auth::user()->department_id)->get();
+        return view('admin.employees.death_after_retirement.index2', compact('employees'));
+
     }
 
 }

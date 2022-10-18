@@ -82,7 +82,10 @@
 
                 <!-- /.col -->
 
-
+                <tr>
+                    <td colspan="12"><h6 style="text-align: right"> Grand Total Amount :</h6></td>
+                    <td colspan="13"><h6 style="float: right">Rs:{{$total}}</h6></td>
+                </tr>
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->

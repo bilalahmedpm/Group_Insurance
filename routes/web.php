@@ -74,6 +74,9 @@ Route::middleware( [ 'auth'])->group(function () {
 Route::get('/department', 'EmployeeController@department_report')->name('department.report');
 Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
 
+Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
+Route::post('/objection', 'EmployeeController@objection')->name('objection');
+Route::get('/employeeee', 'EmployeeController@employeeObjection')->name('employeeee');
 
 
 

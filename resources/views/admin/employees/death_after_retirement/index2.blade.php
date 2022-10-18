@@ -5,12 +5,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <?php use App\Bank;use App\Branches;use App\Relation;$user = Auth::user(); ?>
+                    <?php $user = Auth::user(); ?>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">DataTable with default features</h3>
-                            <a href="{{route('entry.death')}}" style="margin-left: 30px;"
-                               class="btn btn-primary btn-sm float-right">Add New Death Claim</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -26,16 +24,17 @@
                                     <th>Post/Grade</th>
                                     <th>Status</th>
                                     <th>Gitype</th>
-                                    <th>Beneficiary Name</th>
-                                    <th>Relation</th>
-                                    <th>Bank</th>
-                                    <th>Branch</th>
+                                    <th >Beneficiary Name</th>
+                                    <th >Relation</th>
+                                    <th >Bank</th>
+                                    <th >Branch</th>
                                     <th>Amount</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($employees as $row)
+
                                     <tr>
                                         <td>{{$row->id}}</td>
                                         <td>{{$row->pno}}</td>
@@ -45,9 +44,11 @@
                                         <td>{{$row->department->department_desc}}</td>
                                         <td>{{$row->designation->designation_desc}} - ({{$row->grade}})</td>
                                         @if($row->status==0)
-                                            <td><span class="right badge badge-danger">Not Verified</span></td>
+                                            <td> <span class="right badge badge-warning">Not Verified</span></td>
+                                        @elseif($row->status==3)
+                                            <td> <span class="right badge badge-danger">Objection</span></td>
                                         @else
-                                            <td><span class="right badge badge-success">Verified</span></td>
+                                            <td> <span class="right badge badge-success">Verified</span></td>
                                         @endif
                                         <td>
                                             @if($row->gitype=='01')
@@ -60,7 +61,7 @@
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                             {{$key +1}} : {{$row1->heirname}} <br>
+                                                {{$key +1}} : {{$row1->heirname}} <br>
                                             @endforeach
                                         </td>
                                         <td>
@@ -83,49 +84,63 @@
                                                 {{$key +1}} : {{$row1->amount}} <br>
                                             @endforeach
                                         </td>
-
-{{--                                        <td>--}}
-{{--                                            @foreach($row1->heirname as $key=> $item)--}}
-{{--                                                <b>{{$key+1}} : {{$item}}</b><br>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
-{{--                                        <td>--}}
-{{--                                            @foreach($row1->relation as $key=>$item)--}}
-{{--                                                <b>{{$key+1}} : {{$realation->relation_desc}}</b><br>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
-{{--                                        <td>--}}
-{{--                                            @foreach($row1->bank as $key=>$item)--}}
-{{--                                                <b>{{$key+1}} : {{$bank->name}}</b><br>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
-{{--                                        <td>--}}
-{{--                                            @foreach($row->branch as $key=>$item)--}}
-
-{{--                                                <b>{{$key+1}} : {{$branch->branch_desc}}</b><br>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
-{{--                                        <td>--}}
-{{--                                            @foreach($row->amount as $key=>$item)--}}
-{{--                                                <b>{{$key+1}} : {{$item}}</b><br>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
                                         <td>
-                                            <a href="{{route('death.view' ,$row->id)}}"
+                                            <!-- edit section -->
+                                            <a href="{{route('death.after.edit' ,$row->id)}}"
+                                               class="btn btn-sm btn-success"
+                                               title="edit">
+                                                <i class="fa fa-pen"></i> Edit
+                                            </a>
+                                            <a data-toggle="modal" data-target="#exampleModal{{$row->id}}"
                                                class="btn btn-sm btn-primary"
                                                title="edit">
-                                                <i class="fa fa-eye"></i> View
+                                                <i class="fa fa-eye"></i> Objection
                                             </a>
-                                            <!-- Delete section -->
-                                            <a href="{{route('employee.show' ,$row->id)}}" id="delete"
-                                               class="btn btn-sm btn-danger" data-toggle="tooltip" title="edit">
-                                                <i class="fa fa-times"></i> Delete
-                                            </a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Add Details Objection</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
 
-                                            <!-- End of delete -->
+                                                        <div class="modal-body">
+                                                            <form action="" method="post" enctype="multipart/form-data"
+                                                                  data-parsley-validate>
+                                                                @csrf
+                                                               <?php $obj = \App\objection::where('employee_id','=',$row->id)->orderBy('id','DESC')->get();?>
+                                                                @foreach($obj as $key=>$row)
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="title"><b>Objecti#{{$key+1}} </b><span class="text-danger">*</span></label>
+                                                                        <textarea placeholder="Description" class="form-control" name="description">{{$row->description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                @endforeach
+                                                                <div class="col-md-12 pull-right">
+                                                                    <div class="form-group">
+                                                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div></div>
+
+
+                        <!-- End of delete -->
                                         </td>
 
                                     </tr>
+
                                 @endforeach
                                 </tbody>
                             </table>
@@ -138,6 +153,7 @@
             </div>
             <!-- /.row -->
         </div>
+
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
