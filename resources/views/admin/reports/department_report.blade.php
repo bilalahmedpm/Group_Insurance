@@ -62,7 +62,7 @@
                                     <td>{{$row2->bank->name}}</td>
                                     <td>{{$row2->branch->branch_desc}}</td>
                                     <td style="width: 60px">{{$row2->accountno}}</td>
-                                    <td>{{$row2->amount}}</td>
+                                    <td>{{{number_format($row2->amount)}}}</td>
                                 </tr>
                                 <?php $totalamount +=  $row2->amount ++ ?>
                                @endforeach
@@ -70,7 +70,7 @@
                        @endforeach
                                 <tr>
                                     <td colspan="12"><h6 style="text-align: right">Total Amount :</h6></td>
-                                    <td colspan="13"><h6 style="float: right">{{$totalamount}}</h6></td>
+                                    <td colspan="13"><h6 style="float: right">{{number_format($totalamount)}}</h6></td>
                                 </tr>
                             </table>
                         </div>
@@ -80,12 +80,11 @@
          @endforeach
                 </div>
 
-                <!-- /.col -->
+                <p style="text-align: right"><span>Grand Total Amount : </span> Rs: {{number_format($total)}}<span></span></p>
 
-                <tr>
-                    <td colspan="12"><h6 style="text-align: right"> Grand Total Amount :</h6></td>
-                    <td colspan="13"><h6 style="float: right">Rs:{{$total}}</h6></td>
-                </tr>
+
+
+                <!-- /.col -->
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->

@@ -46,10 +46,10 @@
                                         <td>{{$row->designation->designation_desc}} - ({{$row->grade}})</td>
                                         @if($row->status==0)
                                             <td> <span class="right badge badge-warning">Not Verified</span></td>
-                                        @elseif($row->status==3)
+                                        @elseif($row->status==1)
+                                            <td> <span class="right badge badge-success">Verified/span></td>
+                                         @elseif($row->status==3)
                                             <td> <span class="right badge badge-danger">Objection</span></td>
-                                        @else
-                                            <td> <span class="right badge badge-success">Verified</span></td>
                                         @endif
                                         <td>
                                             @if($row->gitype=='01')

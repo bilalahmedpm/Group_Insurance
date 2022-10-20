@@ -36,50 +36,6 @@
             </thead>
 
             <tbody>
-            {{--        @foreach($employees as $row)--}}
-
-            {{--            <tr>--}}
-            {{--                --}}{{--        {{dd($row->legals)}}--}}
-            {{--                <td>{{$row->legals}}</td>--}}
-            {{--                <td>{{$row->employeename}}</td>--}}
-            {{--                <td>{{$row->fathername}}</td>--}}
-            {{--                <td>{{$row->department->department_desc}}</td>--}}
-            {{--                <td>{{$row->designation->designation_desc}}</td>--}}
-            {{--                <td>{{$row->gitype}}</td>--}}
-            {{--                <td>{{$row->user->name}}</td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->heirname}} <br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->heircnic}} <br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->bank->name}}<br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->branch->branch_desc}}<br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->accountno}}<br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--                <td>--}}
-            {{--                    @foreach($row->legals as $key=> $row1)--}}
-            {{--                        {{$key+1}} : {{$row1->amount}} <br>--}}
-            {{--                    @endforeach--}}
-            {{--                </td>--}}
-            {{--            </tr>--}}
-
-
             @foreach($row->legalheirs as  $row1)
 
                     <tr>

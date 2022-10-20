@@ -179,7 +179,6 @@ class EmployeeController extends Controller
     {
         //
     }
-
     public function retirement()
     {
         $departments = Department::all();
@@ -769,17 +768,7 @@ class EmployeeController extends Controller
         $departments = Department::with('employees')->whereHas('employees')->get();
         $total = Legalheir::sum('amount');
 
-//        $employee = Department::with('employees')->whereHas('employees')->get();
-//        $amount = [];
-//foreach ($employee as $row)
-//{
-//    foreach($row->employees as $row1)
-//    {
-//        $amount = Legalheir::where('employee_id','=',$row1->id)->get();
-//    }
-//
-//}
-//dd($amount);
+
         return view('admin.reports.department_report', compact('departments','total'));
     }
 

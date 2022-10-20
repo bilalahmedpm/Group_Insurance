@@ -96,30 +96,6 @@
 {{--Self script cnic and name--}}
 <script>
 
-        $(".types").change(function(){
-            var ctype = $('.types').val();
-            var cnic = $("#empcnic").val();
-            var name = $("#empname").val();
-
-            if(ctype == '01'){
-                $("#benefcnic").val($("#empcnic").val()).prop("readonly", true);
-                $("#benefname").val($("#empname").val()).prop("readonly", true);
-                $("#benef").val('1').prop("readonly", true);
-
-            }
-            else if (ctype == '02'){
-                $("#benefcnic").val('').prop("disabled", false , "required" , true);
-                $("#benefname").val('').prop("disabled", false , "required" , true);
-                $("#rel").prop("disables", true);
-                $("#benef").val('').prop("disabled", false);
-            }
-            else if (ctype == '03'){
-                $("#benefcnic").val('').prop("disabled", false , "required" , true);
-                $("#benefname").val('').prop("disabled", false , "required" , true);
-                $("#benef").val('').prop("disabled", false);
-            }
-    });
-
 </script>
 <script>
     $('#bank').on('change', function () {
@@ -143,39 +119,6 @@
     });
 </script>
 {{--Fetch Bank Branches--}}
-<script>
-    $(document).ready(function()
-    {
-        $("#retirement").hide();
-        $("#death").hide();
-        $("#check").hide();
-
-        $("#types").change(function()
-        {
-            if($(this).val() == "01")
-            {
-                $("#retirement").show();
-                $("#death").hide();
-                $("#check").show();
-
-            }
-            if($(this).val() == "02")
-            {
-
-                $("#retirement").hide();
-                $("#death").show();
-                $("#check").show();
-            }
-            if($(this).val() == "03")
-            {
-                $("#retirement").show();
-                $("#death").show();
-                $("#check").show();
-            }
-
-        });
-    });
-</script>
 <script>
     @if(Session::has('message'))
         toastr.options =
@@ -225,13 +168,14 @@
     //Datemask dd/mm/yyyy
     $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     //Personal Number Mask
-    $('.pno').inputmask('99999999', { 'placeholder': '________' })
+    $('.pno').inputmask('99999999', { 'placeholder': '' })
     //CNIC Mask
-    $('.cnic').inputmask('99999-9999999-9', { 'placeholder': '_____-_______-_' })
+    $('.cnic').inputmask('9999999999999', { 'placeholder': '' })
     // //IBAN Mask
     // $('.iban').inputmask('99999999', { 'placeholder': '________' })
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    $('[data-mask]').inputmask()
 </script>
 </body>
 </html>

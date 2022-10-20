@@ -39,7 +39,15 @@
                                         <td>{{$row->phone}}</td>
                                         <td>{{$row->department->department_desc}}</td>
                                         <td> <span class="right badge badge-success">{{$row->status}}</span></td>
-                                        <td>{{$row->role}}</td>
+                                        <td>
+                                            @if($row->role=='1')
+                                                <span class="right badge badge-success">Super Admin</span>
+                                            @elseif($row->role=='2')
+                                                <span class="right badge badge-success">Admin</span>
+                                            @elseif($row->role=='3')
+                                                <span class="right badge badge-success">User</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{route('user.edit' ,$row->id)}}" data-toggle="modal"
                                                data-target="#useredit{{$row->id}}" class="btn btn-sm btn-primary"
@@ -65,9 +73,36 @@
                                                                 @csrf
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label for="title"><b>User</b><span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" value="{{$row->name}}" name="name" required  placeholder="User Name" class="form-control">
+                                                                        <label for="title"><b>User Name</b><span class="text-danger">*</span></label>
+                                                                        <input type="text" name="name" value="{{$row->name}}" required placeholder="User Name" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="title"><b>CNIC</b><span class="text-danger">*</span></label>
+                                                                        <input type="text" name="cnic" value="{{$row->cnic}}" required placeholder="544##########" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="title"><b>Phone No</b><span class="text-danger">*</span></label>
+                                                                        <input type="text" name="phone" value="{{$row->phone}}" required placeholder="03#########" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Role</label>
+                                                                        <select class="form-control  select2" name="role" style="width: 100%;"
+                                                                                required>
+                                                                            <option selected="selected"  disabled>Select Role</option>
+                                                                            <option value="1" {{ $row->role == '1'? 'selected' : '' }}>Super Admin</option>
+                                                                            <option value="2" {{ $row->role == '2' ? 'selected' : '' }}>Admin</option>
+                                                                            <option value="3" {{ $row->role == '3' ? 'selected' : '' }}>User</option>
+
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Status</label>
+                                                                        <select class="form-control  select2" name="status" style="width: 100%;" required>
+                                                                            <option selected="selected" disabled>Select Status</option>
+                                                                            <option value="active" {{ $row->status == 'active'? 'selected' : '' }}>Active</option>
+                                                                            <option value="inactive"{{ $row->status == 'inactive'? 'selected' : '' }}>In Active</option>
+
+                                                                        </select>
                                                                     </div>
                                                                 </div>
 
@@ -135,11 +170,50 @@
                             </div>
                             <div class="form-group">
                                 <label for="title"><b>Email Address</b><span class="text-danger">*</span></label>
-                                <input type="text" name="email" required placeholder="Email Address" class="form-control">
+                                <input type="email" name="email" required placeholder="Email Address" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="title"><b>User Name</b><span class="text-danger">*</span></label>
-                                <input type="password" name="password" required placeholder="Password" class="form-control">
+                                <label for="title"><b>Password</b><span class="text-danger">*</span></label>
+                                <input type="password" name="password" required placeholder="Enter Password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="title"><b>CNIC</b><span class="text-danger">*</span></label>
+                                <input type="text" name="cnic" required placeholder="544##########" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="title"><b>Phone No</b><span class="text-danger">*</span></label>
+                                <input type="text" name="phone" required placeholder="03#########" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-control  select2" name="department" style="width: 100%;"
+                                        required>
+                                    <option selected="selected" disabled>Select Department</option>
+                                    @foreach( $departments as $department)
+                                        <option
+                                            value="{{$department->id}}">{{{$department->department_desc}}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select class="form-control  select2" name="role" style="width: 100%;"
+                                        required>
+                                    <option selected="selected" disabled>Select Role</option>
+                                        <option value="1">Super Admin</option>
+                                        <option value="2">Admin</option>
+                                        <option value="3">User</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control  select2" name="status" style="width: 100%;" required>
+                                    <option selected="selected" disabled>Select Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">In Active</option>
+
+                                </select>
                             </div>
                         </div>
 

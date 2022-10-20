@@ -29,20 +29,12 @@ class CreateEmployeesTable extends Migration
             $table->string('grade' , '2')->nullable();                                                                      // 01.02.03.04 format
             $table->string('gitype' , '2')->nullable();                                                                      // 01 = retirement 02= Death 03=Death After Retirement
             $table->string('retirementdate')->nullable();                                                                            //  DD/MM/YYYY
-            $table->string('dateofdeath')->nullable();                                                                               //  DD/MM/YYYY
+            $table->string('dateofdeath')->nullable();                                                                                 //  DD/MM/YYYY
+            $table->string('ageondate')->nullable();
             $table->string('beneficiaries', '1')->nullable();                                                               //legalheirs changed to beneficiaries    // if B= 1 than beneficiary will also enter 1 if 2 then beneficiary will be 2 and amount should be dividied by 2
             $table->string('status')->nullable();      //0 Not Verify  //2 verify //3 objection                                                                              // 0 = Pending (default) 1  = objection 2= checked and processed  3 = cross chequed with employee data  4 = Awaiting for meeting 5= Approved
             $table->biginteger('contribution')->nullable();                                                                           // retirement and Death after retirement (required) in case of death default value is 0 save
             $table->string('contactno')->nullable();
-            // ADD NEW FIELD
-            $table->string('ageondate')->nullable();
-            $table->string('beneficiarycnic')->nullable();
-            $table->string('beneficiaryname')->nullable();
-            $table->string('relation')->nullable();
-            $table->string('bank')->nullable();
-            $table->string('branch')->nullable();
-            $table->string('accountno')->nullable();
-            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }

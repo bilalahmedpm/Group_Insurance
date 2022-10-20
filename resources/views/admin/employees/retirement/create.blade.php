@@ -18,8 +18,8 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form id="entryform" action="{{route('retirement.store')}}" method="post"
-                                  enctype="multipart/form-data">
+                            <form class="entryform" data-parsley-ui-enabled="true" data-parsley-focus="first"  action="{{route('retirement.store')}}" method="post"
+                                  enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row">
 
@@ -30,14 +30,9 @@
                                             <input type="text" name="personalnumber" class="form-control pno" id="pnumber"
                                                    placeholder="Enter Personal Number"
                                                    data-inputmask-inputformat="99999999" data-mask
-                                                   data-parsley-minlength="08" data-parsley-required
-                                                   data-parsley-type="digits" data-parsley-trigger="keyup">
+                                                   data-parsley-minlength="08" required
+                                                   data-parsley-type="digits" data-parsley-trigger="keyup" autofocus >
                                             <div id="personal"></div>
-                                            @error('personalnumber')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -46,13 +41,8 @@
                                             <label>Employee CNIC</label>
                                             <input type="text" id="empcnic" name="employeecnic"
                                                    class="form-control cnic" placeholder="Enter CNIC"
-                                                   data-inputmask-inputformat="99999-9999999-9" data-mask
-                                                   data-parsley-required data-parsley-trigger="keyup">
-                                            @error('personalnumber')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                                   data-inputmask-inputformat="9999999999999" data-mask
+                                                   data-parsley-required data-parsley-trigger="keyup" data-parsley-minlength="13" data-parsley-maxlength="13"  >
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -61,7 +51,7 @@
                                             <label>Employee Name</label>
                                             <input type="text" id="empname" name="employeename"
                                                    class="form-control name" placeholder="Enter Employee Name"
-                                                   data-parsley-required data-parsley-trigger="keyup">
+                                                   data-parsley-required data-parsley-trigger="keyup" style ="text-transform: capitalize" >
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -70,7 +60,7 @@
                                             <label>Father Name</label>
                                             <input type="text" name="fathername" class="form-control "
                                                    placeholder="Father Name"
-                                                   data-parsley-required data-parsley-trigger="keyup">
+                                                   data-parsley-required data-parsley-trigger="keyup" required style ="text-transform: capitalize">
                                         </div>
                                     </div>
                                 </div>
@@ -83,8 +73,7 @@
                                                 <label>Date of Birth</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i
-                                                                class="far fa-calendar-alt"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="text" name="dateofbirth" id="dob"
                                                            class="form-control datemask"
@@ -100,7 +89,7 @@
                                         <div class="form-group">
                                             <label>Department</label>
                                             <select class="form-control  select2" name="department" style="width: 100%;"
-                                                    data-parsley-required>
+                                                    required>
                                                 <option selected="selected" disabled>Select Department</option>
                                                 @foreach( $departments as $department)
                                                     <option
@@ -193,9 +182,16 @@
                                     <div class="col-sm-3">
                                         <!-- text input -->
                                         <div class="form-group">
-                                            <label>Contact No</label>
-                                            <input type="text" name="contact_no" class="form-control "
-                                                   placeholder="0331XXXXXXX" required>
+                                            <label>Contact NO</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="contact_no" placeholder="03#########"
+                                                       minlength="11" maxlength="11"  data-parsley-trigger="keyup" required>
+                                            </div>
+                                            <!-- /.input group -->
                                         </div>
                                     </div>
                                     <div class="col-sm-2" >
@@ -208,7 +204,7 @@
                                                 </div>
                                                 <input type="button" style="margin-top: 10px;" id="submit"
                                                        value="Calculate Amount"
-                                                       class="form-control  btn btn-primary">
+                                                       class="form-control  btn btn-primary" >
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -278,7 +274,7 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
                                                     <input class="form-control fileupload" name="employee_cnic_img" type="file"
-                                                           id="formFile">
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 
@@ -286,7 +282,7 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Pension Roll Data Sheet</label>
                                                     <input class="form-control" name="employee_penshion_sheet"
-                                                           type="file" id="formFile">
+                                                           type="file" id="formFile" required>
                                                 </div>
                                             </div>
 
@@ -294,7 +290,7 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Retirement Order</label>
                                                     <input class="form-control" name="retirement_order" type="file"
-                                                           id="formFile">
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 
@@ -305,7 +301,7 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Stamp Paper</label>
                                                     <input class="form-control" name="stamp_paper" type="file"
-                                                           id="formFile">
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 
@@ -314,7 +310,7 @@
                                                     <label for="formFile" class="form-label">Contribution
                                                         Statement</label>
                                                     <input class="form-control" name="contribution_statement"
-                                                           type="file" id="formFile">
+                                                           type="file" id="formFile" required>
                                                 </div>
                                             </div>
 
@@ -322,13 +318,13 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Part III Form B</label>
                                                     <input class="form-control" name="part3_form" type="file"
-                                                           id="formFile">
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 
                                         </div>
 
-                                        <button class="btn btn-primary">Submit</button>
+                                        <button class="btn btn-primary" >Submit</button>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -351,22 +347,19 @@
 @section('scripts')
     <script src="{{asset('parsley/parsley.min.js')}}"></script>
     <script>
-        $('#entryform').parsley();
+        $('.entryform').parsley();
     </script>
     <script>
         $("#submit").click(function () {
             var dor = $("#r_date").val();
             var dob = $("#dob").val();
             // const per = $("#beneficiaries").val();
-
             console.log(dor);
-
             function isValidDate(s) {
                 var bits = s.split('/');
                 var d = new Date(bits[2], bits[1] - 1, bits[0]);
                 return d && (d.getMonth() + 1) == bits[1];
             }
-
             console.log(isValidDate(dob))
             if (isValidDate(dor)) {
                 //age calculate
@@ -408,12 +401,10 @@
         });
     </script>
     <script>
-
         $(document).ready(function() {
             $("#pnumber").keyup(function () {
                 var pno = $("#pnumber").val();
                 console.log(pno);
-
                 $.ajax({
                     type: 'POST',
                     url: '{{route('pno.check')}}',
@@ -424,9 +415,7 @@
                     success: function(response) {
                         console.log(response);
                         $('#personal').html(response);
-
                     }
-
                         // if (response.success != null) {
                         //     $("#amount").val(response.success.retirement);
                         // } else {
@@ -436,9 +425,8 @@
                         // }
                     });
                 });
-
             });
-
     </script>
+
 
 @endsection

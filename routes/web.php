@@ -30,7 +30,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::post('/fetchrate', 'GiRateController@fetchRate')->name('fetchrate'); //Calculate Amount route
 Route::post('addmore', 'GiRateController@addMore')->name('addmore');
 
-Route::middleware( [ 'auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('bank', 'BankController');
     Route::resource('branch', 'BranchesController');
     Route::post('/fetchbranches', 'BankController@fetchbankbranches')->name('fetchbranches'); // fetch bank branches route
@@ -47,6 +47,7 @@ Route::middleware( [ 'auth'])->group(function () {
     Route::get('/death', 'EmployeeController@death')->name('entry.death');
     Route::post('/death/store', 'EmployeeController@deathstore')->name('death.store');
     Route::get('/death/edit/{id}', 'EmployeeController@death_edit')->name('death.edit'); //edit
+
 // Death after retirement Routes
     Route::get('/death/after/index', 'EmployeeController@deathafterIndex')->name('death.after.index');
     Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
@@ -59,12 +60,8 @@ Route::middleware( [ 'auth'])->group(function () {
     Route::get('/death/{id}', 'EmployeeController@deathview')->name('death.view');
     Route::get('/death/after/{id}', 'EmployeeController@deathafterview')->name('death.after.view');
 
-
-
 //        Route::resource('roles', RoleController::class);
 //        Route::resource('users', UserController::class);
-
-    });
 
     // duplicate checking
     Route::post('/pno_checking', 'EmployeeController@pnocheck')->name('pno.check');
@@ -72,12 +69,16 @@ Route::middleware( [ 'auth'])->group(function () {
 
 //  Reports
 
-Route::get('/department', 'EmployeeController@department_report')->name('department.report');
-Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
+    Route::get('/department', 'EmployeeController@department_report')->name('department.report');
+    Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
 
-Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
-Route::post('/objection', 'EmployeeController@objection')->name('objection');
-Route::get('/employeeee', 'EmployeeController@employeeObjection')->name('employeeee');
+    Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
+    Route::post('/objection', 'EmployeeController@objection')->name('objection');
+    Route::get('/employeeee', 'EmployeeController@employeeObjection')->name('employeeee');
+
+    });
+
+
 
 
 

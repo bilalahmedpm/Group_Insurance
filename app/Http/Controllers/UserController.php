@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,9 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::where('department_id','=',Auth::user()->department_id)->get();
-        return view('admin.users.index' , compact('users'));
+        $user = Auth::user();
+        $departments = Department::all();
+        $users = User::where('email' , '!=' , $user->email)->get();
+        return view('admin.users.index' , compact('users','departments'));
     }
 
     /**
@@ -38,7 +41,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->cnic = $request->cnic;
+        $user->password =Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->department_id = $request->department;
+        $user->role = $request->role;
+        $user->status = $request->status;
+        $user->save();
+        return redirect()->back()->with('message', 'User Created Successfully !');
+
     }
 
     /**
