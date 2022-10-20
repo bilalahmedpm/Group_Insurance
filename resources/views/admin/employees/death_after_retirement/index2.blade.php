@@ -87,7 +87,7 @@
                                         </td>
                                         <td>
                                             <!-- edit section -->
-                                            <a href="{{route('death.after.edit' ,$row->id)}}"
+                                            <a href="{{route('death.edit' ,$row->id)}}"
                                                class="btn btn-sm btn-success"
                                                title="edit">
                                                 <i class="fa fa-pen"></i> Edit

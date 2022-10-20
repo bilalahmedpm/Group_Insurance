@@ -820,6 +820,154 @@ class EmployeeController extends Controller
         return view('admin.employees.death_after_retirement.index2', compact('employees'));
 
     }
+    public function deathEdit($id)
+    {
+//        $employees = Employee::find($id);
+        $employees = Employee::with('legals')->where('id', '=', $id)->get();
+        $doc = EmployeeDocument::where('employee_id', '=', $id)->first();
+        $departments = Department::all();
+        $designations = Designation::all();
+        $relations = Relation::all();
+        $grades = Grade::all();
+        $banks = Bank::all();
+        $branch = Branches::all();
+        return view('admin.employees.death.edit', compact('employees', 'doc', 'branch', 'departments', 'designations', 'relations', 'grades', 'banks'));
+    }
+    public function deathUpdate(Request $request,$id)
+    {
+
+        $user = Auth::user();
+
+        $employee = Employee::find($id);
+        $employee->pno = $request->personalnumber;
+        $employee->employeecnic = $request->employeecnic;
+        $employee->employeename = $request->employeename;
+        $employee->fathername = $request->fathername;
+        $employee->dateofbirth = $request->dateofbirth;
+        $employee->department_id = $request->department;
+        $employee->designation_id = $request->designation;
+        $employee->grade = $request->grade;
+        $employee->gitype = $request->gitype;
+        $employee->dateofdeath = $request->deathdate;
+        $employee->ageondate = $request->ageondate;
+        $employee->beneficiaries = $request->beneficiaries;
+        $employee->status = "0";  //pending
+        $employee->contribution = "0";  //death case no contribution required
+        $employee->contactno = $request->contact_no;
+        $employee->user_id = $user->id;
+
+        $employee->save();
+        $getid = $employee->id;
+
+        $bankcount = count($request->bank);
+        // Legal Heir Model
+        for ($i = 0; $i < $bankcount; $i++) {
+            $beneficiary =  legalheir::where('employee_id','=',$id)->first();
+            $beneficiary->employee_id = $getid;
+            $beneficiary->heircnic = $request->beneficiarycnic[$i];
+            $beneficiary->heirname = $request->beneficiaryname[$i];
+            $beneficiary->relation_id = $request->relation[$i];
+            $beneficiary->bank_id = $request->bank[$i];
+            $beneficiary->branch_id = $request->branch[$i];
+            $beneficiary->accountno = $request->accountno[$i];
+            $beneficiary->amount = $request->amount[$i];
+            $beneficiary->user_id = $user->id;
+            $beneficiary->save();
+        }
+
+        $documents = EmployeeDocument::where('employee_id', '=', $id)->first();
+        if ($request->hasfile('employee_cnic_img')) {
+
+            $image1 = $request->file('employee_cnic_img');
+            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_cnic_img = 'img/' . $name;
+        }
+        if ($request->hasfile('beneficiary_cnic')) {
+
+            foreach ($request->file('beneficiary_cnic') as $image) {
+                $name1 = time() . 'beneficiary_cnicc' . '.' . $image->getClientOriginalName();
+                $destinationPath = 'img';
+                $image->move($destinationPath, $name1);
+                $data7[] = 'img/' . $name1;
+            }
+
+            $documents->beneficiary_cnic1_img = json_encode($data7);
+
+        }
+
+        if ($request->hasfile('death_certificate')) {
+
+            $image1 = $request->file('death_certificate');
+            $name1 = time() . 'death_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->death_certificate = 'img/' . $name1;
+        }
+        if ($request->hasfile('succession_certificate')) {
+
+            $image1 = $request->file('succession_certificate');
+            $name1 = time() . 'succession_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->succession_certificate = 'img/' . $name1;
+        }
+        if ($request->hasfile('death_form')) {
+
+            $image1 = $request->file('death_form');
+            $name1 = time() . 'death_form' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->death_claim_farm = 'img/' . $name1;
+        }
+
+        if ($request->hasfile('beneficiary_pension_sheet')) {
+
+            foreach ($request->file('beneficiary_pension_sheet') as $image) {
+                $name1 = time() . 'employee_penshion_sheet' . '.' . $image->getClientOriginalName();
+                $destinationPath = 'img';
+                $image->move($destinationPath, $name1);
+                $data8[] = 'img/' . $name1;
+
+            }
+            $documents->beneficiary_pension_sheet1_img = json_encode($data8);
+
+        }
+        // retirement order
+        if ($request->hasfile('last_pay_certificate')) {
+
+            $image1 = $request->file('last_pay_certificate');
+            $name1 = time() . 'last_pay_certificate' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->lpc = 'img/' . $name1;
+        }
+        //stamp paper
+        if ($request->hasfile('bank_farm')) {
+
+            $image1 = $request->file('bank_farm');
+            $name1 = time() . 'bank_farm' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->bank_farm = 'img/' . $name1;
+        }
+        if ($request->hasfile('lpc')) {
+
+            $image1 = $request->file('lpc');
+            $name1 = time() . 'lpc' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'img/';
+            $image1->move($destinationPath, $name1);
+            $documents->beneficiary_cnic2_img = 'img/' . $name1;
+        }
+
+
+        $documents->employee_id = $getid;
+        $documents->user_id = $user->id;
+        $documents->save();
+
+        return redirect()->back()->with('message', 'Claim Update successfully');
+    }
 
 }
 
