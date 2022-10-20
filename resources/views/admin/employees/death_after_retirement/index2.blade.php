@@ -8,8 +8,9 @@
                     <?php $user = Auth::user(); ?>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
-                        </div>
+                            <h3 class="card-title" >DataTable with default features</h3>
+
+                    </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
@@ -91,53 +92,51 @@
                                                title="edit">
                                                 <i class="fa fa-pen"></i> Edit
                                             </a>
-                                            <a data-toggle="modal" data-target="#exampleModal{{$row->id}}"
+                                            <a  data-toggle="modal" data-target="#exampleModal{{$row->id}}"
                                                class="btn btn-sm btn-primary"
                                                title="edit">
                                                 <i class="fa fa-eye"></i> Objection
                                             </a>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Add Details Objection</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
 
-                                                        <div class="modal-body">
-                                                            <form action="" method="post" enctype="multipart/form-data"
-                                                                  data-parsley-validate>
-                                                                @csrf
-                                                               <?php $obj = \App\objection::where('employee_id','=',$row->id)->orderBy('id','DESC')->get();?>
-                                                                @foreach($obj as $key=>$row)
+                                        </td>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add Details Objection</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form action="" method="post" enctype="multipart/form-data"
+                                                              data-parsley-validate>
+                                                            @csrf
+                                                            <?php $obj = \App\objection::where('employee_id','=',$row->id)->orderBy('id','DESC')->get();?>
+                                                            @foreach($obj as $key=>$row)
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="title"><b>Objecti#{{$key+1}} </b><span class="text-danger">*</span></label>
-                                                                        <textarea placeholder="Description" class="form-control" name="description">{{$row->description}}</textarea>
+                                                                        <textarea readonly placeholder="Description" class="form-control" name="description">{{$row->description}}</textarea>
                                                                     </div>
                                                                 </div>
-                                                                @endforeach
-                                                                <div class="col-md-12 pull-right">
-                                                                    <div class="form-group">
-                                                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
-                                                                    </div>
+                                                            @endforeach
+                                                            <div class="col-md-12 pull-right">
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary btn-block">Send</button>
                                                                 </div>
-                                                            </form>
-                                                        </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
-
-
                                                 </div>
 
-                                            </div></div>
 
+                                            </div>
 
-                        <!-- End of delete -->
-                                        </td>
+                                        </div></div>
 
                                     </tr>
 

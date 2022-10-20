@@ -39,9 +39,9 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::where('gitype', '=', '01')->get();
+            $employees = Employee::where('gitype', '=', '01')->where('status','!=',3)->get();
         } else {
-            $employees = Employee::where('gitype', '=', '01')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::where('gitype', '=', '01')->where('status','!=',3)->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.retirement.index', compact('employees'));
@@ -51,9 +51,9 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::with('legals')->where('gitype', '=', '02')->get();
+            $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '02')->get();
         } else {
-            $employees = Employee::with('legals')->where('gitype', '=', '02')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '02')->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.death.index', compact('employees'));
@@ -63,9 +63,9 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         if ($user->role == 1 || $user->role == 2) {
-            $employees = Employee::with('legals')->where('gitype', '=', '03')->get();
+            $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '03')->get();
         } else {
-            $employees = Employee::with('legals')->where('gitype', '=', '03')->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '03')->where('department_id', '=', $user->department_id)->get();
         }
 
         return view('admin.employees.death_after_retirement.index', compact('employees'));
@@ -104,7 +104,7 @@ class EmployeeController extends Controller
         $employee->employeename = $request->employeename;
         $employee->fathername = $request->fathername;
         $employee->dateofbirth = $request->dateofbirth;
-        $employee->department_id = $request->department;
+        $employee->department_id = $user->department_id;
         $employee->designation_id = $request->designation;
         $employee->grade = $request->grade;
         $employee->gitype = $request->gitype;
@@ -801,7 +801,7 @@ class EmployeeController extends Controller
     public function objection(Request $request)
     {
         $emp = Employee::find($request->id);
-        $emp->status = 2;
+        $emp->status = 3;
         $emp->update();
         $obj = new objection();
         $obj->description = $request->description;
@@ -816,7 +816,7 @@ class EmployeeController extends Controller
     public function employeeObjection()
     {
         $objection = objection::where('department_id','=',Auth::user()->department_id)->pluck('employee_id');
-        $employees = Employee::with('legals')->whereIn('id',$objection)->where('department_id', '=', Auth::user()->department_id)->get();
+        $employees = Employee::with('legals')->whereIn('id',$objection)->where('status','=',3)->where('department_id', '=', Auth::user()->department_id)->get();
         return view('admin.employees.death_after_retirement.index2', compact('employees'));
 
     }
