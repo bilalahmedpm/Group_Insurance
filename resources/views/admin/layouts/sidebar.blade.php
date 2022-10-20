@@ -67,8 +67,9 @@
                     <a href="{{route('employeeee')}}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            All Claims
+                            Objection Claims
                         </p>
+                        <i class="fas fa-angle-left right"></i>
                     </a>
                 </li>
 
