@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     @foreach($banks as $key => $row)
-        <table class="table table-bordered" style="font-size: 11pt">
+        <table class="table table-bordered" style="font-size: 10pt">
 
             {{$key+1}}  : {{$row->name}}
             <thead>
@@ -51,7 +51,7 @@
                         <td>{{$row1->bank->name}}</td>
                         <td>{{$row1->branch->branch_desc}}</td>
                         <td>{{$row1->accountno}}</td>
-                        <td>{{$row1->amount}}</td>
+                        <td>{{number_format($row1->amount)}}</td>
                     </tr>
 
 

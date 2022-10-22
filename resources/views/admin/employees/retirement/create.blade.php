@@ -414,7 +414,7 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        $('#personal').html(response);
+                            $('#personal').html(response);
                     }
                         // if (response.success != null) {
                         //     $("#amount").val(response.success.retirement);

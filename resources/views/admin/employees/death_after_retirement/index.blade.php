@@ -60,27 +60,42 @@
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                                {{$key +1}} : {{$row1->heirname}} <br>
+                                                @if($row->beneficiaries != 1)
+                                                    {{$key +1}} :
+                                                @endif
+                                                {{$row1->heirname}} <br>
                                             @endforeach
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                                {{$key +1}} : {{$row1->relation->relation_desc}} <br>
+                                                @if($row->beneficiaries != 1)
+                                                    {{$key +1}} :
+                                                @endif
+                                                {{$row1->relation->relation_desc}} <br>
                                             @endforeach
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                                {{$key +1}} : {{$row1->bank->name}} <br>
+                                                @if($row->beneficiaries != 1)
+                                                    {{$key +1}} :
+                                                @endif
+                                                {{$row1->bank->name}} <br>
                                             @endforeach
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                                {{$key +1}} : {{$row1->branch->branch_desc}} <br>
+                                                @if($row->beneficiaries != 1)
+                                                    {{$key +1}} :
+                                                @endif
+                                                {{$row1->branch->branch_desc}} <br>
                                             @endforeach
                                         </td>
                                         <td>
                                             @foreach($row->legals as $key =>  $row1)
-                                                {{$key +1}} : {{$row1->amount}} <br>
+                                                @if($row->beneficiaries != 1)
+                                                    {{$key +1}} :
+                                                @endif
+                                                {{number_format($row1->amount)}} <br>
                                             @endforeach
                                         </td>
                                         <td>

@@ -74,9 +74,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
     Route::post('/objection', 'EmployeeController@objection')->name('objection');
-    Route::get('/employeeee', 'EmployeeController@employeeObjection')->name('employeeee');
+    Route::get('/Objection/Claims', 'EmployeeController@employeeObjection')->name('employeeee');
+    Route::get('/Claims/All', 'EmployeeController@allclaims')->name('claims.all');
+
 
     });
+
+Route::get('/pdf', function () {
+    return view('admin.reports.pdf.bank_report');
+});
 
 
 

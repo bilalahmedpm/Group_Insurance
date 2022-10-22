@@ -804,9 +804,15 @@ class EmployeeController extends Controller
     }
     public function employeeObjection()
     {
-        $objection = objection::where('department_id','=',Auth::user()->department_id)->pluck('employee_id');
-        $employees = Employee::with('legals')->whereIn('id',$objection)->where('status','=',3)->where('department_id', '=', Auth::user()->department_id)->get();
-        return view('admin.employees.death_after_retirement.index2', compact('employees'));
+        $user = Auth::user();
+        if ($user->role == 1) {
+            $objection = objection::where('department_id', '=', $user->department_id)->pluck('employee_id');
+            $employees = Employee::with('legals')->whereIn('id', $objection)->where('status', '=', 3)->where('department_id', '=', $user->department_id)->get();
+        }else{
+            $objection = objection::where('department_id', '=', $user->department_id)->pluck('employee_id');
+            $employees = Employee::with('legals')->whereIn('id', $objection)->where('status', '=', 3)->where('department_id', '=', $user->department_id)->get();
+        }
+        return view('admin.employees.objections.index', compact('employees'));
 
     }
     public function deathEdit($id)
@@ -956,6 +962,29 @@ class EmployeeController extends Controller
         $documents->save();
 
         return redirect()->back()->with('message', 'Claim Update successfully');
+    }
+    public function bankpdf()
+    {
+
+    }
+    public function allclaims()
+    {
+        $user = Auth::user();
+        if ($user->role == 1) {
+            $retirement  = Employee::where('gitype','=', '01')->where('status','!=', 3)->count();
+            $death = Employee::where('gitype','=', '02')->where('status','!=', 3)->count();
+            $death_after = Employee::where('gitype','=', '03')->where('status','!=', 3)->count();
+
+            $employees = Employee::with('legals')->where('status','!=',3)->get();
+        } else {
+            $retirement  = Employee::where('gitype','=', '01')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
+            $death = Employee::where('gitype','=', '02')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
+            $death_after = Employee::where('gitype','=', '03')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
+
+            $employees = Employee::with('legals')->where('status','!=',3)->where('department_id', '=', $user->department_id)->get();
+        }
+
+        return view('admin.employees.all_claims.index', compact('employees','retirement','death','death_after'));
     }
 
 }

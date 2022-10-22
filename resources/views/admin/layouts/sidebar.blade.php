@@ -64,6 +64,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('claims.all') }}" class="nav-link" >
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            All Claims
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('employeeee')}}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>

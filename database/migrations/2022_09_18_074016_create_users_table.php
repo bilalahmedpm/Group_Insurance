@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('cnic');
             $table->string('phone');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('password');
             $table->string('role')->default(1); // 1=super admin; 2=admin; 3=user
             $table->string('status')->default('active');
