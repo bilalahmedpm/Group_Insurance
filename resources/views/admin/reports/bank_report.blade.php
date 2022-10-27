@@ -16,7 +16,6 @@
 
             {{$key+1}}  : {{$row->name}}
             <thead>
-
             <tr>
                 <th>Id</th>
                 <th>Employee Name</th>
@@ -32,7 +31,6 @@
                 <th>Account #</th>
                 <th>Amount</th>
             </tr>
-
             </thead>
 
             <tbody>

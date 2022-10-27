@@ -38,7 +38,7 @@ class EmployeeController extends Controller
     public function retirementindex()
     {
         $user = Auth::user();
-        if ($user->role == 1 || $user->role == 2) {
+        if ($user->role == 1) {
             $employees = Employee::where('gitype', '=', '01')->where('status','!=',3)->get();
         } else {
             $employees = Employee::where('gitype', '=', '01')->where('status','!=',3)->where('department_id', '=', $user->department_id)->get();
@@ -50,7 +50,7 @@ class EmployeeController extends Controller
     public function deathIndex()
     {
         $user = Auth::user();
-        if ($user->role == 1 || $user->role == 2) {
+        if ($user->role == 1 ) {
             $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '02')->get();
         } else {
             $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '02')->where('department_id', '=', $user->department_id)->get();
@@ -62,7 +62,7 @@ class EmployeeController extends Controller
     public function deathafterIndex()
     {
         $user = Auth::user();
-        if ($user->role == 1 || $user->role == 2) {
+        if ($user->role == 1) {
             $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '03')->get();
         } else {
             $employees = Employee::with('legals')->where('status','!=',3)->where('gitype', '=', '03')->where('department_id', '=', $user->department_id)->get();
@@ -79,7 +79,6 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        //        $employees = Employee::with('legals')->get();
         $departments = Department::all();
         $designations = Designation::all();
         $relations = Relation::all();
@@ -87,7 +86,6 @@ class EmployeeController extends Controller
         $banks = Bank::all();
         return view('admin.employee.create', compact('departments', 'designations', 'relations', 'grades', 'banks'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -96,45 +94,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-
-        $employee = new employee();
-        $employee->pno = $request->personalnumber;
-        $employee->employeecnic = $request->employeecnic;
-        $employee->employeename = $request->employeename;
-        $employee->fathername = $request->fathername;
-        $employee->dateofbirth = $request->dateofbirth;
-        $employee->department_id = $user->department_id;
-        $employee->designation_id = $request->designation;
-        $employee->grade = $request->grade;
-        $employee->gitype = $request->gitype;
-        $employee->retirementdate = $request->retirementdate;
-        $employee->dateofdeath = $request->deathdate;
-        $employee->beneficiaries = $request->beneficiaries;
-        if ($user->role == 1) {
-            $employee->status = 'OK';
-        } else {
-            $employee->status = 'Pending';
-        }
-        $employee->contribution = $request->contribution;
-        $employee->user_id = $user->id;
-        $employee->save();
-
-        $beneficiary = new legalheir();
-        $beneficiary->employee_id = $employee->id;
-        $beneficiary->heircnic = $request->beneficiarycnic;
-        $beneficiary->heirname = $request->beneficiaryname;
-        $beneficiary->relation_id = $request->relation;
-        $beneficiary->bank_id = $request->bank;
-        $beneficiary->branch_id = $request->branch;
-        $beneficiary->accountno = $request->accountno;
-        $beneficiary->amount = $request->amount;
-        $beneficiary->user_id = $user->id;
-        $beneficiary->save();
-
-        return redirect()->back()->with('message', 'Record Added successfully');
     }
-
     /**
      * Display the specified resource.
      *
@@ -142,10 +102,8 @@ class EmployeeController extends Controller
      * @return Response
      */
     public function show(Employee $employee)
-    {
-        //
+    {//
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,9 +112,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -165,8 +121,7 @@ class EmployeeController extends Controller
      * @return Response
      */
     public function update(Request $request, Employee $employee)
-    {
-        //
+    {//
     }
 
     /**
@@ -214,7 +169,6 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $self = "1";
-
         // Employee Model
         $employee = new employee();
         $employee->pno = $request->personalnumber;
@@ -765,8 +719,10 @@ class EmployeeController extends Controller
 
     public function department_report()
     {
+
+        $employee_id = Employee::where('status' ,2)->pluck('id');
         $departments = Department::with('employees')->whereHas('employees')->get();
-        $total = Legalheir::sum('amount');
+        $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
 
         return view('admin.reports.department_report', compact('departments','total'));
@@ -806,11 +762,12 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         if ($user->role == 1) {
-            $objection = objection::where('department_id', '=', $user->department_id)->pluck('employee_id');
-            $employees = Employee::with('legals')->whereIn('id', $objection)->where('status', '=', 3)->where('department_id', '=', $user->department_id)->get();
+//            $objection = objection::where('department_id', '=', $user->department_id)->pluck('employee_id');
+            $employees = Employee::with('legals')->where('status', '=', 3)->get();
         }else{
             $objection = objection::where('department_id', '=', $user->department_id)->pluck('employee_id');
-            $employees = Employee::with('legals')->whereIn('id', $objection)->where('status', '=', 3)->where('department_id', '=', $user->department_id)->get();
+            $employees = Employee::with('legals')->whereIn('id', $objection)
+            ->where('status', '=', 3)->where('department_id', '=', $user->department_id)->get();
         }
         return view('admin.employees.objections.index', compact('employees'));
 
@@ -974,17 +931,17 @@ class EmployeeController extends Controller
             $retirement  = Employee::where('gitype','=', '01')->where('status','!=', 3)->count();
             $death = Employee::where('gitype','=', '02')->where('status','!=', 3)->count();
             $death_after = Employee::where('gitype','=', '03')->where('status','!=', 3)->count();
-
+            $objection = Employee::where('status', 3)->count();
             $employees = Employee::with('legals')->where('status','!=',3)->get();
         } else {
             $retirement  = Employee::where('gitype','=', '01')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
             $death = Employee::where('gitype','=', '02')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
             $death_after = Employee::where('gitype','=', '03')->where('status','!=', 3)->where('department_id', '=', $user->department_id)->count();
-
+            $objection = Employee::where('status', 3)->where('department_id', '=', $user->department_id)->count();
             $employees = Employee::with('legals')->where('status','!=',3)->where('department_id', '=', $user->department_id)->get();
         }
 
-        return view('admin.employees.all_claims.index', compact('employees','retirement','death','death_after'));
+        return view('admin.employees.all_claims.index', compact('employees','retirement','death','death_after','objection'));
     }
 
 }
