@@ -43,7 +43,7 @@
                         <td>{{$row->employee->user->name}}</td>
                         <td>{{$row->heirname}}</td>
                         <td>{{$row->heircnic}}</td>
-                        <td>{{$row->branch_desc}}</td>
+                        <td>{{$row->branch->branch_desc}}</td>
                         <td>{{$row->accountno}}</td>
                         <td>{{$row->amount}}</td>
                     </tr>

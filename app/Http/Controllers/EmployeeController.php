@@ -718,12 +718,14 @@ class EmployeeController extends Controller
 
     public function department_report()
     {
-//        $report = Department::with('employees.legals')->whereHas('employees' , function ($q){
-//            $q->where('status','=',2);
-//        })->get();
-//        dd($report);
+
+
 
         $employee_id = Employee::where('status' ,2)->pluck('id');
+//        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+//            $q->where('status','=',2);
+//        })->get();
+
         $departments = Department::whereHas('employees',function($q){
             $q->where('status','=',2);
         })->get();

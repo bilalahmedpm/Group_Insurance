@@ -19,7 +19,7 @@
                 <div class="col-md-12">
 
                     @foreach($departments as $key => $row)
-                        @if($row->employees->count() >= 0)
+{{--                        @if($row->employees->count() >= 0)--}}
                             <?php $totalamount = 0; ?>
                             <div class="card">
                                 <div class="card-header">
@@ -48,8 +48,8 @@
 
                                         <tbody>
                                         @foreach($row->employees as  $row1)
-                                            @if(count($row->employees) > 0)
-                                            @if($row1->status == 2)
+{{--                                            @if(count($row->employees) > 0)--}}
+{{--                                            @if($row1->status == 2)--}}
                                                 @foreach ($row1->legals as $row2)
 
                                                     <tr>
@@ -75,11 +75,11 @@
                                                     <?php $totalamount += $row2->amount++ ?>
 
                                                 @endforeach
-                                            @endif
+{{--                                            @endif--}}
 
                                         </tbody>
 
-                                        @endif
+{{--                                        @endif--}}
                                         @endforeach
 
                                         <tr>
@@ -90,7 +90,7 @@
                                     </table>
                                 </div> <!-- /.card-body -->
                             </div> <!-- /.card -->
-                        @endif
+{{--                        @endif--}}
                     @endforeach
                 </div>
 
