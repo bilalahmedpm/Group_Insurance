@@ -100,7 +100,7 @@
                                         </td>
                                         <td>
                                             <!-- edit section -->
-                                            <a href="{{route('death.after.edit' ,$row->id)}}"
+                                            <a href="#"
                                                class="btn btn-sm btn-primary"
                                                title="edit">
                                                 <i class="fa fa-pen"></i> Edit

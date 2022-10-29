@@ -14,7 +14,7 @@
                     <?php $user = Auth::user(); ?>
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Death Entry Form</h3>
+                            <h3 class="card-title">Death Claim View</h3>
 
                             <a href="{{route('verify',['id'=> $doc->employee_id])}}" style="margin-left: 20px;"
                                class="btn btn-success btn-sm float-right">Verify</a>
@@ -25,7 +25,7 @@
                         <!-- /.card-header -->
 
                         <div class="card-body">
-                            <form action="{{route('death.store')}}" method="post" accept-charset="UTF-8"
+                            <form action="#" method="post" accept-charset="UTF-8"
                                   enctype="multipart/form-data">
                                 @csrf
                                 {{--Row1--}}
@@ -171,22 +171,6 @@
                                                        id="d_date" class="form-control datemask"
                                                        data-inputmask-alias="datetime"
                                                        data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
-                                        <!-- /.form group -->
-                                    </div>
-                                    <div class="col-sm-2" id="check">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-
-                                                </div>
-                                                <input type="button" style="margin-top: 10px;" id="submit"
-                                                       value="Calculate Amount"
-                                                       class="form-control  btn btn-primary">
                                             </div>
                                             <!-- /.input group -->
                                         </div>
@@ -507,7 +491,7 @@
 
             </div>
 
-        </div></div>
+        </div>
 
     </section>
     <!-- /.content -->

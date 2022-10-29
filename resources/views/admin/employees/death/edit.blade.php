@@ -56,7 +56,7 @@
                                                 <input type="text" id="empname" name="employeename"
                                                        class="form-control name" value="{{$row->employeename}}"
                                                        . placeholder="Enter Employee Name"
-                                                       data-parsley-required data-parsley-trigger="keyup">
+                                                       data-parsley-required data-parsley-trigger="keyup" style ="text-transform: capitalize">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -66,7 +66,7 @@
                                                 <input type="text" . value="{{$row->fathername}}"
                                                        name="fathername" class="form-control "
                                                        placeholder="Father Name"
-                                                       data-parsley-required data-parsley-trigger="keyup">
+                                                       data-parsley-required data-parsley-trigger="keyup" style ="text-transform: capitalize">
                                             </div>
                                         </div>
                                     </div>
@@ -96,10 +96,10 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Department</label>
-                                                <select class="form-control  select2" . name="department"
+                                                <select class="form-control  select2"  name="department"
                                                         style="width: 100%;"
                                                         data-parsley-required>
-                                                    <option selected="selected" .>Select Department</option>
+                                                    <option selected="selected" >Select Department</option>
                                                     @foreach( $departments as $department)
                                                         <option
                                                             value="{{$department->id}}"{{$department->id == $row->department_id ? "selected":""}}>{{{$department->department_desc}}}</option>
@@ -111,7 +111,7 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Designation</label>
-                                                <select class="form-control  select2" . name="designation"
+                                                <select class="form-control  select2"  name="designation"
                                                         style="width: 100%;" required>
                                                     <option selected="selected" .>Select Designation</option>
                                                     @foreach( $designations as $designation)
@@ -127,7 +127,7 @@
                                                 <label>Grade</label>
                                                 <select class="form-control select2" . id="grade" name="grade"
                                                         style="width: 100%;" required>
-                                                    <option selected="selected" .>Select Grade</option>
+                                                    <option selected="selected" >Select Grade</option>
                                                     @foreach( $grades as $grade)
                                                         <option
                                                             value="{{$grade->grade}}" {{$grade->grade == $row->grade ? "selected":""}}>{{{$grade->grade}}}</option>
@@ -142,7 +142,7 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Nature of Claim</label>
-                                                <select class="form-control" . name="gitype" id="types"
+                                                <select class="form-control"  name="gitype" id="types"
                                                         style="width: 100%;"
                                                         required>
                                                     @if($row->gitype =='02')
@@ -162,7 +162,7 @@
                                                     <span class="input-group-text"><i
                                                             class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" . value="{{$row->dateofdeath}}" name="deathdate"
+                                                    <input type="text"  value="{{$row->dateofdeath}}" name="deathdate"
                                                            id="d_date" class="form-control datemask"
                                                            data-inputmask-alias="datetime"
                                                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
@@ -170,6 +170,48 @@
                                                 <!-- /.input group -->
                                             </div>
                                             <!-- /.form group -->
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Age on Date</label>
+                                                <input type="number"  value="{{$row->ageondate}}"
+                                                       id="ageondate" name="ageondate" class="form-control"
+                                                       placeholder="Calculating......" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Contact No</label>
+                                                <input type="text"  value="{{$row->contactno}}"
+                                                       name="contact_no" class="form-control "
+                                                       placeholder="0331XXXXXXX" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>Beneficiaries</label>
+                                                <input type="number"  value="{{$row->beneficiaries}}"
+                                                       id="beneficiaries" value="1" min="1" max="5" name="beneficiaries"
+                                                       class="form-control "
+                                                       placeholder="Beneficiaries" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="display: none">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label> </label>
+                                                <input type="button" style="margin-top: 10px;" id="append" value="Append"
+                                                       class="form-control  btn btn-primary">
+                                            </div>
                                         </div>
                                         <div class="col-sm-2" id="check">
                                             <!-- text input -->
@@ -187,49 +229,6 @@
                                             </div>
                                             <!-- /.form group -->
                                         </div>
-
-                                        <div class="col-sm-3">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label>Age on Date</label>
-                                                <input type="number" . value="{{$row->ageondate}}"
-                                                       id="ageondate" name="ageondate" class="form-control"
-                                                       placeholder="Calculating......" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label>Contact No</label>
-                                                <input type="text" . value="{{$row->contactno}}"
-                                                       name="contact_no" class="form-control "
-                                                       placeholder="0331XXXXXXX" required>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label>Beneficiaries</label>
-                                                <input type="number" . value="{{$row->beneficiaries}}"
-                                                       id="beneficiaries" value="1" min="1" max="5" name="beneficiaries"
-                                                       class="form-control "
-                                                       placeholder="Beneficiaries" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3" style="display: none">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label> </label>
-                                                <input type="button" style="margin-top: 10px;" id="append" value="Append"
-                                                       class="form-control  btn btn-primary">
-                                            </div>
-                                        </div>
-
                                     </div>
                                     @foreach($row->legals as $key => $row1)
                                         <div class="row">
@@ -328,7 +327,7 @@
                                                         <label>Amount</label>
                                                         <input type="text" . value="{{$row1->amount}}" id="amount" name="amount[]"
                                                                class="form-control" placeholder="calculating...."
-                                                               required>
+                                                               required readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -413,29 +412,9 @@
                                             </div>
 
                                         </div>
-                                        <!-- in case of 2 beneficiaries shown other wise hidden -->
-                                        {{--                                        <div class="row">--}}
-
-                                        {{--                                            <div class="col-sm-3">--}}
-                                        {{--                                                <div class="mb-3">--}}
-                                        {{--                                                    <label for="formFile" class="form-label">2nd Beneficiary CNIC</label>--}}
-                                        {{--                                                    <input class="form-control" name="beneficiary_cnic2_img" type="file" >--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                            </div>--}}
-
-                                        {{--                                            <div class="col-sm-3">--}}
-                                        {{--                                                <div class="mb-3">--}}
-                                        {{--                                                    <label for="formFile" class="form-label">Pension Sheet 2nd Beneficiary</label>--}}
-                                        {{--                                                    <input class="form-control" name="beneficiary_pension_sheet2" type="file">--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                            </div>--}}
-
-                                        {{--                                        </div>--}}
-                                        <!-- in case of 2 beneficiaries shown other wise hidden -->
-
-                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                     <!-- /.card-body -->
+                                    <button class="btn btn-primary">Update Record</button>
                                 </div>
                             </form>
                         </div>
@@ -638,7 +617,7 @@
                         <!-- text input -->
                         ' <div class="form-group">' +
                         '<label>Amount</label>' +
-                        "<input type='text' id='amount' value='" + amount / per + "' name='amount[]' class='form-control' placeholder='calculating....' required>" +
+                        "<input type='text' id='amount' value='" + amount / per + "' name='amount[]' class='form-control' placeholder='calculating....' required readonly>" +
                         '</div>' +
                         ' </div>');
                 }

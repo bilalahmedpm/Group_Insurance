@@ -15,6 +15,7 @@ use App\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -419,7 +420,7 @@ class EmployeeController extends Controller
         $employee->designation_id = $request->designation;
         $employee->grade = $request->grade;
         $employee->gitype = $request->gitype;
-        $employee->dateofretirement = $request->retirementdate;
+        $employee->retirementdate = $request->retirementdate;
         $employee->dateofdeath = $request->deathdate;
         $employee->ageondate = $request->ageondate;
         $employee->beneficiaries = $request->beneficiaries;
@@ -572,11 +573,8 @@ class EmployeeController extends Controller
     public function retirement_update(Request $request, $id)
     {
         $user = Auth::user();
-        $self = "1";
-
-        // Employee Model
-
-        $employee = Employee::where('id', '=', $id)->get();
+        $self = 1;
+        $employee = Employee::find($id);
         $employee->pno = $request->personalnumber;
         $employee->employeecnic = $request->employeecnic;
         $employee->employeename = $request->employeename;
@@ -588,86 +586,87 @@ class EmployeeController extends Controller
         $employee->gitype = $request->gitype;
         $employee->retirementdate = $request->retirementdate;
         $employee->ageondate = $request->ageondate;
-        $employee->beneficiaries = "1";
         $employee->status = "0";  //pending
         $employee->contribution = $request->contribution;
         $employee->contactno = $request->contact_no;
         $employee->user_id = $user->id;
-        $employee->save();
 
-
-        $beneficiary = Legalheir::where('employee_id', '=', $id)->get();
+        $employee->update();
+        $getid = $employee->id;
         // Legal Heir Model
-        $beneficiary->heircnic = $employee->employeecnic;
-        $beneficiary->heirname = $employee->employeename;
-        $beneficiary->relation_id = $self;
-        $beneficiary->bank_id = $request->bank;
-        $beneficiary->branch_id = $request->branch;
-        $beneficiary->accountno = $request->accountno;
-        $beneficiary->amount = $request->amount;
-        $beneficiary->user_id = $user->id;
-        $beneficiary->save();
+            $beneficiary =  legalheir::where('employee_id','=',$id)->first();
+            $beneficiary->employee_id = $getid;
+            $beneficiary->heircnic = $employee->employeecnic;
+            $beneficiary->heirname = $employee->employeename;
+            $beneficiary->relation_id = $self;
+            $beneficiary->bank_id = $request->bank;
+            $beneficiary->branch_id = $request->branch;
+            $beneficiary->accountno = $request->accountno;
+            $beneficiary->amount = $request->amount;
+            $beneficiary->user_id = $user->id;
+            $beneficiary->update();
 
-//        // Documents Model
-//        $documents = new EmployeeDocument();
-//        //employee cnic
-//        if ($request->hasfile('employee_cnic_img')) {
-//
-//            $image1 = $request->file('employee_cnic_img');
-//            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->employee_cnic_img = 'employee_documents/' . $name;
-//        }
-//        // pension sheet
-//        if ($request->hasfile('employee_penshion_sheet')) {
-//
-//            $image1 = $request->file('employee_penshion_sheet');
-//            $name = time() . 'employee_penshion_sheet' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->employee_pension_sheet_img = 'employee_documents/' . $name;
-//        }
-//        // retirement order
-//        if ($request->hasfile('retirement_order')) {
-//
-//            $image1 = $request->file('retirement_order');
-//            $name = time() . 'retirement_order' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->retirement_order = 'employee_documents/' . $name;
-//        }
-//        //stamp paper
-//        if ($request->hasfile('stamp_paper')) {
-//
-//            $image1 = $request->file('stamp_paper');
-//            $name = time() . 'stamp_paper' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->stamp_paper = 'employee_documents/' . $name;
-//        }
-//        // contribution statement
-//        if ($request->hasfile('contribution_statement')) {
-//
-//            $image1 = $request->file('contribution_statement');
-//            $name = time() . 'contribution_statement' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->contribution_statement = 'employee_documents/' . $name;
-//        }
-//        // part III form B
-//        if ($request->hasfile('part3_form')) {
-//
-//            $image1 = $request->file('part3_form');
-//            $name = time() . 'part3_form' . '.' . $image1->getClientOriginalExtension();
-//            $destinationPath = 'employee_documents/';
-//            $image1->move($destinationPath, $name);
-//            $documents->part3form_b = 'employee_documents/' . $name;
-//        }
-//
-//        $documents->employee_id = $employee->id;
-//        $documents->user_id = $user->id;
-//        $documents->save();
+
+        // Documents Model
+        $documents = EmployeeDocument::where('employee_id', '=', $id)->first();
+        //employee cnic
+        if ($request->hasfile('employee_cnic_img')) {
+
+            $image1 = $request->file('employee_cnic_img');
+            $name = time() . 'employee_cnic_img' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_cnic_img = 'employee_documents/' . $name;
+        }
+        // pension sheet
+        if ($request->hasfile('employee_penshion_sheet')) {
+
+            $image1 = $request->file('employee_penshion_sheet');
+            $name = time() . 'employee_penshion_sheet' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->employee_pension_sheet_img = 'employee_documents/' . $name;
+        }
+        // retirement order
+        if ($request->hasfile('retirement_order')) {
+
+            $image1 = $request->file('retirement_order');
+            $name = time() . 'retirement_order' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->retirement_order = 'employee_documents/' . $name;
+        }
+        //stamp paper
+        if ($request->hasfile('stamp_paper')) {
+
+            $image1 = $request->file('stamp_paper');
+            $name = time() . 'stamp_paper' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->stamp_paper = 'employee_documents/' . $name;
+        }
+        // contribution statement
+        if ($request->hasfile('contribution_statement')) {
+
+            $image1 = $request->file('contribution_statement');
+            $name = time() . 'contribution_statement' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->contribution_statement = 'employee_documents/' . $name;
+        }
+        // part III form B
+        if ($request->hasfile('part3_form')) {
+
+            $image1 = $request->file('part3_form');
+            $name = time() . 'part3_form' . '.' . $image1->getClientOriginalExtension();
+            $destinationPath = 'employee_documents/';
+            $image1->move($destinationPath, $name);
+            $documents->part3form_b = 'employee_documents/' . $name;
+        }
+
+        $documents->employee_id = $employee->id;
+        $documents->user_id = $user->id;
+        $documents->save();
 
 
         return redirect()->back()->with('message', 'Claim Updated successfully');
@@ -719,9 +718,15 @@ class EmployeeController extends Controller
 
     public function department_report()
     {
+//        $report = Department::with('employees.legals')->whereHas('employees' , function ($q){
+//            $q->where('status','=',2);
+//        })->get();
+//        dd($report);
 
         $employee_id = Employee::where('status' ,2)->pluck('id');
-        $departments = Department::with('employees')->whereHas('employees')->get();
+        $departments = Department::whereHas('employees',function($q){
+            $q->where('status','=',2);
+        })->get();
         $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
 
@@ -730,9 +735,26 @@ class EmployeeController extends Controller
 
     public function bank_report()
     {
-        $banks = Bank::with('legalheirs')->whereHas('legalheirs')->get();
+//        $banks =DB::table('banks')
+//            ->join('legalheirs', 'legalheirs.bank_id', '=', 'banks.id')
+//            ->join('branches','legalheirs.branch_id','=' , 'branches.id')
+//            ->join('relations' , 'relations.id' ,'=','legalheirs.relation_id')
+//            ->join('employees',function($join){
+//                $join->on('employees.id', '=', 'legalheirs.employee_id')->where('status','=','2');
+//            })
+//            ->join('departments' , 'departments.id' , '=','employees.department_id')
+//            ->join('designations' , 'designations.id' , '=','employees.designation_id')
+//            ->select('banks.*','legalheirs.*','employees.*','branches.*','departments.department_desc AS department','designations.designation_desc AS designation')
+//            ->get();
+        $legalheirs = Legalheir::with('bank','employee')->whereHas('employee',function($q){
+        $q->where('status','=',2);
+    })->get();
+
+        /* $banks = Bank::with('legalheirs')->whereHas('employee',function($q){
+            $q->where('employees.status','=',2);
+        })->get();*/
 //        dd($banks);
-        return view('admin.reports.bank_report', compact('banks'));
+        return view('admin.reports.bank_report', compact('legalheirs'));
     }
 
     public function verify($id)
@@ -808,7 +830,7 @@ class EmployeeController extends Controller
         $employee->contactno = $request->contact_no;
         $employee->user_id = $user->id;
 
-        $employee->save();
+        $employee->update();
         $getid = $employee->id;
 
         $bankcount = count($request->bank);
@@ -824,7 +846,7 @@ class EmployeeController extends Controller
             $beneficiary->accountno = $request->accountno[$i];
             $beneficiary->amount = $request->amount[$i];
             $beneficiary->user_id = $user->id;
-            $beneficiary->save();
+            $beneficiary->update();
         }
 
         $documents = EmployeeDocument::where('employee_id', '=', $id)->first();
@@ -916,7 +938,7 @@ class EmployeeController extends Controller
 
         $documents->employee_id = $getid;
         $documents->user_id = $user->id;
-        $documents->save();
+        $documents->update();
 
         return redirect()->back()->with('message', 'Claim Update successfully');
     }

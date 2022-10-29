@@ -14,7 +14,14 @@
                     <?php $user = Auth::user(); ?>
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Death Entry Form</h3>
+                            <h3 class="card-title">Death After Retirement Claim View</h3>
+
+                            <a href="{{route('verify',['id'=> $doc->employee_id])}}" style="margin-left: 20px;"
+                               class="btn btn-success btn-sm float-right">Verify</a>
+
+                            <a  data-toggle="modal" data-target="#exampleModal" style="margin-left: 20px;"
+                                class="btn btn-warning btn-sm float-right">Objection</a>
+
                         </div>
                         <!-- /.card-header -->
 
@@ -185,22 +192,6 @@
                                                            id="d_date" class="form-control datemask"
                                                            data-inputmask-alias="datetime"
                                                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                                </div>
-                                                <!-- /.input group -->
-                                            </div>
-                                            <!-- /.form group -->
-                                        </div>
-                                        <div class="col-sm-2" id="check">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-
-                                                    </div>
-                                                    <input type="button" style="margin-top: 10px;" id="submit"
-                                                           value="Calculate Amount"
-                                                           class="form-control  btn btn-primary">
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
@@ -482,6 +473,45 @@
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Details Objection</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="{{route('objection')}}" method="post" enctype="multipart/form-data"
+                              data-parsley-validate>
+                            @csrf
+                            <input type="hidden" name="id" value="{{$doc->employee_id}}">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="title"><b>Description</b><span class="text-danger">*</span></label>
+                                    <textarea placeholder="Description" class="form-control" name="description"></textarea>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 pull-right">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
     </section>
     <!-- /.content -->
 @endsection

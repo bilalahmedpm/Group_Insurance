@@ -101,6 +101,13 @@
                                             @endforeach
                                         </td>
                                         <td>
+                                            <!-- edit section -->
+                                            <a href="{{route('death.edit' ,$row->id)}}"
+                                               class="btn btn-sm btn-primary"
+                                               title="edit">
+                                                <i class="fa fa-pen"></i> Edit
+                                            </a>
+                                            <!-- view section -->
                                             <a href="{{route('death.view' ,$row->id)}}"
                                                class="btn btn-sm btn-primary"
                                                title="edit">

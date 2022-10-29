@@ -49,7 +49,7 @@
                                         <div class="form-group">
                                             <label>Employee Name</label>
                                             <input type="text" id="empname" name="employeename"
-                                                   class="form-control name" placeholder="Enter Employee Name"
+                                                   class="form-control name" placeholder="Enter Employee Name" style ="text-transform: capitalize"
                                                    data-parsley-required data-parsley-trigger="keyup">
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Father Name</label>
-                                            <input type="text" name="fathername" class="form-control "
+                                            <input type="text" name="fathername" class="form-control " style ="text-transform: capitalize"
                                                    placeholder="Father Name"
                                                    data-parsley-required data-parsley-trigger="keyup">
                                         </div>
@@ -260,7 +260,7 @@
                                             <!-- text input -->
                                             <div class="form-group">
                                                 <label>Beneficiary Name</label>
-                                                <input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>
+                                                <input type="text" id="benefname" name="beneficiaryname[]" class="form-control" style ="text-transform: capitalize" placeholder="Beneficiary Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -515,7 +515,7 @@
                         ' <div class="col-sm-4">' +
                         '<div class="form-group">' +
                         ' <label>Beneficiary Name</label>' +
-                        ' <input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" required>' +
+                        ' <input type="text" id="benefname" name="beneficiaryname[]" class="form-control" placeholder="Beneficiary Name" style ="text-transform: capitalize" required>' +
                         '</div>' +
                         '</div>' +
                         ' <div class="col-sm-4">' +

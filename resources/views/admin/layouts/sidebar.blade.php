@@ -31,6 +31,29 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-search"></i>
+                        <p>
+                            Search
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="pages/search/simple.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Simple Search</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/search/enhanced.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Enhanced</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('user.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
@@ -66,9 +89,15 @@
                 <li class="nav-item">
                     <a href="{{route('claims.all') }}" class="nav-link" >
                         <i class="nav-icon fas fa-copy"></i>
+                        @if(Auth::user()->role == 1)
                         <p>
-                            All Claims
+                            Recieved Claims
                         </p>
+                        @elseif(Auth::user()->role == 3)
+                            <p>
+                                Submitted Claims
+                            </p>
+                        @endif
                     </a>
                 </li>
                 <li class="nav-item">
@@ -77,7 +106,6 @@
                         <p>
                             Objection Claims
                         </p>
-                        <i class="fas fa-angle-left right"></i>
                     </a>
                 </li>
 

@@ -61,7 +61,7 @@
                                             <label>Employee Name</label>
                                             <input type="text" id="empname" value="{{$employee->employeename}}" name="employeename"
                                                    class="form-control name" placeholder="Enter Employee Name"
-                                                   data-parsley-required data-parsley-trigger="keyup"  >
+                                                   data-parsley-required data-parsley-trigger="keyup" style ="text-transform: capitalize" >
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -70,7 +70,7 @@
                                             <label>Father Name</label>
                                             <input type="text" name="fathername" value="{{$employee->fathername}}" class="form-control "
                                                    placeholder="Father Name"
-                                                   data-parsley-required data-parsley-trigger="keyup" >
+                                                   data-parsley-required data-parsley-trigger="keyup" style ="text-transform: capitalize" >
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +257,7 @@
                                                 <input type="text" name="accountno" value="{{$legal->accountno}}" class="form-control iban"
                                                        placeholder="IBAN Number" data-parsley-type="alphanum"
                                                        data-parsley-trigger="keyup" data-parsley-maxlength="24"
-                                                       data-parsley-minlength="24" required >
+                                                       data-parsley-minlength="24" required  style ="text-transform: uppercase">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -279,74 +279,55 @@
                                     <div class="card-body">
                                         <div class="row">
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Employee CNIC</label>
-                                                    <a href="{{asset($doc->employee_cnic_img)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->employee_cnic_img)}}"
-                                                             class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
-
+                                                    <input class="form-control fileupload" name="employee_cnic_img" type="file"
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Employee Peshion Sheet</label>
-                                                    <a href="{{asset($doc->employee_pension_sheet_img)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->employee_pension_sheet_img)}}"
-                                                             class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
-
+                                                    <label for="formFile" class="form-label">Pension Roll Data Sheet</label>
+                                                    <input class="form-control" name="employee_penshion_sheet"
+                                                           type="file" id="formFile" required>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Part III Form B</label>
-                                                    <a href="{{asset($doc->part3form_b)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->part3form_b)}}"
-                                                             class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Non Judicial Stamp Paper</label>
-                                                    <a href="{{asset($doc->stamp_paper)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->stamp_paper)}}"
-                                                             class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Contribution Statement</label>
-                                                    <a href="{{asset($doc->contribution_statement)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->contribution_statement)}}"
-                                                             class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Retirement Order</label>
-                                                    <a href="{{asset($doc->retirement_order)}}" data-toggle="lightbox"
-                                                       data-title="sample 1 - white" data-gallery="gallery">
-                                                        <img src="{{asset($doc->retirement_order)}}" class="img-fluid mb-2" alt="white sample"/>
-                                                    </a>
+                                                    <input class="form-control" name="retirement_order" type="file"
+                                                           id="formFile" required>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Stamp Paper</label>
+                                                    <input class="form-control" name="stamp_paper" type="file"
+                                                           id="formFile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Contribution
+                                                        Statement</label>
+                                                    <input class="form-control" name="contribution_statement"
+                                                           type="file" id="formFile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Part III Form B</label>
+                                                    <input class="form-control" name="part3_form" type="file"
+                                                           id="formFile" required>
                                                 </div>
                                             </div>
 

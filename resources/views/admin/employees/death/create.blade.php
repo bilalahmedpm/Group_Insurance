@@ -296,7 +296,7 @@
                                             <div class="form-group">
                                                 <label>Amount</label>
                                                 <input type="text" id="amount" name="amount[]" class="form-control"
-                                                       placeholder="calculating...." required>
+                                                       placeholder="calculating...." required readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -548,7 +548,7 @@
                         <!-- text input -->
                         ' <div class="form-group">' +
                         '<label>Amount</label>' +
-                        "<input type='text' id='amount' value='" + amount / per + "' name='amount[]' class='form-control' placeholder='calculating....' required>" +
+                        "<input type='text' id='amount' value='" + amount / per + "' name='amount[]' class='form-control' placeholder='calculating....' required readonly>" +
                         '</div>' +
                         ' </div>');
                 }

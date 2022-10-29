@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
 // Death after retirement Routes
     Route::get('/death/after/index', 'EmployeeController@deathafterIndex')->name('death.after.index');
     Route::get('/death_after_retirement', 'EmployeeController@death_after_retirement')->name('entry.death_after_retirement');
-    Route::get('/death_after_retirement/store', 'EmployeeController@deathRetirementStore')->name('death_after_retirement.store');
+    Route::post('/death_after_retirement/store', 'EmployeeController@deathRetirementStore')->name('death_after_retirement.store');
     Route::get('/death/edit/{id}', 'EmployeeController@deathEdit')->name('death.edit'); //edit
     Route::post('/death/update/{id}', 'EmployeeController@deathUpdate')->name('death.update');
 

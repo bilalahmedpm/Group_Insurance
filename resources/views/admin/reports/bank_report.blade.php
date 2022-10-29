@@ -11,10 +11,10 @@
 </head>
 <body>
 <div class="container">
-    @foreach($banks as $key => $row)
+    @foreach($legalheirs as $key => $row)
         <table class="table table-bordered" style="font-size: 10pt">
 
-            {{$key+1}}  : {{$row->name}}
+            {{$key+1}}  : {{$row->bank->name}}
             <thead>
             <tr>
                 <th>Id</th>
@@ -26,7 +26,6 @@
                 <th>User</th>
                 <th>Legalheir Name</th>
                 <th>Legalheir CNIC</th>
-                <th>Bank</th>
                 <th>Branch</th>
                 <th>Account #</th>
                 <th>Amount</th>
@@ -34,26 +33,20 @@
             </thead>
 
             <tbody>
-            @foreach($row->legalheirs as  $row1)
-
                     <tr>
-                        <td>{{$row1->employee_id}}</td>
-                        <td>{{$row1->employee->employeename}}</td>
-                        <td>{{$row1->employee->fathername}}</td>
-                        <td>{{$row1->employee->department->department_desc}}</td>
-                        <td>{{$row1->employee->designation->designation_desc}}</td>
-                        <td>{{$row1->employee->gitype}}</td>
-                        <td>{{$row1->employee->user->name}}</td>
-                        <td>{{$row1->heirname}}</td>
-                        <td>{{$row1->heircnic}}</td>
-                        <td>{{$row1->bank->name}}</td>
-                        <td>{{$row1->branch->branch_desc}}</td>
-                        <td>{{$row1->accountno}}</td>
-                        <td>{{number_format($row1->amount)}}</td>
+                        <td>{{$row->id}}</td>
+                        <td>{{$row->employee->employeename}}</td>
+                        <td>{{$row->employee->fathername}}</td>
+                        <td>{{$row->employee->department->department_desc}}</td>
+                        <td>{{$row->employee->designation->designation_desc}}</td>
+                        <td>{{$row->employee->gitype}}</td>
+                        <td>{{$row->employee->user->name}}</td>
+                        <td>{{$row->heirname}}</td>
+                        <td>{{$row->heircnic}}</td>
+                        <td>{{$row->branch_desc}}</td>
+                        <td>{{$row->accountno}}</td>
+                        <td>{{$row->amount}}</td>
                     </tr>
-
-
-                @endforeach
             @endforeach
             </tbody>
         </table>
