@@ -756,9 +756,7 @@ class EmployeeController extends Controller
 //                $query->select('id','Alias', 'City', 'isHeadOffice', 'company_id', 'state_id');
 //            },'towhichShop', 'fromwhichStore'
 //        ))->latest()->get();
-        $banks = Bank::with(array('legalheirs', 'legalheirs.employee'=>function($q){
-        $q->where('status','=',2);
-         }))->whereHas( 'legalheirs')->get();
+
 //        return $banks;
         //am coming ok
 
@@ -775,6 +773,9 @@ class EmployeeController extends Controller
 //            $q->orderBy('bank_id','ASC');
 //        })->where('status','=',2)->get();
 //        return $employees;
+        $banks = Bank::with(array('legalheirs', 'legalheirs.employee'=>function($q){
+            $q->where('status','=',2);
+        }))->whereHas( 'legalheirs')->get();
         return view('admin.reports.bank_report', compact('banks'));
     }
 
@@ -960,10 +961,7 @@ class EmployeeController extends Controller
 
         return redirect()->back()->with('message', 'Claim Update successfully');
     }
-    public function bankpdf()
-    {
 
-    }
     public function allclaims()
     {
         $user = Auth::user();
@@ -983,5 +981,15 @@ class EmployeeController extends Controller
 
         return view('admin.employees.all_claims.index', compact('employees','retirement','death','death_after','objection'));
     }
+    public function search()
+    {
+        $user = Auth::user();
+        if ($user->role == 1) {
+            $employees = Employee::with('legals','legals.bank','legals.branch')->get();
+        } else {
+            $employees = Employee::with('legals','legals.bank','legals.branch')->where('department_id', '=', $user->department_id)->get();
+        }
 
+        return view('admin.employees.search.index' , compact('employees'));
+    }
 }

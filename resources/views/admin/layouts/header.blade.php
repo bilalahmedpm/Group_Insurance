@@ -36,6 +36,20 @@
     <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+    <style>
+        th {
+            text-align:left;
+            text-transform: uppercase;
+            vertical-align: text-top;
+            font-size: small;
+        }
+
+        td {
+            text-align: left;
+            text-transform: uppercase;
+            font-size: small;
+        }
+    </style>
     @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

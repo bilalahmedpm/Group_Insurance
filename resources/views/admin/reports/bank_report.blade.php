@@ -38,12 +38,13 @@
 
 {{--            @endforeach--}}
 
-            @foreach($bank->legalheirs as $legalheir)
+
 
 {{--                {{$legalheir}}--}}
             <tbody>
+            @foreach($bank->legalheirs as $legalheir)
+                @if($legalheir->employee != NULL)
                     <tr>
-                        @if($legalheir->employee != NULL)
                         <td>{{$legalheir->employee_id}}</td>
                         <td>{{$legalheir->employee->employeename}}</td>
                         <td>{{$legalheir->employee->fathername}}</td>
@@ -56,8 +57,8 @@
                         <td>{{$legalheir->branch->branch_desc}}</td>
                         <td>{{$legalheir->accountno}}</td>
                         <td>{{$legalheir->amount}}</td>
-                        @endif
                     </tr>
+                @endif
             </tbody>
             @endforeach
         </table>

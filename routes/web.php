@@ -77,7 +77,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Objection/Claims', 'EmployeeController@employeeObjection')->name('employeeee');
     Route::get('/Claims/All', 'EmployeeController@allclaims')->name('claims.all');
 
-
+// Search Record
+Route::get('/Search/Record' ,'EmployeeController@search')->name('search.record');
     });
 
 
