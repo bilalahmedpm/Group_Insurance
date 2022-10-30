@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Search Record
 Route::get('/Search/Record' ,'EmployeeController@search')->name('search.record');
+Route::get('/test' ,'EmployeeController@test');
     });
 
 

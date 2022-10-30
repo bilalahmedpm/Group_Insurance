@@ -992,4 +992,23 @@ class EmployeeController extends Controller
 
         return view('admin.employees.search.index' , compact('employees'));
     }
+    public function test()
+    {
+//        $groupedSalesCampaign = Order::with('Campaign')
+//            ->where('isapproved','=','Y')
+//            ->groupBy('campaign_id')
+//            ->orderBy(DB::raw('COUNT(id)','desc'))
+//            ->get(array(DB::raw('COUNT(id) as totalsales'),'campaign_id'));
+
+//        $bank = Department::with('employees')
+//                ->where('department_desc','=','Finance')
+//                ->groupBy('id')
+//                ->orderBy(DB::raw('COUNT(id)','desc'))
+//                ->get();
+
+        $count = Department::with('employees')->withCount('employees')->orderByRaw('department_desc')->groupBy('department_desc')
+        ->whereHas('employees')->get();
+        return view('text' , compact('count'));
+
+    }
 }
