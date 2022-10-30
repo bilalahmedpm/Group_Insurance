@@ -29,7 +29,7 @@ class Employee extends Model
     }
     public function banks()
     {
-        return $this->belongsTo(\App\Bank::class,'bank');
+        return $this->belongsToMany(Bank::class, 'bank_employees');
     }
 
 }

@@ -15,6 +15,7 @@ use App\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DB;
 
 class EmployeeController extends Controller
@@ -725,10 +726,14 @@ class EmployeeController extends Controller
 //        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
 //            $q->where('status','=',2);
 //        })->get();
+//        dd($departments);
+        $departments = Department::with(['employees' => function($query){
+        $query->where('status','=',2);
+        }])->whereHas('employees')->orderBy('department_desc')->get();
 
-        $departments = Department::whereHas('employees',function($q){
-            $q->where('status','=',2);
-        })->get();
+//        $employees = Employee::with('department','legals','legals.bank','legals.branch')
+//            ->where('status','=',2)->orderBy('department_id')
+//            ->get();
         $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
 
@@ -737,26 +742,40 @@ class EmployeeController extends Controller
 
     public function bank_report()
     {
-//        $banks =DB::table('banks')
-//            ->join('legalheirs', 'legalheirs.bank_id', '=', 'banks.id')
-//            ->join('branches','legalheirs.branch_id','=' , 'branches.id')
-//            ->join('relations' , 'relations.id' ,'=','legalheirs.relation_id')
-//            ->join('employees',function($join){
-//                $join->on('employees.id', '=', 'legalheirs.employee_id')->where('status','=','2');
-//            })
-//            ->join('departments' , 'departments.id' , '=','employees.department_id')
-//            ->join('designations' , 'designations.id' , '=','employees.designation_id')
-//            ->select('banks.*','legalheirs.*','employees.*','branches.*','departments.department_desc AS department','designations.designation_desc AS designation')
-//            ->get();
-        $legalheirs = Legalheir::with('bank','employee')->whereHas('employee',function($q){
-        $q->where('status','=',2);
-    })->get();
+//        $legalheirs = Legalheir::with('bank','employee')->whereHas('employee',function($q){
+//        $q->where('status','=',2);
+//         })->orderBy('bank_id')->get();
 
-        /* $banks = Bank::with('legalheirs')->whereHas('employee',function($q){
-            $q->where('employees.status','=',2);
-        })->get();*/
-//        dd($banks);
-        return view('admin.reports.bank_report', compact('legalheirs'));
+//        $distributionRecords = Stocktransfer::with(array('unit'=>function($query){
+//            $query->select('id','UnitPrefix');
+//        },
+//            'category'=>function($query){
+//                $query->select('id','SKU');
+//            },
+//            'location'=>function($query){
+//                $query->select('id','Alias', 'City', 'isHeadOffice', 'company_id', 'state_id');
+//            },'towhichShop', 'fromwhichStore'
+//        ))->latest()->get();
+        $banks = Bank::with(array('legalheirs', 'legalheirs.employee'=>function($q){
+        $q->where('status','=',2);
+         }))->whereHas( 'legalheirs')->get();
+//        return $banks;
+        //am coming ok
+
+//        $banks = Bank::with(array('employees'=>function($query){
+//            $query->where('status','=',2);
+//    },'legalheirs'))->whereHas( 'legalheirs.employee')->get();
+
+
+//        $banks = Bank::with('legalheirs')->with('legalheirs.employee')->map(function($query){
+//            $query->where('legalheirs.employee.status','=',2);
+//        })->whereHas('legalheirs')->get();
+
+//        $employees = Employee::with('legals','legals.bank','legals.branch')->whereHas('legals.bank',function($q){
+//            $q->orderBy('bank_id','ASC');
+//        })->where('status','=',2)->get();
+//        return $employees;
+        return view('admin.reports.bank_report', compact('banks'));
     }
 
     public function verify($id)
@@ -823,7 +842,6 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department;
         $employee->designation_id = $request->designation;
         $employee->grade = $request->grade;
-        $employee->gitype = $request->gitype;
         $employee->dateofdeath = $request->deathdate;
         $employee->ageondate = $request->ageondate;
         $employee->beneficiaries = $request->beneficiaries;
@@ -936,8 +954,6 @@ class EmployeeController extends Controller
             $image1->move($destinationPath, $name1);
             $documents->beneficiary_cnic2_img = 'img/' . $name1;
         }
-
-
         $documents->employee_id = $getid;
         $documents->user_id = $user->id;
         $documents->update();
@@ -969,139 +985,3 @@ class EmployeeController extends Controller
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        if ($request->beneficiarycnic) {
-//            foreach ($request->beneficiarycnic as $beneficiarycnic) {
-//
-//                $data[] = $beneficiarycnic;
-//                $employee->beneficiarycnic = json_encode($data);
-//            }
-//        }
-//        if ($request->beneficiaryname) {
-//            foreach ($request->beneficiaryname as $beneficiaryname) {
-//                $data1[] = $beneficiaryname;
-//                $employee->beneficiaryname = json_encode($data1);
-//            }
-//        }
-//        if ($request->relation) {
-//            foreach ($request->relation as $relation) {
-//                $data2[] = $relation;
-//                $employee->relation = json_encode($data2);
-//            }
-//        }
-//        if ($request->bank) {
-//            foreach ($request->bank as $bank) {
-//                $data3[] = $bank;
-//                $employee->bank = json_encode($data3);
-//            }
-//        }
-//        if ($request->accountno) {
-//            foreach ($request->accountno as $accountno) {
-//                $data4[] = $accountno;
-//                $employee->accountno = json_encode($data4);
-//            }
-//        }
-//        if ($request->amount) {
-//            foreach ($request->amount as $amount) {
-//                $data5[] = $amount;
-//                $employee->amount = json_encode($data5);
-//            }
-//        }
-//        if ($request->branch) {
-//            foreach ($request->branch as $branch) {
-//                $data6[] = $branch;
-//                $employee->branch = json_encode($data6);
-//            }
-//        }
-
-//        $employee->save();

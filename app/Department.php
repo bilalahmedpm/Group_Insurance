@@ -8,6 +8,6 @@ class Department extends Model
 {
     public function employees()
     {
-        return $this->hasMany(\App\Employee::class);
+        return $this->hasMany(\App\Employee::class)->with('legals','legals.bank','legals.branch');
     }
 }

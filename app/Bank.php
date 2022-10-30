@@ -14,5 +14,5 @@ class Bank extends Model
     {
         return $this->hasMany(Legalheir::class);
     }
-
+    
 }

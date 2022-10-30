@@ -80,9 +80,6 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-Route::get('/pdf', function () {
-    return view('admin.reports.pdf.bank_report');
-});
 
 
 

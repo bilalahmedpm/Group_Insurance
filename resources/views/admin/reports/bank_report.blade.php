@@ -11,13 +11,15 @@
 </head>
 <body>
 <div class="container">
-    @foreach($legalheirs as $key => $row)
-        <table class="table table-bordered" style="font-size: 10pt">
+    <div> <a href="#" class="btn btn-primary"> Download Report
+        </a></div>
 
-            {{$key+1}}  : {{$row->bank->name}}
+    @foreach($banks as $key => $bank)
+        <table class="table table-bordered" style="font-size: 10pt">
+              {{$key+1}}  : {{$bank->name}}
             <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Employee Name</th>
                 <th>Father Name</th>
                 <th>Department</th>
@@ -31,25 +33,35 @@
                 <th>Amount</th>
             </tr>
             </thead>
+{{--            @foreach($bk['legalheirs'] as $legalheir)--}}
+{{--                {{$bank}}--}}
 
+{{--            @endforeach--}}
+
+            @foreach($bank->legalheirs as $legalheir)
+
+{{--                {{$legalheir}}--}}
             <tbody>
                     <tr>
-                        <td>{{$row->id}}</td>
-                        <td>{{$row->employee->employeename}}</td>
-                        <td>{{$row->employee->fathername}}</td>
-                        <td>{{$row->employee->department->department_desc}}</td>
-                        <td>{{$row->employee->designation->designation_desc}}</td>
-                        <td>{{$row->employee->gitype}}</td>
-                        <td>{{$row->employee->user->name}}</td>
-                        <td>{{$row->heirname}}</td>
-                        <td>{{$row->heircnic}}</td>
-                        <td>{{$row->branch->branch_desc}}</td>
-                        <td>{{$row->accountno}}</td>
-                        <td>{{$row->amount}}</td>
+                        @if($legalheir->employee != NULL)
+                        <td>{{$legalheir->employee_id}}</td>
+                        <td>{{$legalheir->employee->employeename}}</td>
+                        <td>{{$legalheir->employee->fathername}}</td>
+                        <td>{{$legalheir->employee->department->department_desc}}</td>
+                        <td>{{$legalheir->employee->designation->designation_desc}}</td>
+                        <td>{{$legalheir->employee->gitype}}</td>
+                        <td>{{$legalheir->employee->user->name}}</td>
+                        <td>{{$legalheir->heirname}}</td>
+                        <td>{{$legalheir->heircnic}}</td>
+                        <td>{{$legalheir->branch->branch_desc}}</td>
+                        <td>{{$legalheir->accountno}}</td>
+                        <td>{{$legalheir->amount}}</td>
+                        @endif
                     </tr>
-            @endforeach
             </tbody>
+            @endforeach
         </table>
+    @endforeach
 </div>
 </body>
 </html>
