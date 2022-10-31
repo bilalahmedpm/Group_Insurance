@@ -250,6 +250,10 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Beneficiary CNIC</label>
+                                                        <?php
+                                                        $idss=[];
+                                                        $idss= $row1->id ?>
+                                                        <input type="hidden" name="id[]" value="{{$idss}}">
                                                         <input . type="text" id="benefcnic" value="{{$row1->heircnic}}"
                                                                name="beneficiarycnic[]" class="form-control cnic"
                                                                placeholder="Beneficiary CNIC" required
@@ -261,7 +265,7 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Beneficiary Name</label>
-                                                        <input type="text" . value="{{$row1->heirname}}" id="benefname" name="beneficiaryname[]"
+                                                        <input type="text"  value="{{$row1->heirname}}" id="benefname" name="beneficiaryname[]"
                                                                class="form-control" placeholder="Beneficiary Name" required>
                                                     </div>
                                                 </div>

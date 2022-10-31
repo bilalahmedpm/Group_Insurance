@@ -832,6 +832,7 @@ class EmployeeController extends Controller
     public function deathUpdate(Request $request,$id)
     {
 
+
         $user = Auth::user();
 
         $employee = Employee::find($id);
@@ -857,9 +858,12 @@ class EmployeeController extends Controller
         $bankcount = count($request->bank);
         // Legal Heir Model
         for ($i = 0; $i < $bankcount; $i++) {
-            $beneficiary =  legalheir::where('employee_id','=',$id)->first();
+            foreach ($request->id as $idsss) {
+                $beneficiary = legalheir::where('id', '=', $idsss)->first();
+            }
             $beneficiary->employee_id = $getid;
             $beneficiary->heircnic = $request->beneficiarycnic[$i];
+
             $beneficiary->heirname = $request->beneficiaryname[$i];
             $beneficiary->relation_id = $request->relation[$i];
             $beneficiary->bank_id = $request->bank[$i];
