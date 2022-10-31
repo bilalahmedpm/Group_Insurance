@@ -1014,6 +1014,8 @@ class EmployeeController extends Controller
         view()->share(['users',$users, 'data' ,$data]);
 
         $pdf = PDF::loadView('myPDF',['data'=>$data ,'users'=> $users]);
-        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
+        return view('myPDF' ,compact('data','users'));
+//        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
+//        return view('myPDF');
     }
 }
