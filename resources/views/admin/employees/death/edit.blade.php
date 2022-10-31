@@ -492,16 +492,22 @@
             }
 
 
-            console.log(isValidDate(dob))
+            function parseDate(str) {
+                var mdy = str.split('/');
+                return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+            }
+
             if (isValidDate(dor)) {
+                const year = datediff(parseDate(dob), parseDate(dor));
+                $("#ageondate").val(Math.round(year / 365));
                 //age calculate
-                const date1 = new Date(dob);
-                const date2 = new Date(dor);
-                const diffTime = Math.abs(date2 - date1);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                const year = Math.ceil(diffDays / 365);
-                console.log(diffDays, year);
-                $("#ageondate").val(year);
+                // const date1 = new Date(dob);
+                // const date2 = new Date(dor);
+                // const diffTime = Math.abs(date2 - date1);
+                // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                // const year = Math.ceil(diffDays / 365);
+                // console.log(diffDays, year);
+                // $("#ageondate").val(year);
                 //end age calculate
                 var grade = $("#grade").val();
                 if (grade == null) {

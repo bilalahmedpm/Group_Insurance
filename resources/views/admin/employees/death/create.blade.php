@@ -412,7 +412,7 @@
             var dob = $("#dob").val();
             const per = $("#beneficiaries").val();
 
-            console.log(dor);
+            // console.log(dor);
 
             function isValidDate(s) {
                 var bits = s.split('/');
@@ -420,18 +420,42 @@
                 return d && (d.getMonth() + 1) == bits[1];
             }
 
+            function getAge(dob,dor) {
+                var today = new Date(dor);
+                var birthDate = new Date(dob);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                return age;
+            }
+            function datediff(first, second) {
+                return Math.round((second - first) / (1000 * 60 * 60 * 24));
+            }
 
-            console.log(isValidDate(dob))
+            /**
+             * new Date("dateString") is browser-dependent and discouraged, so we'll write
+             * a simple parse function for U.S. date format (which does no error checking)
+             */
+            function parseDate(str) {
+                var mdy = str.split('/');
+                return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+            }
+
             if (isValidDate(dor)) {
+                const year = datediff(parseDate(dob), parseDate(dor));
+                 $("#ageondate").val(Math.round(year / 365));
+
                 //age calculate
-                const date1 = new Date(dob);
-                const date2 = new Date(dor);
-                const diffTime = Math.abs(date2 - date1);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                const year = Math.ceil(diffDays / 365);
-                console.log(diffDays, year);
-                $("#ageondate").val(year);
-                //end age calculate
+                // const date1 = new Date(dob);
+                // const date2 = new Date(dor);
+                // const diffTime = Math.abs(date2.getUTCFullYear() - date1.getUTCFullYear());
+                // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                // const year = Math.ceil(diffDays / 365);
+                // // console.log(diffDays, year);
+                // $("#ageondate").val(year);
+                // //end age calculate
                 var grade = $("#grade").val();
                 if (grade == null) {
                     alert('Please Select Grade')
@@ -566,7 +590,7 @@
         $(document).ready(function() {
             $("#pnumber").keyup(function () {
                 var pno = $("#pnumber").val();
-                console.log(pno);
+                // console.log(pno);
                 $.ajax({
                     type: 'POST',
                     url: '{{route('pno.check')}}',
