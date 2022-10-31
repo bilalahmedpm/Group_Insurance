@@ -12,10 +12,11 @@ use App\Grade;
 use App\Legalheir;
 use App\objection;
 use App\Relation;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
+use PDF;
 use DB;
 
 class EmployeeController extends Controller
@@ -719,21 +720,22 @@ class EmployeeController extends Controller
 
     public function department_report()
     {
-
-
-
-        $employee_id = Employee::where('status' ,2)->pluck('id');
+//        $employee_id = Employee::where('status' ,2)->pluck('id');
 //        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
 //            $q->where('status','=',2);
 //        })->get();
 //        dd($departments);
-        $departments = Department::with(['employees' => function($query){
-        $query->where('status','=',2);
-        }])->whereHas('employees')->orderBy('department_desc')->get();
-
+//        $departments = Department::with(['employees', 'employees' => function($query){
+//        $query->where('status','=',2);
+//        }])->has('employees')->orderBy('department_desc')->get();
 //        $employees = Employee::with('department','legals','legals.bank','legals.branch')
 //            ->where('status','=',2)->orderBy('department_id')
 //            ->get();
+
+        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+            $q->where('status','=',2);
+        })->get();
+        $employee_id = Employee::where('status' ,2)->pluck('id');
         $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
 
@@ -998,21 +1000,20 @@ class EmployeeController extends Controller
     }
     public function test()
     {
-//        $groupedSalesCampaign = Order::with('Campaign')
-//            ->where('isapproved','=','Y')
-//            ->groupBy('campaign_id')
-//            ->orderBy(DB::raw('COUNT(id)','desc'))
-//            ->get(array(DB::raw('COUNT(id) as totalsales'),'campaign_id'));
-
-//        $bank = Department::with('employees')
-//                ->where('department_desc','=','Finance')
-//                ->groupBy('id')
-//                ->orderBy(DB::raw('COUNT(id)','desc'))
-//                ->get();
-
         $count = Department::with('employees')->withCount('employees')->orderByRaw('department_desc')->groupBy('department_desc')
         ->whereHas('employees')->get();
         return view('text' , compact('count'));
+    }
+    public function department_pdf()
+    {
+        $data = [
+            'title' => 'Welcome to Nicesnippets.com',
+            'date' => date('m/d/Y')
+        ];
+        $users = User::all();
+        view()->share(['users',$users, 'data' ,$data]);
 
+        $pdf = PDF::loadView('myPDF',['data'=>$data ,'users'=> $users]);
+        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
     }
 }

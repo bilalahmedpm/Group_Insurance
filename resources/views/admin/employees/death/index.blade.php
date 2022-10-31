@@ -110,12 +110,12 @@
                                             <!-- view section -->
                                             <a href="{{route('death.view' ,$row->id)}}"
                                                class="btn btn-sm btn-primary"
-                                               title="edit">
+                                               title="view">
                                                 <i class="fa fa-eye"></i> View
                                             </a>
                                             <!-- Delete section -->
                                             <a href="{{route('employee.show' ,$row->id)}}" id="delete"
-                                               class="btn btn-sm btn-danger" data-toggle="tooltip" title="edit">
+                                               class="btn btn-sm btn-danger" data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i> Delete
                                             </a>
 

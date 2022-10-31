@@ -51,6 +51,7 @@
                                         <tbody>
                                         @foreach($row->employees as  $row1)
 {{--                                            @if($row1->status == 2)--}}
+
                                                 @foreach ($row1->legals as $row2)
 
                                                     <tr>
@@ -81,21 +82,30 @@
                                                 @endforeach
 {{--                                            @endif--}}
                                         @endforeach
+
                                         <tr>
                                             <td style="text-align: right;font-weight: bold" colspan="11">Total Amount :  </td>
                                             <td width="5%" colspan="12" style="text-decoration-line: underline; text-decoration-style: double;" > <h6>{{number_format($totalamount)}}</h6></td>
                                         </tr>
 
-
                                         </tbody>
 
                                     </table>
                                 </div> <!-- /.card-body -->
-                            </div> <!-- /.card -->
+                            </div>
+                            <div style="float: right; margin-right: 50px;">
+                            <table>
+                            <tr>
+                                <td><span style="font-weight: bold">Grand Total Amount :</span>&nbsp;&nbsp;<h6 style="text-decoration-line: underline; text-decoration-style: double; float: right"> Rs:    {{number_format($total)}}</h6></td>
+                            </tr>
+                            </table>
+                            </div>                        <!-- /.card -->
+
                     @endforeach
+
                 </div>
 
-                <p style="text-align: right"><span>Grand Total Amount : </span><h6 style="text-decoration-line: underline; text-decoration-style: double;"> Rs: {{number_format($total)}}</h6></p>
+
 
 
             </div><!-- /.col -->
