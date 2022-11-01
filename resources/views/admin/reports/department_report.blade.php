@@ -101,13 +101,12 @@
                                 <div style="float: right; margin-right: 50px;">
                                     <?php $grandTotal +=$totalamount ?>
                                 </div>
-                                <table>
+                        @endforeach
+                        <table>
                             <tr>
-                                <td  width="5%" colspan="12"><span style="font-weight: bold">Total Amount :</span>&nbsp;&nbsp;<h6 style="text-decoration-line: underline; text-decoration-style: double; float: right"> Rs:    {{number_format($grandTotal)}}</h6></td>
+                                <td  width="5%" style="text-align: right; padding-right:40px;" ><span style="font-weight: bold">Total Amount :</span>&nbsp;&nbsp;<h6 style="text-decoration-line: underline; text-decoration-style: double; float: right"> Rs:    {{number_format($grandTotal)}}</h6></td>
                             </tr>
                         </table>
-
-                        @endforeach
                 </div>
             </div>
 

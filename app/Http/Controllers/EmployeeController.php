@@ -732,14 +732,14 @@ class EmployeeController extends Controller
 //            ->where('status','=',2)->orderBy('department_id')
 //            ->get();
 
-        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
-            $q->where('status','=',2);
-        })->get();
+//        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+//            $q->where('status','=',2);
+//        })->get();
 
         //ok query
-//        $departments = Department::with(['employees', 'employees' => function($query){
-//        $query->where('status','=','2');
-//        }])->whereHas('employees')->orderBy('department_desc')->get();
+        $departments = Department::with(['employees', 'employees' => function($query){
+        $query->where('status','=','2');
+        }])->whereHas('employees')->orderBy('department_desc')->get();
 
 //        $employee_id = Employee::where('status' ,2)->pluck('id');
 //        $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
@@ -1014,19 +1014,19 @@ class EmployeeController extends Controller
     {
 //        $data = [
 //            'title' => 'Welcome to Nicesnippets.com',
-//            'date' => date('m/d/Y')
+//            'date' =>  date('Y-m-d H:i:s'),
 //        ];
 //        $users = User::all();
 //        view()->share(['users',$users, 'data' ,$data]);
 
         // query 1
-        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
-            $q->where('status','=',2);
-        })->get();
+//        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+//            $q->where('status','=',2);
+//        })->get();
 
-//        $departments = Department::with(['employees', 'employees' => function($query){
-//            $query->where('status','=',2);
-//        }])->whereHas('employees')->orderBy('department_desc')->get();
+        $departments = Department::with(['employees', 'employees' => function($query){
+            $query->where('status','=',2);
+        }])->whereHas('employees')->orderBy('department_desc')->get();
 //        return $departments;
         $pdf = PDF::loadView('myPDF',[ 'departments' => $departments]);
 

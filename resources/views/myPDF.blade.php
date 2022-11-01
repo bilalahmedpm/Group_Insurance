@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link type="text/css" rel="stylesheet" href="{{asset('pdf_files/bootstrap.min.css')}}">
+{{--    <link type="text/css" rel="stylesheet" href="{{asset('pdf_files/bootstrap.min.css')}}">--}}
     <style>
         /** Define the margins of your page **/
         @page {
@@ -15,35 +16,18 @@
         header {
             position: fixed;
             width: 100%;
-            height: 90px;
+            height: 50px;
             top: 0cm;
             left: 0cm;
             right: 0cm;
-            height: 3cm;
+            height: 50px;
         }
-        #header_top
-        {
-            position: fixed;
-            width: 100%;
-            height: 90px;
-            top: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 3cm;
-        }
-        #logo
-        {
-            width: 500px;
-
-        }
-
         /** Define the footer rules **/
         footer {
             position: fixed;
             bottom: 0cm;
             left: 0cm;
             right: 0cm;
-            height: 2cm;
         }
         table,th,td{
             border: solid 1px black;
@@ -66,6 +50,10 @@
         .id{
             width: 50px;
         }
+        div.table
+        {
+            border: none;
+        }
     </style>
 
     <title>Department Wise List</title>
@@ -74,10 +62,14 @@
 <body>
 <!-- Define header and footer blocks before your content -->
 <header>
-    <div id="header_top">
-        <div id="logo">
-            <img src="{{asset('logo/logo.png')}}" style="width: 80px; height: 80px;" alt="">
-        </div>
+    <div>
+            <table id="top_table">
+                <tr>
+                    <td width="10%"><img src="{{public_path('logo/logo.png')}}" style="width: 60px; height: 60px; float: bottom;" alt=""></td>
+                    <td  style="text-align: center;font-size: 20px; float: top; font-family: Calibri; font-weight: bold"> Group Insurance <br> Department Wise List  </td>
+                    <td width="10%"><p>Agenda Date <br> 26-10-2022</p></td>
+                </tr>
+            </table>
     </div>
 </header>
 
@@ -88,7 +80,7 @@
 
 
 @foreach($departments as $key => $row)
-    <div class="container" style="margin-top: 100px;">
+    <div class="container" style="margin-top: 80px;">
     <?php $totalamount = 0;  ?>
     <h3>{{$key+1}} :{{$row->department_desc}}</h3>
 
