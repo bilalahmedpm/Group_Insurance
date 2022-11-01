@@ -725,16 +725,21 @@ class EmployeeController extends Controller
 //            $q->where('status','=',2);
 //        })->get();
 //        dd($departments);
-//        $departments = Department::with(['employees', 'employees' => function($query){
-//        $query->where('status','=',2);
+
+
 //        }])->has('employees')->orderBy('department_desc')->get();
 //        $employees = Employee::with('department','legals','legals.bank','legals.branch')
 //            ->where('status','=',2)->orderBy('department_id')
 //            ->get();
 
-        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
-            $q->where('status','=',2);
-        })->get();
+//        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+//            $q->where('status','=',2);
+//        })->get();
+
+        //ok query
+        $departments = Department::with(['employees', 'employees' => function($query){
+        $query->where('status','=',2);
+        }])->whereHas('employees')->orderBy('department_desc')->get();
         $employee_id = Employee::where('status' ,2)->pluck('id');
         $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
@@ -1006,16 +1011,19 @@ class EmployeeController extends Controller
     }
     public function department_pdf()
     {
-        $data = [
-            'title' => 'Welcome to Nicesnippets.com',
-            'date' => date('m/d/Y')
-        ];
-        $users = User::all();
-        view()->share(['users',$users, 'data' ,$data]);
+//        $data = [
+//            'title' => 'Welcome to Nicesnippets.com',
+//            'date' => date('m/d/Y')
+//        ];
+//        $users = User::all();
+//        view()->share(['users',$users, 'data' ,$data]);
+        $departments = Department::with(['employees', 'employees' => function($query){
+            $query->where('status','=',2);
+        }])->whereHas('employees')->orderBy('department_desc')->get();
+        $pdf = PDF::loadView('myPDF',[ 'departments' => $departments]);
 
-        $pdf = PDF::loadView('myPDF',['data'=>$data ,'users'=> $users]);
-        return view('myPDF' ,compact('data','users'));
-//        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
-//        return view('myPDF');
+//        return view('myPDF' ,compact('data','users','departments'));
+        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
+        return view('myPDF');
     }
 }

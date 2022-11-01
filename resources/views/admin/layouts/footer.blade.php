@@ -47,10 +47,10 @@
 <!-- ChartJS -->
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="{{asset('plugins/sparklines/sparkline.js')}}"></script>
+{{-- <script src="{{asset('plugins/sparklines/sparkline.js')}}"></script> --}}
 <!-- JQVMap -->
-<script src="{{asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+{{-- <script src="{{asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script> --}}
+{{-- <script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> --}}
 <!-- jQuery Knob Chart -->
 <script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
@@ -72,8 +72,10 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+<script src="{{ asset('dist/js/html2canvas.min.js') }}"></script>
 
 @yield('scripts')
+@stack('otherscript')
 
 <script>
     $(function () {

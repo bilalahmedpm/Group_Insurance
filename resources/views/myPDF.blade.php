@@ -7,7 +7,7 @@
         }
         header {
             position: fixed;
-            top: -60px;
+            top: -80px;
             left: 0px;
             right: 0px;
             height: 50px;
@@ -21,7 +21,7 @@
         }
         footer {
             position: fixed;
-            bottom: -60px;
+            bottom: -80px;
             left: 0px;
             right: 0px;
             height: 50px;
@@ -35,10 +35,21 @@
         }
         table{
             width: 100%;
-
+            text-align: center;
+            padding: 0;
+            text-transform: uppercase;
+            border-collapse: collapse;
         }
-        table,th{
-            padding: 10px;
+        th{
+            /*padding: 5px;*/
+            border: solid;
+            font-size: 10pt;
+        }
+        td
+        {
+            /*padding: 5px;*/
+            border: solid;
+            font-size: 11pt;
         }
     </style>
 
@@ -49,7 +60,7 @@
 <!-- Define header and footer blocks before your content -->
 <header>
 
-    Nicesnippets.com
+    Department-Wise List
 
 </header>
 
@@ -62,78 +73,59 @@
 <!-- Wrap the content of your PDF inside a main tag -->
 
 <main>
-    <h3 style="text-decoration:underline">Secondary Education</h3>
-<table border="1">
+    @foreach($departments as $key => $row)
+        <?php $totalamount = 0;  ?>
+    <h3>{{$key+1}} :{{$row->department_desc}}</h3>
 
-    <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Father Name</th>
-        <th>Employee CNIC</th>
-        <th>Department</th>
-        <th>Designation</th>
-        <th>Date Of retirment</th>
-        <th>Date of Death</th>
-        <th>Gitype</th>
-        <th>Amount</th>
+            <table style="page-break-after:always;">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee <br> Personal # <br> Name & CNIC #</th>
+                    <th>Father / Husband <br> Name</th>
+                    <th>Designation / Grade</th>
+                    <th>Gitype</th>
+                    <th>Beneficiary Name <br>Cnic # <br> Relation</th>
+                    <th>Bank</th>
+                    <th>Branch Code / <br> Branch Address</th>
+                    <th>Account No</th>
+                    <th>Amount</th>
 
-    </thead>
-    <tbody>
-    @foreach($users as $users)
-    <tr>
-        <td><p>{{$users->id}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>
-                @if($users->role==1)
-                Super Admin
-                    @elseif($users->role==3)
-                        User
-                    @endif
-            </p>
-        </td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-        <td><p>{{$users->name}}</p></td>
-    </tr>
+                </tr>
+                </thead>
+                        <tbody>
+                        @foreach($row->employees as  $row1)
+                            @foreach ($row1->legals as $row2)
+                        <tr>
+                            <td>{{$row2->employee_id}}</td>
+                            <td>{{$row1->pno}}<br>{{$row1->employeename}}<br>{{$row1->employeecnic}}</td>
+                            <td>{{$row1->fathername}}</td>
+                            <td>{{$row1->designation->designation_desc}} <br>(BPS-{{$row1->grade}})</td>
+                            <td>
+                                @if($row1->gitype == 1)
+                                Retirement
+                                @elseif($row1->gitype == 2)
+                                Death
+                                @elseif($row1->gitype == 3)
+                                Death After Retirement
+                                @endif
+                            </td>
+                            <td>{{$row2->heirname}} <br> {{$row2->heircnic}} <br> {{$row2->relation->relation_desc}}</td>
+                            <td>{{$row2->bank->name}}</td>
+                            <td>({{$row2->branch->branch_code}})<br>{{$row2->branch->branch_desc}}</td>
+                            <td>{{$row2->accountno}}</td>
+                            <td>{{number_format($row2->amount)}}</td>
+                            <?php $totalamount += $row2->amount++ ?>
+                       @endforeach
+                @endforeach
+                        </tr>
+                        <tr>
+                            <td id="totaltd" style="text-align: right;font-weight: bold;padding-right: 20px" colspan="9">Total Amount :  </td>
+                            <td id="total" colspan="10" style="text-decoration-line: underline; font-size: 11pt;padding: 5px; text-align: center; font-weight: bold" > {{number_format($totalamount)}}/-</td>
+                        </tr>
+            </tbody>
+    </table>
     @endforeach
-    </tbody>
-</table>
-    <p style="page-break-after: always;">
-
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-    </p>
-
-    <p style="page-break-after: never;">
-
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-    </p>
-
 </main>
 
 </body>
