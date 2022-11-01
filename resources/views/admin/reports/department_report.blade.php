@@ -23,14 +23,14 @@
                 <div class="col-md-12">
                     <?php $grandTotal=0; ?>
                     <div class="card">
-                        <div class="row">
-                            <div class="col-lg-3  col-lg-off-9">
-                                <button class="btn btn-info" onclick="Convert_HTML_To_PDF();">DOWNLOD PDF REPORT</button>
-                            </div>
-                            <div class="col-lg-3  col-lg-off-9">
-                                <button class="btn btn-info" onclick=" printPageArea('contentToConvert_pdf');">Print REPORT</button>
-                            </div>
-                        </div>
+{{--                        <div class="row">--}}
+{{--                            <div class="col-lg-3  col-lg-off-9">--}}
+{{--                                <button class="btn btn-info" onclick="Convert_HTML_To_PDF();">DOWNLOD PDF REPORT</button>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-3  col-lg-off-9">--}}
+{{--                                <button class="btn btn-info" onclick=" printPageArea('contentToConvert_pdf');">Print REPORT</button>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     @foreach($departments as $key => $row)
                             <?php $totalamount = 0;  ?>
                                 <div class="card-header">
@@ -96,22 +96,20 @@
 
                                     </table>
                                 </div> <!-- /.card-body -->
+                                <!-- /.card -->
 
-                            <div style="float: right; margin-right: 50px;">
-                                <?php $grandTotal +=$totalamount ?>
-                            </div>                        <!-- /.card -->
-                    @endforeach
-
-                        <table>
+                                <div style="float: right; margin-right: 50px;">
+                                    <?php $grandTotal +=$totalamount ?>
+                                </div>
+                                <table>
                             <tr>
                                 <td  width="5%" colspan="12"><span style="font-weight: bold">Total Amount :</span>&nbsp;&nbsp;<h6 style="text-decoration-line: underline; text-decoration-style: double; float: right"> Rs:    {{number_format($grandTotal)}}</h6></td>
                             </tr>
                         </table>
+
+                        @endforeach
                 </div>
             </div>
-
-
-
 
             </div><!-- /.col -->
             <!-- /.row -->

@@ -732,19 +732,20 @@ class EmployeeController extends Controller
 //            ->where('status','=',2)->orderBy('department_id')
 //            ->get();
 
-//        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
-//            $q->where('status','=',2);
-//        })->get();
+        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+            $q->where('status','=',2);
+        })->get();
 
         //ok query
-        $departments = Department::with(['employees', 'employees' => function($query){
-        $query->where('status','=',2);
-        }])->whereHas('employees')->orderBy('department_desc')->get();
-        $employee_id = Employee::where('status' ,2)->pluck('id');
-        $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
+//        $departments = Department::with(['employees', 'employees' => function($query){
+//        $query->where('status','=','2');
+//        }])->whereHas('employees')->orderBy('department_desc')->get();
+
+//        $employee_id = Employee::where('status' ,2)->pluck('id');
+//        $total = Legalheir::whereIn('employee_id', $employee_id)->sum('amount');
 
 
-        return view('admin.reports.department_report', compact('departments','total'));
+        return view('admin.reports.department_report', compact('departments'));
     }
 
     public function bank_report()
@@ -1017,13 +1018,20 @@ class EmployeeController extends Controller
 //        ];
 //        $users = User::all();
 //        view()->share(['users',$users, 'data' ,$data]);
-        $departments = Department::with(['employees', 'employees' => function($query){
-            $query->where('status','=',2);
-        }])->whereHas('employees')->orderBy('department_desc')->get();
+
+        // query 1
+        $departments = Department::with('employees.legals')->whereHas('employees' , function ($q){
+            $q->where('status','=',2);
+        })->get();
+
+//        $departments = Department::with(['employees', 'employees' => function($query){
+//            $query->where('status','=',2);
+//        }])->whereHas('employees')->orderBy('department_desc')->get();
+//        return $departments;
         $pdf = PDF::loadView('myPDF',[ 'departments' => $departments]);
 
-//        return view('myPDF' ,compact('data','users','departments'));
-        return $pdf->setPaper('legal','landscape')->download('nicesnippets.pdf');
+//        return view('myPDF' ,compact('departments'));
+        return $pdf->setPaper('legal','landscape')->download('Department-List.pdf');
         return view('myPDF');
     }
 }
