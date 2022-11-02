@@ -1004,10 +1004,40 @@ class EmployeeController extends Controller
 
         return view('admin.employees.search.index' , compact('employees'));
     }
-    public function test()
+    public function department_summary()
     {
-        $count = Department::with('employees')->withCount('employees')->orderByRaw('department_desc')->groupBy('department_desc')
-        ->whereHas('employees')->get();
+        $count = Department::with(['employees' ,'employees' => function ($q){
+            $q->where('status', '=',2);
+
+        }])->whereHas('employees')->get();
+
+        return view('admin.reports.summary.department_summary', compact('count'));
+
+//        foreach ($count as $row)
+//        {
+//            foreach ($row->employees as $row1)
+//            {
+//                $sum = Legalheir::where('employee_id', $row1->id)->sum('amount');
+//                $count = Legalheir::where('employee_id', $row1->id)->count();
+//                return $sum.''.$count;
+//            }
+//        }
+    }
+    public function bank_summary()
+    {
+        $count = Department::with(['employees' ,'employees' => function ($q){
+            $q->where('status', '=',2);
+        }])
+            ->whereHas('employees')->get();
+        foreach ($count as $row)
+        {
+            foreach ($row->employees as $row1)
+            {
+                $sum = Legalheir::wherein('employee_id', [7,8])->sum('amount');
+                $count = Legalheir::wherein('employee_id',[7,8] )->count();
+                return $sum.''.$count;
+            }
+        }
         return view('text' , compact('count'));
     }
     public function department_pdf()

@@ -71,17 +71,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/department', 'EmployeeController@department_report')->name('department.report');
     Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
+    Route::get('department/summary','EmployeeController@department_summary');
 
     Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
     Route::post('/objection', 'EmployeeController@objection')->name('objection');
     Route::get('/Objection/Claims', 'EmployeeController@employeeObjection')->name('employeeee');
     Route::get('/Claims/All', 'EmployeeController@allclaims')->name('claims.all');
+
 // PDF
     Route::get('/department/pdf' , 'EmployeeController@department_pdf');
 
 // Search Record
 Route::get('/Search/Record' ,'EmployeeController@search')->name('search.record');
-Route::get('/test' ,'EmployeeController@test');
+
+
+Route::get('/test' ,'EmployeeController@department_summary');
     });
 
 

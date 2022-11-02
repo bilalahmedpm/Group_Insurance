@@ -63,11 +63,11 @@
 <!-- Define header and footer blocks before your content -->
 <header>
     <div>
-            <table id="top_table">
+            <table id="top_table" style="border: 0px solid !important">
                 <tr>
                     <td width="10%"><img src="{{public_path('logo/logo.png')}}" style="width: 60px; height: 60px; float: bottom;" alt=""></td>
                     <td  style="text-align: center;font-size: 20px; float: top; font-family: Calibri; font-weight: bold"> Group Insurance <br> Department Wise List  </td>
-                    <td width="10%"><p>Agenda Date <br> 26-10-2022</p></td>
+                    <td width="10%"><p>Agenda Date <br> {{now()}}</p></td>
                 </tr>
             </table>
     </div>
