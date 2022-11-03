@@ -41,21 +41,19 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
-
-
+                                    @foreach($count as $row)
+                                        @foreach($row->employees as $row1)
                                             <tr>
-                                                @foreach($count as $row)
 
-
-                                                <td width="2%" >{{$row->department->department_desc}}</td>
-                                                <td width="5%" >{{$row->legals_count}}</td>
-                                                <?php $sum = App\Legalheir::where('employee_id', $row->id)->sum('amount')?>
-                                                <td width="8%">{{$sum}}</td>
+                                                        <?php $legalsum = App\Legalheir::where('employee_id', $row1->id)->sum('amount');?>
+                                                        <?php $legalscount = App\Legalheir::where('employee_id', $row1->id)->count() ;?>
+                                                <td width="2%" >{{$row->department_desc}}</td>
+                                                <td width="5%" >{{$legalscount}}</td>
+                                                    <td width="8%">{{$legalsum}}</td>
 {{--                                                <td width="8%">{{$row->legals->sum('amount')}}</td>--}}
-
                                             </tr>
 
+                                    @endforeach
                                     @endforeach
 
                                     </tbody>
