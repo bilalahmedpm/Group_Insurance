@@ -23,6 +23,9 @@
                 <div class="col-md-12">
                     <?php $grandTotal=0; ?>
                     <div class="card">
+                        <div style="text-align: center">
+                            <h5 style="text-decoration: underline;">Group Insurance <br> Department Wise List</h5>
+                        </div>
 {{--                        <div class="row">--}}
 {{--                            <div class="col-lg-3  col-lg-off-9">--}}
 {{--                                <button class="btn btn-info" onclick="Convert_HTML_To_PDF();">DOWNLOD PDF REPORT</button>--}}
@@ -34,7 +37,7 @@
                     @foreach($departments as $key => $row)
                             <?php $totalamount = 0;  ?>
                                 <div class="card-header">
-                                    <h6 style="text-transform: uppercase; font-weight: bold;font-size: medium" class="card-title"> <u>{{$key+1}} :{{$row->department_desc}}</u></h6>
+                                    <h6 style="text-transform: uppercase; font-weight: bolder;font-size: medium" class="card-title"> <u>{{$key+1}} :{{$row->department_desc}}</u></h6>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body p-0">

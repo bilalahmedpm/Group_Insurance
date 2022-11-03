@@ -35,27 +35,28 @@
                                     <thead>
                                     <tr>
                                         <th width="2%">Department</th>
-                                        <th width="5%">Number of Beneficiaries</th>
+                                        <th width="5%">Number of Employees</th>
                                         <th width="8%">Total Amount</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @foreach($count as $row)
-                                        @foreach($row->employees as $row1)
-                                            <tr>
-                                        <?php    $legalsum = App\Legalheir::where('employee_id', $row1->id)->sum('amount'); ?>
-                                        <?php    $legalcount = App\Legalheir::where('employee_id', $row1->id)->count('employee_id'); ?>
 
-                                                <td width="2%" >{{$row->department_desc}}</td>
-                                                <td width="5%" >{{$legalcount}}</td>
-                                                <td width="8%">{{$legalsum}}</td>
+
+                                            <tr>
+                                                @foreach($count as $row)
+
+
+                                                <td width="2%" >{{$row->department->department_desc}}</td>
+                                                <td width="5%" >{{$row->legals_count}}</td>
+                                                <?php $sum = App\Legalheir::where('employee_id', $row->id)->sum('amount')?>
+                                                <td width="8%">{{$sum}}</td>
+{{--                                                <td width="8%">{{$row->legals->sum('amount')}}</td>--}}
 
                                             </tr>
-                                        @endforeach
-                                    @endforeach
 
+                                    @endforeach
 
                                     </tbody>
 
