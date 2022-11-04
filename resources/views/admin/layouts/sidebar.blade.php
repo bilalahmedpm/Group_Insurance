@@ -148,6 +148,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('department.summary')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Department Summary</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('bank.report')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bank Wise List</p>

@@ -1006,10 +1006,16 @@ class EmployeeController extends Controller
     }
     public function department_summary()
     {
-        $count = Department::with('employees')->with(['employees' ,'employees' => function ($q){
-            $q->where('status' , '=',2);
-        }])->whereHas('employees')->get();
+//        $count = Department::with('employees')->with(['employees' ,'employees' => function ($q){
+//            $q->where('status' , '=',2);
+//        }])->whereHas('employees')->get();
 
+        $view = DB::table('report_view')->select('department_desc')
+            ->addselect(DB::raw('count(*) as numberofcases', 'id'))
+            ->addselect(DB::raw('sum(amount) as totalamount'))
+            ->where('status',2)
+            ->groupBy('department_desc')
+            ->get();
 //return  $count;
 //        $users = DB::table('employees')
 //            ->groupBy('department_id')
@@ -1018,7 +1024,7 @@ class EmployeeController extends Controller
 //            ->get();
 //        dd($users);
 
-        return view('admin.reports.summary.department_summary', compact('count'));
+        return view('admin.reports.summary.department_summary', compact('view'));
 
 //        foreach ($count as $row)
 //        {

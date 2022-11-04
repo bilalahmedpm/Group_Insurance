@@ -35,26 +35,34 @@
                                     <thead>
                                     <tr>
                                         <th width="2%">Department</th>
-                                        <th width="5%">Number of Employees</th>
+                                        <th width="5%">Number of Cases</th>
                                         <th width="8%">Total Amount</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($count as $row)
-                                        @foreach($row->employees as $row1)
-                                            <tr>
+                                    @foreach($view as $row)
+                                        <tr>
+                                            <td width="2%">{{$row->department_desc}}</td>
+                                            <td width="5%">{{$row->numberofcases}}</td>
+                                            <td width="8%">{{number_format($row->totalamount)}}</td>
 
-                                                        <?php $legalsum = App\Legalheir::where('employee_id', $row1->id)->sum('amount');?>
-                                                        <?php $legalscount = App\Legalheir::where('employee_id', $row1->id)->count() ;?>
-                                                <td width="2%" >{{$row->department_desc}}</td>
-                                                <td width="5%" >{{$legalscount}}</td>
-                                                    <td width="8%">{{$legalsum}}</td>
+                                        </tr>
+                                    @endforeach
+{{--                                    @foreach($count as $row)--}}
+{{--                                        @foreach($row->employees as $row1)--}}
+{{--                                            <tr>--}}
+
+{{--                                                        <?php $legalsum = App\Legalheir::where('employee_id', $row1->id)->sum('amount');?>--}}
+{{--                                                        <?php $legalscount = App\Legalheir::where('employee_id', $row1->id)->count() ;?>--}}
+{{--                                                <td width="2%" >{{$row->department_desc}}</td>--}}
+{{--                                                <td width="5%" >{{$legalscount}}</td>--}}
+{{--                                                    <td width="8%">{{$legalsum}}</td>--}}
 {{--                                                <td width="8%">{{$row->legals->sum('amount')}}</td>--}}
-                                            </tr>
+{{--                                            </tr>--}}
 
-                                    @endforeach
-                                    @endforeach
+{{--                                    @endforeach--}}
+{{--                                    @endforeach--}}
 
                                     </tbody>
 
