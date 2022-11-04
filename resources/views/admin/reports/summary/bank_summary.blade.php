@@ -24,7 +24,7 @@
                     <?php $grandTotal=0; ?>
                     <div class="card">
                         <div style="text-align: center">
-                            <h5 style="text-decoration: underline;">Group Insurance <br> Department Wise Summary</h5>
+                            <h5 style="text-decoration: underline;">Group Insurance <br> Bank Wise Summary</h5>
                         </div>
                             <?php $totalamount = 0;  ?>
                             <div class="card-header">
@@ -35,16 +35,16 @@
                                 <table class="table table-sm table-bordered" width="100%">
                                     <thead>
                                     <tr>
-                                        <th width="2%">Department</th>
+                                        <th width="2%">Bank Name</th>
                                         <th width="5%">Number of Cases</th>
                                         <th width="8%">Total Amount</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($view as $row)
+                                    @foreach($bank_summary as $row)
                                         <tr>
-                                            <td width="2%">{{$row->department_desc}}</td>
+                                            <td width="2%">{{$row->name}}</td>
                                             <td width="5%">{{$row->numberofcases}}</td>
                                             <td width="8%">{{number_format($row->totalamount)}}</td>
 

@@ -1038,20 +1038,13 @@ class EmployeeController extends Controller
     }
     public function bank_summary()
     {
-        $count = Department::with(['employees' ,'employees' => function ($q){
-            $q->where('status', '=',2);
-        }])
-            ->whereHas('employees')->get();
-        foreach ($count as $row)
-        {
-            foreach ($row->employees as $row1)
-            {
-                $sum = Legalheir::wherein('employee_id', [7,8])->sum('amount');
-                $count = Legalheir::wherein('employee_id',[7,8] )->count();
-                return $sum.''.$count;
-            }
-        }
-        return view('text' , compact('count'));
+        $bank_summary = DB::table('report_view')->select('name')
+            ->addselect(DB::raw('count(*) as numberofcases', 'id'))
+            ->addselect(DB::raw('sum(amount) as totalamount'))
+            ->where('status',2)
+            ->groupBy('bank_id')
+            ->get();
+        return view('admin.reports.summary.bank_summary' , compact('bank_summary'));
     }
     public function department_pdf()
     {

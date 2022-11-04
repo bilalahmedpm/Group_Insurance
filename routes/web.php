@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/department', 'EmployeeController@department_report')->name('department.report');
     Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
     Route::get('/summary/department' ,'EmployeeController@department_summary')->name('department.summary');
-//    Route::get('/summary/bank' ,'EmployeeController@bank_summary')->name('bank.summary');
+    Route::get('/summary/bank' ,'EmployeeController@bank_summary')->name('bank.summary');
 
     Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
     Route::post('/objection', 'EmployeeController@objection')->name('objection');
