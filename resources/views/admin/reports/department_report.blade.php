@@ -23,8 +23,12 @@
                 <div class="col-md-12">
                     <?php $grandTotal=0; ?>
                     <div class="card">
-                        <div style="text-align: center">
-                            <h5 style="text-decoration: underline;">Group Insurance <br> Department Wise List</h5>
+                        <div class="card">
+                            <div style="text-align: right; padding: 10px;">
+                                <a href="{{route('department.pdf')}}" style="float: right; margin-right: 50px;" class="btn btn-primary">Download PDF</a>
+
+                                <h4 style="text-align: center">Department Wise List</h4>
+                            </div>
                         </div>
 {{--                        <div class="row">--}}
 {{--                            <div class="col-lg-3  col-lg-off-9">--}}

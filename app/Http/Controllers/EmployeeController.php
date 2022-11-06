@@ -1006,16 +1006,7 @@ class EmployeeController extends Controller
     }
     public function department_summary()
     {
-//        $count = Department::with('employees')->with(['employees' ,'employees' => function ($q){
-//            $q->where('status' , '=',2);
-//        }])->whereHas('employees')->get();
 
-        $view = DB::table('report_view')->select('department_desc')
-            ->addselect(DB::raw('count(*) as numberofcases', 'id'))
-            ->addselect(DB::raw('sum(amount) as totalamount'))
-            ->where('status',2)
-            ->groupBy('department_desc')
-            ->get();
 //return  $count;
 //        $users = DB::table('employees')
 //            ->groupBy('department_id')
@@ -1023,18 +1014,25 @@ class EmployeeController extends Controller
 //            ->join('legalheirs', 'employee_id','=','id')
 //            ->get();
 //        dd($users);
+// single query
+//        $summary  = DB::SELECT("SELECT  SUM(amount) AS totalAmount,COUNT(employee_id) AS numberOfCases,`department_desc`FROM `legalheirs`
+//	CROSS JOIN
+//   employees AS emp
+//   ON legalheirs.employee_id = emp.id
+//   INNER JOIN
+//   departments AS dep
+//   ON dep.id = emp.department_id
+//   WHERE emp.status = '2'
+//   GROUP BY department_desc ORDER BY dep.id");
+        $department_summary = DB::table('report_view')->select('department_desc')
+            ->addselect(DB::raw('count(*) as numberofcases', 'id'))
+            ->addselect(DB::raw('sum(amount) as totalamount'))
+            ->where('status',2)
+            ->groupBy('department_desc')
+            ->get();
 
-        return view('admin.reports.summary.department_summary', compact('view'));
+        return view('admin.reports.summary.department_summary', compact('department_summary'));
 
-//        foreach ($count as $row)
-//        {
-//            foreach ($row->employees as $row1)
-//            {
-//                $sum = Legalheir::where('employee_id', $row1->id)->sum('amount');
-//                $count = Legalheir::where('employee_id', $row1->id)->count();
-//                return $sum.''.$count;
-//            }
-//        }
     }
     public function bank_summary()
     {
@@ -1042,7 +1040,7 @@ class EmployeeController extends Controller
             ->addselect(DB::raw('count(*) as numberofcases', 'id'))
             ->addselect(DB::raw('sum(amount) as totalamount'))
             ->where('status',2)
-            ->groupBy('bank_id')
+            ->groupBy('name')
             ->get();
         return view('admin.reports.summary.bank_summary' , compact('bank_summary'));
     }

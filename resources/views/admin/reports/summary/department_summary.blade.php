@@ -23,10 +23,12 @@
                 <div class="col-md-12">
                     <?php $grandTotal=0; ?>
                     <div class="card">
-                        <div style="text-align: center">
-                            <h5 style="text-decoration: underline;">Group Insurance <br> Department Wise Summary</h5>
+                        <div style="text-align: right; padding: 10px;">
+                            <a href="" style="float: right; margin-right: 50px; margin-top: 10px;" class="btn btn-primary">Download PDF</a>
+
+                            <h5 style="text-decoration: underline; text-align: center">Group Insurance <br> Department Wise Summary</h5>
                         </div>
-                            <?php $totalamount = 0;  ?>
+                    </div>
                             <div class="card-header">
 {{--                                <h6 style="text-transform: uppercase; font-weight: bold;font-size: medium" class="card-title"> <u>{{$key+1}} :{{$row->department_desc}}</u></h6>--}}
                             </div>
@@ -42,14 +44,22 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($view as $row)
+                                    <?php $totalamount = 0; ?>
+                                    <?php $numberofcases = 0;  ?>
+                                    @foreach($department_summary as $row)
                                         <tr>
                                             <td width="2%">{{$row->department_desc}}</td>
                                             <td width="5%">{{$row->numberofcases}}</td>
                                             <td width="8%">{{number_format($row->totalamount)}}</td>
-
+                                                <?php $totalamount += $row->totalamount ?>
+                                                <?php $numberofcases += $row->numberofcases ?>
                                         </tr>
                                     @endforeach
+                                    <tr>
+                                        <td style="text-align:center;padding-right: 15px; font-weight: bold;">Total :</td>
+                                        <td  style="font-weight: bold;">{{number_format($numberofcases)}}</td>
+                                        <td  style="font-weight: bold;">{{number_format($totalamount)}}</td>
+                                    </tr>
 {{--                                    @foreach($count as $row)--}}
 {{--                                        @foreach($row->employees as $row1)--}}
 {{--                                            <tr>--}}

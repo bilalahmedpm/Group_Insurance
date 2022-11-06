@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Claims/All', 'EmployeeController@allclaims')->name('claims.all');
 
 // PDF
-    Route::get('/department/pdf' , 'EmployeeController@department_pdf');
+    Route::get('/department/pdf' , 'EmployeeController@department_pdf')->name('department.pdf');
 
 // Search Record
 Route::get('/Search/Record' ,'EmployeeController@search')->name('search.record');
