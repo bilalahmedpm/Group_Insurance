@@ -1066,6 +1066,30 @@ class EmployeeController extends Controller
 
 //        return view('myPDF' ,compact('departments'));
         return $pdf->setPaper('legal','landscape')->download('Department-List.pdf');
-        return view('myPDF');
+//        return view('myPDF',[ 'departments' => $departments]);
+    }
+    public function year_summary()
+    {
+    $year_summary =    DB::Select("
+                                SELECT
+                                (case
+                                When gitype =  '01' then RIGHT(`retirementdate`,4)
+                                when gitype = '02' then RIGHT(`dateofdeath`,4)
+                                 when gitype = '03' then RIGHT(`retirementdate`,4)
+                                end) as years,
+                                COUNT(case WHEN gitype = '01' AND status ='2' then 1 else null end) as retirement,
+                                    SUM(case WHEN gitype = '01' AND status ='2' then amount else null end) as retirementAmount,
+                                COUNT(case WHEN gitype = '02' AND status ='2' then 1 else null end) as Death,
+                                    SUM(case WHEN gitype = '02' AND status ='2' then amount else null end) as DeathAmount ,
+                                COUNT(case WHEN gitype = '03' AND status ='2' then 1 else null end) as Deathafterretirement,
+                                    SUM(case WHEN gitype = '03' AND status ='2' then amount else null end) as DeathAfterRetirementAmount,
+                                COUNT(case WHEN gitype = '01' or gitype = '02' or gitype = '03' AND status ='2' then 1 else null end) as totalcases,
+                                    SUM(case WHEN gitype = '01' or gitype = '02' or gitype = '03' AND status ='2' then amount else null end) as totalamount
+
+                              FROM report_view
+                              group by  years ORDER by years
+                              ");
+//    dd($year_summary);
+        return view('admin.reports.summary.year_summary' ,compact('year_summary'));
     }
 }

@@ -165,6 +165,12 @@
                                 <p>Bank Summary</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('year.summary')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Year Wise Summary</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

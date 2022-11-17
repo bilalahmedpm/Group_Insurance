@@ -10,17 +10,20 @@
     <style>
         /** Define the margins of your page **/
         @page {
+            width: 8.5in;
+            height: 13in;
+            size: landscape;
             margin: 5px 20px;
         }
         /** Define the header rules **/
         header {
             position: fixed;
+            text-align: center;
             width: 100%;
             height: 50px;
             top: 0cm;
             left: 0cm;
             right: 0cm;
-            height: 50px;
         }
         /** Define the footer rules **/
         footer {
@@ -35,7 +38,7 @@
         table{
             width: 100%;
             text-align: center;
-            text-transform: uppercase;
+            text-transform: capitalize;;
             border-collapse: collapse;
         }
         th{
@@ -62,15 +65,10 @@
 <body>
 <!-- Define header and footer blocks before your content -->
 <header>
-    <div>
-            <table id="top_table" style="border: 0px solid !important">
-                <tr>
-                    <td width="10%"><img src="{{public_path('logo/logo.png')}}" style="width: 60px; height: 60px; float: bottom;" alt=""></td>
-                    <td  style="text-align: center;font-size: 20px; float: top; font-family: Calibri; font-weight: bold"> Group Insurance <br> Department Wise List  </td>
-                    <td width="10%"><p>Agenda Date <br> {{now()}}</p></td>
-                </tr>
-            </table>
-    </div>
+                        <span style="float: left; width: 500px;"><img src="{{public_path('logo/logo.png')}}" style="width: 60px; height: 60px; float: bottom;" alt=""></span>
+                        <span style="float: left; height: 50px;margin-top: 20px;">Group Insurance  Department Wise List</span>
+                        <p style="float: right;height: 50px;margin-right: 50px;">{{now()}}</p>
+
 </header>
 
 <footer>
@@ -80,7 +78,7 @@
 
 
 @foreach($departments as $key => $row)
-    <div class="container" style="margin-top: 80px;">
+    <div  style="margin-top: 80px;">
     <?php $totalamount = 0;  ?>
     <h3>{{$key+1}} :{{$row->department_desc}}</h3>
 

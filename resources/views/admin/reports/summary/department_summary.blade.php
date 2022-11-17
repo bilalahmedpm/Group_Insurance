@@ -21,6 +21,7 @@
         <div class="container-fluid">
             <div class="row" id="contentToConvert_pdf">
                 <div class="col-md-12">
+                    <div class="card">
                     <?php $grandTotal=0; ?>
                     <div class="card">
                         <div style="text-align: right; padding: 10px;">

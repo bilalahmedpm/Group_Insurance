@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bank_report', 'EmployeeController@bank_report')->name('bank.report');
     Route::get('/summary/department' ,'EmployeeController@department_summary')->name('department.summary');
     Route::get('/summary/bank' ,'EmployeeController@bank_summary')->name('bank.summary');
+    Route::get('/year/wise/summary' ,'EmployeeController@year_summary')->name('year.summary');
 
     Route::get('/verify/{id}', 'EmployeeController@verify')->name('verify');
     Route::post('/objection', 'EmployeeController@objection')->name('objection');
@@ -84,6 +85,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Search Record
 Route::get('/Search/Record' ,'EmployeeController@search')->name('search.record');
+
 
     });
 
