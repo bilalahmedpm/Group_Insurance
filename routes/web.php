@@ -62,6 +62,9 @@ Route::middleware(['auth'])->group(function () {
 
 //        Route::resource('roles', RoleController::class);
 //        Route::resource('users', UserController::class);
+// pay orders
+Route::resource('/payorder','PayorderController');
+
 
     // duplicate checking
     Route::post('/pno_checking', 'EmployeeController@pnocheck')->name('pno.check');

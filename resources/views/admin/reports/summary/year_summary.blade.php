@@ -50,27 +50,19 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                $retire=0;
-                                $r_amount =0;
-                                $death = 0;
-                                $d_amount = 0;
-                                $death_after = 0;
-                                $da_amount = 0;
-                                $t_cases = 0;
-                                $gt_amount = 0;
-
+                                $retire=0; $r_amount =0;$death = 0;$d_amount = 0;$death_after = 0; $da_amount = 0; $t_cases = 0;$gt_amount = 0;
                                 ?>
                                 @foreach($year_summary as $row)
                                     <tr>
                                         <td width="2%"style="font-weight: bold;">{{$row->years}}</td>
-                                        <td>{{$row->retirement}}</td>
-                                        <td >{{$row->retirementAmount}}</td>
-                                        <td >{{$row->Death}}</td>
-                                        <td >{{$row->DeathAmount}}</td>
-                                        <td >{{$row->Deathafterretirement}}</td>
-                                        <td >{{$row->DeathAfterRetirementAmount}}</td>
-                                        <td >{{$row->totalcases}}</td>
-                                        <td>{{$row->totalamount}}</td>
+                                        <td>{{number_format($row->retirement)}}</td>
+                                        <td >{{number_format($row->retirementAmount)}}</td>
+                                        <td >{{number_format($row->Death)}}</td>
+                                        <td >{{number_format($row->DeathAmount)}}</td>
+                                        <td >{{number_format($row->Deathafterretirement)}}</td>
+                                        <td >{{number_format($row->DeathAfterRetirementAmount)}}</td>
+                                        <td >{{number_format($row->totalcases)}}</td>
+                                        <td>{{number_format($row->totalamount)}}</td>
                                         <?php
                                         $retire += $row->retirement;
                                         $r_amount += $row->retirementAmount;
@@ -89,11 +81,11 @@
                                 @endforeach
                                 <tr style="font-weight: bold; text-align: center;">
                                     <td> Grand Total </td>
-                                    <td>{{$retire}}</td>
+                                    <td>{{number_format($retire)}}</td>
                                     <td>{{number_format($r_amount)}}</td>
-                                    <td>{{$death}}</td>
+                                    <td>{{number_format($death)}}</td>
                                     <td>{{number_format($d_amount)}}</td>
-                                    <td>{{$death_after}}</td>
+                                    <td>{{number_format($death_after)}}</td>
                                     <td>{{number_format($da_amount)}}</td>
                                     <td>{{number_format($t_cases)}}</td>
                                     <td>{{number_format($gt_amount)}}</td>
